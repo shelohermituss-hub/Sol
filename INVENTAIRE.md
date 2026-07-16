@@ -127,12 +127,30 @@ intermédiaire à valider pixel par pixel.
 
 ## 6. Module Stocks / Investing
 
-| # | Écran | Fichier | Statut |
-|---|---|---|---|
-| 6.1 | Buy stock (bottom sheet) | `buy-stock-bottomsheet.png` | ⬜ |
-| 6.2 | Détail action (Meta, graphe, Buy/Follow/Gift) | `stock-details-meta.png` | ⬜ |
-| 6.3 | Onglet Stocks (recherche, cards vedettes) | `stocks-tab-top.png` | ⬜ |
-| 6.4 | Onglet Stocks (catégories, Most Traded) | `stocks-tab-scrolled.png` | ⬜ |
+| # | Écran | Fichier | Route | Statut |
+|---|---|---|---|---|
+| 6.1 | Buy stock (bottom sheet) | `buy-stock-bottomsheet.png` | déclenché depuis `/stocks/[symbol]` | 🟡 |
+| 6.2 | Détail action (Meta, graphe, Buy/Follow/Gift) | `stock-details-meta.png` | `/stocks/[symbol]` | 🟡 |
+| 6.3 | Onglet Stocks (recherche, cards vedettes) | `stocks-tab-top.png` | `/stocks` | 🟡 |
+| 6.4 | Onglet Stocks (catégories, Most Traded) | `stocks-tab-scrolled.png` | `/stocks` (scrollé) | 🟡 |
+
+Accès : carte "Stocks" de Home (`/`) → `/stocks`. Tous vérifiés visuellement
+(capture Playwright) contre `design-refs/06-stocks/`.
+
+**Composants ajoutés** : `stocks-data.ts` (`src/lib/`, seul le symbole `meta` a
+des données de référence complètes — Nike/GE/Coca-Cola/Walmart n'illustrent que
+le carousel), `BuyStockSheet` (`components/sections/stocks/`, thème bleu accent
+distinct du vert Add Cash), `ShortcutCard` étend un prop `href` optionnel.
+
+**Écarts connus** :
+- `BuyStockSheet` : pas de capture pour la suite du flow (PIN/confirmation
+  d'achat) — les boutons ferment simplement la feuille, comme documenté pour
+  Pay.
+- Cartes vedettes (Nike/GE/Coca-Cola/Walmart) : pas de prix/pourcentage affiché
+  (non visible sur la capture source), juste logo + sparkline.
+- Icônes (cloche, dossier catégorie) approximées en SVG.
+- "Buy stocks" (bouton violet pleine largeur) : pas de cible de navigation
+  précisée par les captures — inerte pour l'instant.
 
 ## 7. Module Profile / Account & Settings
 

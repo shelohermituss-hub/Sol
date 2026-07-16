@@ -50,7 +50,7 @@ export default function Home() {
             </div>
           </ShortcutCard>
 
-          <ShortcutCard label="Stocks">
+          <ShortcutCard label="Stocks" href="/stocks">
             <p className="text-2xl font-extrabold text-text-primary">$2,995.85</p>
             <div className="flex items-center justify-between">
               <p className="text-sm font-semibold text-text-secondary">↓ 0.80% today</p>
