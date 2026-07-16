@@ -9,11 +9,13 @@ import { ListRow } from "@/components/ui/list-row"
 import { Badge } from "@/components/ui/badge"
 import { BottomTabBar } from "@/components/layout/bottom-tab-bar"
 import { GoalIcon } from "@/components/sections/goal-icon"
-import { GOALS, TOTAL_SAVED } from "@/lib/goals-data"
+import { useGoals } from "@/lib/goals-context"
 
 // Écran "Set & Save" (onglet 2/2). Cf. design-refs/Oportun_iOS_Set__save/,
 // Oportun_iOS_Home/Oportun iOS Home 0.png
 export default function SetAndSavePage() {
+  const { goals, totalSaved } = useGoals()
+
   return (
     <div className="mx-auto flex min-h-dvh w-full max-w-md flex-col">
       <div className="flex-1 px-6 pt-4">
@@ -24,13 +26,13 @@ export default function SetAndSavePage() {
 
         <h1 className="mt-6 font-heading text-[32px] font-bold text-ink">Set &amp; Save™</h1>
         <p className="mt-4 text-[15px] text-neutral-500">Total savings</p>
-        <p className="font-heading text-[32px] font-bold text-ink">${TOTAL_SAVED.toFixed(2)}</p>
+        <p className="font-heading text-[32px] font-bold text-ink">${totalSaved.toFixed(2)}</p>
 
         <div className="mt-6 flex gap-3">
           <Button variant="secondary" size="default" className="h-14 flex-1">
             Transfer money
           </Button>
-          <Button size="default" className="h-14 flex-1">
+          <Button size="default" className="h-14 flex-1" nativeButton={false} render={<Link href="/set-and-save/create" />}>
             Create goal
           </Button>
         </div>
@@ -67,7 +69,7 @@ export default function SetAndSavePage() {
         <p className="mt-1 text-[15px] text-neutral-500">Goals are funded based on their deadline.</p>
 
         <div className="divide-y divide-neutral-200">
-          {GOALS.map((goal) => (
+          {goals.map((goal) => (
             <ListRow
               key={goal.id}
               icon={<GoalIcon goal={goal} className="size-6" />}

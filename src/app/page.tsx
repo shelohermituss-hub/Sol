@@ -10,12 +10,15 @@ import { ListRow } from "@/components/ui/list-row"
 import { Badge } from "@/components/ui/badge"
 import { BottomTabBar } from "@/components/layout/bottom-tab-bar"
 import { GoalIcon } from "@/components/sections/goal-icon"
-import { GOALS, TOTAL_SAVED } from "@/lib/goals-data"
+import { useGoals } from "@/lib/goals-context"
+import { CreatedGoalBanner } from "@/components/sections/created-goal-banner"
 
 // Écran "Home" (onglet 1/2). Cf. design-refs/Oportun_iOS_Home/
 // Onboarding/Invite friends/Profile & settings pas encore construits — le
 // bouton "Get $5" et l'icône profil restent décoratifs pour l'instant.
 export default function HomePage() {
+  const { goals, totalSaved } = useGoals()
+
   return (
     <div className="mx-auto flex min-h-dvh w-full max-w-md flex-col">
       <div className="flex-1 px-6 pt-4">
@@ -26,9 +29,11 @@ export default function HomePage() {
           </Button>
         </div>
 
+        <CreatedGoalBanner />
+
         <h1 className="mt-6 font-heading text-[32px] font-bold text-ink">Good afternoon!</h1>
         <p className="mt-2 text-[17px] text-neutral-500">
-          You have <span className="font-bold text-ink">${TOTAL_SAVED.toFixed(2)}</span> in your accounts.
+          You have <span className="font-bold text-ink">${totalSaved.toFixed(2)}</span> in your accounts.
         </p>
 
         <Card className="mt-6">
@@ -44,7 +49,7 @@ export default function HomePage() {
           </div>
 
           <div className="flex gap-3">
-            <Button size="default" className="h-11 flex-1 text-[15px]">
+            <Button size="default" className="h-11 flex-1 text-[15px]" nativeButton={false} render={<Link href="/set-and-save/create" />}>
               Create goal
             </Button>
             <Button variant="secondary" size="default" className="h-11 flex-1 text-[15px]">
@@ -53,7 +58,7 @@ export default function HomePage() {
           </div>
 
           <div className="divide-y divide-neutral-200">
-            {GOALS.map((goal) => (
+            {goals.map((goal) => (
               <ListRow
                 key={goal.id}
                 icon={<GoalIcon goal={goal} className="size-6" />}
@@ -81,10 +86,10 @@ export default function HomePage() {
             />
           </div>
 
-          {TOTAL_SAVED > 0 && (
+          {totalSaved > 0 && (
             <div className="flex items-center justify-between border-t border-neutral-200 pt-4">
               <span className="text-[15px] text-neutral-500">Total saved</span>
-              <span className="font-heading text-[17px] font-bold text-ink">${TOTAL_SAVED.toFixed(2)}</span>
+              <span className="font-heading text-[17px] font-bold text-ink">${totalSaved.toFixed(2)}</span>
             </div>
           )}
         </Card>

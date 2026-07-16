@@ -103,17 +103,49 @@ en retirant `truncate` (le composant est utilisé par plusieurs futurs écrans,
 fix global).
 
 ### Creating a goal (home) (12 captures)
-| # | Écran | Statut |
-|---|---|---|
-| 0 | Home (point d'entrée) | ⬜ |
-| 1 | Choix type de but ("Savings goal" / "Smart bill") | ⬜ |
-| 2 | Choix catégorie de facture | ⬜ |
-| 3 | Formulaire détails du but (vide) | ⬜ |
-| 4-5 | Bottom sheet fréquence (non sélectionné → sélectionné) | ⬜ |
-| 6-7 | Date picker natif iOS (roue Mois/Jour/Année) | ⬜ |
-| 8 | Formulaire détails (rempli) | ⬜ |
-| 9-10 | Écran de révision (résumé + "How we'll save") | ⬜ |
-| 11 | Home + bandeau succès "goal created" | ⬜ |
+| # | Écran | Route | Statut |
+|---|---|---|---|
+| 0 | Home (point d'entrée) | `/` | 🟡 |
+| 1 | Choix type de but ("Savings goal" / "Smart bill") | `/set-and-save/create` | 🟡 |
+| 2 | Choix catégorie de facture | `/set-and-save/create/category` | 🟡 |
+| 3 | Formulaire détails du but (vide) | `/set-and-save/create/details` | 🟡 |
+| 4-5 | Bottom sheet fréquence (non sélectionné → sélectionné) | idem (sheet) | 🟡 |
+| 6-7 | Date picker natif iOS (roue Mois/Jour/Année) | idem (sheet) | 🟡 |
+| 8 | Formulaire détails (rempli) | idem | 🟡 |
+| 9-10 | Écran de révision (résumé + "How we'll save") | idem (sheet) | 🟡 |
+| 11 | Home + bandeau succès "goal created" | `/?created=1` | 🟡 |
+
+🟡 = codé + comparé visuellement (capture Playwright, tous états et
+interactions) contre `design-refs/`. Fréquence, date et révision sont des
+bottom sheets (`Sheet`) superposées au formulaire `/set-and-save/create/details`,
+pas des routes séparées — fidèle aux captures où le formulaire reste
+visible assombri derrière chaque sheet. "Savings goal" (écran 1) mène
+directement au formulaire générique (icône crayon, nom vide) ; "Smart
+bill" passe par la catégorie puis préremplit nom/icône via query params.
+Aucune capture ne documente un formulaire "Savings goal" distinct — les
+deux entrées convergent sur le même formulaire (avec fréquence), seule
+forme capturée ; hypothèse non confirmée, à corriger si une référence
+contredit ce choix. "Learn about Smart bills" (écran 1) et
+"authorization" (écran 9-10) sans écran cible construit, restent
+décoratifs.
+
+**État partagé ajouté** : `GoalsProvider`/`useGoals` (`src/lib/goals-context.tsx`),
+contexte React posé dans `layout.tsx`, remplace les imports statiques
+`GOALS`/`TOTAL_SAVED` sur `/` et `/set-and-save` — nécessaire pour que
+"Confirm & create goal" ajoute réellement un but visible sur les deux
+onglets. En mémoire uniquement (pas de backend), réinitialisé au
+rechargement.
+
+**Composants ajoutés** : `DateWheelPicker` (`components/ui/date-wheel-picker.tsx`),
+roue de sélection de date à 3 colonnes (scroll-snap CSS natif + fondu par
+mask-image), pas de librairie tierce. `GoalIcon`/`Goal.icon` étendus avec
+5 icônes de catégorie (house/lightbulb/car/bank/pencil), toujours des
+approximations Phosphor unies (voir gap déjà documenté pour Home/Set&Save).
+
+**Bug corrigé en cours de route** : `SheetContent` (`components/ui/sheet.tsx`)
+n'avait pas `overflow-y-auto` — tout contenu dépassant `max-h-[85vh]`
+(le cas de la sheet de révision) était coupé et son bouton bas
+inatteignable. Fix global, affecte toutes les sheets futures.
 
 ### Goal detail (3 captures)
 | # | Écran | Statut |

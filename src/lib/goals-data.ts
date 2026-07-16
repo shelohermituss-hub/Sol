@@ -1,10 +1,20 @@
 // Données de démonstration pour les buts d'épargne Set & Save — partagées
 // entre l'onglet Home et l'onglet Set & Save (même compte, même liste).
 // Cf. design-refs/Oportun_iOS_Home/, Oportun_iOS_Set__save/
+export type GoalIconKey =
+  | "umbrella"
+  | "cloud-lightning"
+  | "device-mobile"
+  | "house"
+  | "lightbulb"
+  | "car"
+  | "bank"
+  | "pencil"
+
 export interface Goal {
   id: string
   name: string
-  icon: "umbrella" | "cloud-lightning" | "device-mobile"
+  icon: GoalIconKey
   iconColor: string
   amount: number
   dueDate?: string
@@ -12,6 +22,9 @@ export interface Goal {
   recurring?: boolean
 }
 
+// Graine initiale de la liste de buts, partagée entre l'onglet Home et
+// l'onglet Set & Save via GoalsProvider (src/lib/goals-context.tsx), qui
+// tient l'état réel (ajout de but depuis le flux "Creating a goal").
 export const GOALS: Goal[] = [
   { id: "rainy-day", name: "Rainy Day", icon: "umbrella", iconColor: "#8C81FF", amount: 1 },
   {
@@ -34,5 +47,3 @@ export const GOALS: Goal[] = [
     recurring: true,
   },
 ]
-
-export const TOTAL_SAVED = GOALS.reduce((sum, g) => sum + g.amount, 0)
