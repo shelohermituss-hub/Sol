@@ -54,3 +54,8 @@ INVENTAIRE.md           # inventaire des écrans et composants + avancement
 ## En cas de doute
 - Info manquante dans le Figma → vérifier les screenshots.
 - Manquante dans les deux → POSER LA QUESTION à l'utilisateur, ne pas inventer.
+
+## Note d'exécution (Next.js généré)
+Voir `AGENTS.md` : la version de Next.js installée peut différer de tes données
+d'entraînement. Consulter `node_modules/next/dist/docs/` avant d'écrire du code
+lié aux API/conventions Next.js, et respecter les avis de dépréciation.
