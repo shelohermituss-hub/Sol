@@ -9,28 +9,45 @@ Sources : `design-refs/01-onboarding` (22 écrans, zip "Cash App iOS Onboarding"
 
 ## 1. Module Onboarding (inscription)
 
-| # | Écran | Fichier | États | Statut |
-|---|---|---|---|---|
-| 1.1 | Splash | `00-splash.png` | unique | ⬜ |
-| 1.2 | Saisie téléphone / email | `01-enter-phone.png` | vide | ⬜ |
-| 1.3 | Saisie email (alt.) | `02-enter-email-empty.png`, `03-enter-email-filled.png` | vide, rempli+CTA actif | ⬜ |
-| 1.4 | Code de confirmation (OTP) | `04-otp-code-empty.png`, `05-otp-code-filled.png` | vide, rempli | ⬜ |
-| 1.5 | Lier une carte de débit | `06-link-bank-empty.png`, `07-link-bank-filled.png` | vide, rempli | ⬜ |
-| 1.6 | Écran de chargement "Linking…" | `08-linking-loading.png` | unique | ⬜ |
-| 1.7 | Nom légal | `09-legal-name-empty.png`, `10-legal-name-filled.png` | vide, rempli | ⬜ |
-| 1.8 | Date de naissance | `11-dob-empty.png`, `12-dob-filled.png` | vide, rempli | ⬜ |
-| 1.9 | Choix du $Cashtag | `13-cashtag-empty.png` | vide | ⬜ |
-| 1.10 | Création du PIN | `14-pin-create.png` | 0/4 | ⬜ |
-| 1.11 | Confirmation du PIN | `15-pin-confirm.png` | 3/4 | ⬜ |
-| 1.12 | Intro Cash App Card | `16-card-intro-top.png`, `17-card-intro-scrolled.png` | haut, scrollé | ⬜ |
-| 1.13 | Sync contacts (prompt) | `18-sync-contacts-prompt.png` | unique | ⬜ |
-| 1.14 | Invite Friends ($5) | `19-invite-friends.png` | unique | ⬜ |
-| 1.15 | Welcome / succès | `20-welcome-success.png` | unique | ⬜ |
-| 1.16 | Money home (post-onboarding) | `21-money-home-post-onboarding.png` | $1.00, carte "Shipped" | ⬜ |
+| # | Écran | Fichier | États | Route | Statut |
+|---|---|---|---|---|---|
+| 1.1 | Splash | `00-splash.png` | unique | `/onboarding` | 🟡 |
+| 1.2 | Saisie téléphone / email | `01-enter-phone.png` | vide | `/onboarding/phone-email` | 🟡 |
+| 1.3 | Saisie email (alt.) | `02-enter-email-empty.png`, `03-enter-email-filled.png` | vide, rempli+CTA actif | `/onboarding/phone-email` (bascule "Use Email") | 🟡 |
+| 1.4 | Code de confirmation (OTP) | `04-otp-code-empty.png`, `05-otp-code-filled.png` | vide, rempli | `/onboarding/otp` | 🟡 |
+| 1.5 | Lier une carte de débit | `06-link-bank-empty.png`, `07-link-bank-filled.png` | vide, rempli | `/onboarding/link-bank` | 🟡 |
+| 1.6 | Écran de chargement "Linking…" | `08-linking-loading.png` | unique | état interne de `/onboarding/link-bank` | 🟡 |
+| 1.7 | Nom légal | `09-legal-name-empty.png`, `10-legal-name-filled.png` | vide, rempli | `/onboarding/legal-name` | 🟡 |
+| 1.8 | Date de naissance | `11-dob-empty.png`, `12-dob-filled.png` | vide, rempli | `/onboarding/dob` | 🟡 |
+| 1.9 | Choix du $Cashtag | `13-cashtag-empty.png` | vide | `/onboarding/cashtag` | 🟡 |
+| 1.10 | Création du PIN | `14-pin-create.png` | 0/4 | `/onboarding/pin` | 🟡 |
+| 1.11 | Confirmation du PIN | `15-pin-confirm.png` | 3/4 | `/onboarding/pin` (état interne) | 🟡 |
+| 1.12 | Intro Cash App Card | `16-card-intro-top.png`, `17-card-intro-scrolled.png` | haut, scrollé | `/onboarding/card-intro` | 🟡 |
+| 1.13 | Sync contacts (prompt) | `18-sync-contacts-prompt.png` | unique | `/onboarding/sync-contacts` | 🟡 |
+| 1.14 | Invite Friends ($5) | `19-invite-friends.png` | unique | `/onboarding/invite-friends` | 🟡 |
+| 1.15 | Welcome / succès | `20-welcome-success.png` | unique | `/onboarding/welcome` | 🟡 |
+| 1.16 | Money home (post-onboarding) | `21-money-home-post-onboarding.png` | $1.00, carte "Shipped" | `/` (module 3, pas encore construit) | ⬜ |
 
-**Composants transverses à extraire en premier** : Header (bouton retour / `?` aide /
-`×` fermer), Pill Button (primaire/secondaire/désactivé), Text Input, PIN Dots,
-Progress bar (barre fine en bas d'écran, visible sur tous les écrans onboarding).
+🟡 = codé + comparé visuellement (capture Playwright) contre `design-refs/`, visuellement
+proche. Pas encore ✅ (pixel-perfect final) : polices/espacements/couleurs à
+raffiner une fois le quota Figma rétabli (valeurs actuelles = sondage pixel des
+screenshots), illustration de la Cash App Card en placeholder, icônes maison/
+contacts en approximations SVG/emoji.
+
+**Écarts connus à corriger plus tard** :
+- Date de naissance (1.8) : simplifié en un seul champ texte, pas de 3 segments
+  MM/DD/YYYY distincts comme dans la référence.
+- PIN (1.10/1.11) : clavier numérique ajouté pour permettre la saisie web (absent
+  des captures d'origine, qui montraient le clavier système iOS).
+- Intro Cash App Card (1.12) : illustration remplacée par un rectangle uni
+  (lime) en attendant l'export de l'asset réel depuis Figma.
+- Sync contacts (1.13) : icône emoji 👥 à remplacer par la vraie icône.
+
+**Composants transverses utilisés** : Header, Button, TextInput, PinDots,
+NumericKeypad, SuccessState, Card, `OnboardingShell` (nouveau —
+`src/components/layout/onboarding-shell.tsx`, structure commune header/titre/
+contenu/footer). Note : la fine barre noire en bas des captures est l'indicateur
+système iOS (home indicator), pas un composant applicatif — non reproduite.
 
 ## 2. Module Onboarding — variante / vérification d'identité (KYC)
 
