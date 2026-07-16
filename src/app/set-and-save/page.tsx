@@ -83,6 +83,7 @@ export default function SetAndSavePage() {
                 ) : undefined
               }
               trailing={goal.isNew ? <Badge>NEW</Badge> : `$${goal.amount.toFixed(2)}`}
+              render={<Link href={`/set-and-save/${goal.id}`} />}
             />
           ))}
           <ListRow

@@ -119,6 +119,8 @@ function CreateGoalDetailsForm() {
       icon: iconKey,
       iconColor,
       amount: 0,
+      targetAmount: amountNumber,
+      frequency: frequency ?? undefined,
       dueDate: dueDate ?? undefined,
       isNew: true,
       recurring: true,

@@ -148,10 +148,26 @@ n'avait pas `overflow-y-auto` — tout contenu dépassant `max-h-[85vh]`
 inatteignable. Fix global, affecte toutes les sheets futures.
 
 ### Goal detail (3 captures)
-| # | Écran | Statut |
-|---|---|---|
-| 0 | Détail but simple ("Rainy Day", solde $0, transferts en attente) | ⬜ |
-| 1-2 | Détail but récurrent "Smart bill" ("Cell phone", carte fréquence/montant/échéance + callout info) | ⬜ |
+| # | Écran | Route | Statut |
+|---|---|---|---|
+| 0 | Home (point d'entrée) | `/` | 🟡 |
+| 1 | Détail but simple ("Rainy Day", solde, transferts en attente) | `/set-and-save/[goalId]` | 🟡 |
+| 2 | Détail but récurrent "Smart bill" ("Cell phone", carte fréquence/montant/échéance + callout info) | `/set-and-save/[goalId]` | 🟡 |
+
+🟡 = codé + comparé visuellement (capture Playwright) contre `design-refs/`.
+Les lignes de but sur `/` et `/set-and-save` sont maintenant cliquables
+(`render={<Link href="/set-and-save/[id]" />}` sur `ListRow`, sans chevron —
+fidèle aux captures qui n'en montrent pas sur ces lignes précises). Le
+solde affiché est celui réel de `useGoals()`, pas le montant figé de la
+capture (mêmes buts, montants différents selon l'instantané de démo — écart
+déjà documenté sur Home). Carte fréquence/montant/échéance et callout info
+n'apparaissent que pour les buts `recurring` (Smart bill). "Add money" et
+l'icône réglages n'ont pas d'écran cible construit (flux "Transferring
+money" pas encore fait), restent décoratifs. Un but créé via le flux
+"Creating a goal" a maintenant `targetAmount`/`frequency` renseignés
+(alignés sur cet écran) mais pas de `pendingTransfers` (donnée non
+disponible/non inventée) — la section "Goal activity" est masquée dans ce
+cas plutôt que d'afficher une transaction fictive.
 
 ### Completing account setup (8 captures)
 | # | Écran | Statut |
