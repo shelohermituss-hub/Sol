@@ -1,9 +1,8 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
 :root {
-  --background: #ffffff;
-  --foreground: #000000;
-
   /* Neutres */
   --color-ink: #000000;
   --color-paper: #ffffff;
@@ -21,6 +20,33 @@
   --radius-input: 14px;
   --radius-card: 16px;
   --radius-sheet: 24px;
+
+  /*
+   * Thème shadcn/ui remappé sur les tokens Oportun ci-dessus (jamais le
+   * thème par défaut). Pas de rouge : aucune capture ne montre d'état
+   * destructif en rouge (voir INVENTAIRE.md — "Removing an account" reste
+   * en noir/blanc/gris) ; --destructive reprend donc --color-ink en
+   * attendant qu'un écran d'erreur réel en montre un.
+   */
+  --radius: 1rem;
+  --background: var(--color-paper);
+  --foreground: var(--color-ink);
+  --card: var(--color-paper);
+  --card-foreground: var(--color-ink);
+  --popover: var(--color-paper);
+  --popover-foreground: var(--color-ink);
+  --primary: var(--color-ink);
+  --primary-foreground: var(--color-paper);
+  --secondary: var(--color-paper);
+  --secondary-foreground: var(--color-ink);
+  --muted: var(--color-neutral-200);
+  --muted-foreground: var(--color-neutral-500);
+  --accent: var(--color-neutral-200);
+  --accent-foreground: var(--color-ink);
+  --destructive: var(--color-ink);
+  --border: var(--color-neutral-200);
+  --input: var(--color-neutral-200);
+  --ring: color-mix(in srgb, var(--color-ink) 50%, transparent);
 }
 
 @theme inline {
@@ -43,10 +69,45 @@
 
   --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
   --font-heading: var(--font-poppins), var(--font-inter), system-ui, sans-serif;
+
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
   font-family: var(--font-sans);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
 }

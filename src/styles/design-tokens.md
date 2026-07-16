@@ -87,6 +87,32 @@ secondaire, input, OTP, checkbox, toggle, list row, card, bottom sheet,
 badge "NEW", bandeau succès, tab bar, etc.) — base pour les composants
 `src/components/ui/`.
 
+### Étape 4 — implémentation shadcn/ui
+
+`shadcn/ui` initialisé (`components.json`, style `base-nova`, primitives
+`@base-ui/react`, `iconLibrary: "phosphor"` — jamais `lucide-react`, retiré
+des dépendances). Le thème par défaut shadcn (oklch gris) a été entièrement
+remappé sur les tokens Oportun ci-dessus dans `globals.css` (`--primary`,
+`--background`, `--border`, etc. pointent vers `--color-ink`,
+`--color-paper`, `--color-neutral-200`...) ; `--destructive` reprend
+`--color-ink` en l'absence de tout rouge observé. Mode sombre retiré
+(reproduction fidèle à un seul thème clair).
+
+Composants shadcn ajoutés puis réécrits pour correspondre exactement au
+design (`src/components/ui/`) : `button` (pill primaire/secondaire/disabled),
+`checkbox` (coché = vert marque), `switch` (iOS, coché = vert), `radio-group`
+(anneau + point vert), `accordion` (bouton chevron circulaire), `badge`
+(variante `new` bleue), `card`, `sheet` (toujours bottom sheet : coins hauts
+arrondis, poignée grise, pas de bouton "X"), `input`, `label`.
+
+Composants sur-mesure (pattern trop spécifique pour un simple habillage
+shadcn) : `text-field` (label flottant), `otp-input` (6 cases), `list-row`
+(icône + titre/sous-titre + trailing), `success-banner` (bandeau inline, pas
+un toast flottant). Composants de layout : `nav-header` (+ `NavBackButton`,
+`NavCloseButton`, `CancelLink`), `bottom-tab-bar`. Icône sur-mesure :
+`icons/set-and-save-icon` (pousses + pièce dollar, pas d'équivalent
+Phosphor).
+
 ## Icônes
 
 Stratégie (voir `CLAUDE.md`) : `@phosphor-icons/react` en priorité ; icône
