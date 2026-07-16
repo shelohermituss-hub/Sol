@@ -1,7 +1,7 @@
 import * as React from "react"
 import { mergeProps } from "@base-ui/react/merge-props"
 import { useRender } from "@base-ui/react/use-render"
-import { CaretRight } from "@phosphor-icons/react"
+import { CaretRight, CheckCircle, WarningCircle } from "@phosphor-icons/react"
 
 import { cn } from "@/lib/utils"
 
@@ -14,6 +14,8 @@ type ListRowProps = useRender.ComponentProps<"div"> & {
   showChevron?: boolean
   /** "circle" (défaut, buts/comptes) ou "square" (badges colorés, articles "More from Oportun"). */
   iconVariant?: "circle" | "square"
+  /** Icône de statut sans fond (remplace `icon`) — lignes à vérifier (ex. "Payment Eligibility"). Jamais de rouge : "warning" reste en ink, cohérent avec l'absence de rouge destructif déjà actée. */
+  status?: "success" | "warning"
 }
 
 // Ligne de liste récurrente : icône circulaire + titre/sous-titre + élément
@@ -29,6 +31,7 @@ function ListRow({
   trailing,
   showChevron,
   iconVariant = "circle",
+  status,
   render,
   ...props
 }: ListRowProps) {
@@ -40,7 +43,16 @@ function ListRow({
         className: cn("flex w-full items-center gap-3 py-4 text-left", className),
         children: (
           <>
-            {icon && (
+            {status && (
+              <span className="flex size-6 shrink-0 items-center justify-center text-ink">
+                {status === "success" ? (
+                  <CheckCircle className="size-6" weight="fill" />
+                ) : (
+                  <WarningCircle className="size-6" weight="fill" />
+                )}
+              </span>
+            )}
+            {!status && icon && (
               <span
                 className={cn(
                   "flex size-14 shrink-0 items-center justify-center overflow-hidden",

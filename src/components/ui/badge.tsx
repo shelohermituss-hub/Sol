@@ -10,6 +10,8 @@ const badgeVariants = cva(
     variants: {
       variant: {
         new: "bg-brand-blue text-paper uppercase",
+        neutral: "bg-neutral-200 text-ink",
+        success: "bg-accent-mint text-brand-green",
       },
     },
     defaultVariants: {
