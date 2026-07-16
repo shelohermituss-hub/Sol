@@ -1,0 +1,36 @@
+"use client"
+
+import { NavHeader, NavBackButton } from "@/components/layout/nav-header"
+import { ListRow } from "@/components/ui/list-row"
+import { ELIGIBILITY_ITEMS } from "@/lib/dart-data"
+
+// Checklist des prérequis avant paiement. Cf. app-cible/
+// Payment/Payment Eligibility.png. Réutilise ListRow étendu avec le prop
+// `status` (cf. FONCTIONNEL.md, Étape 2) — pas de rouge, cohérent avec la
+// règle déjà actée sur l'app 1.
+export default function PaymentEligibilityPage() {
+  return (
+    <div className="mx-auto flex min-h-dvh w-full max-w-md flex-col px-6 pt-4">
+      <NavHeader leading={<NavBackButton href="/dart/payment" />} title="Payment Eligibility" />
+
+      <h1 className="mt-4 font-heading text-[20px] font-bold text-ink">Make sure to correct the following:</h1>
+
+      <div className="mt-4 flex flex-col gap-2">
+        {ELIGIBILITY_ITEMS.map((item) => (
+          <ListRow
+            key={item.id}
+            status={item.status}
+            title={item.label}
+            subtitle={item.description}
+            showChevron={item.chevron}
+            className="rounded-card border border-neutral-200 px-4"
+          />
+        ))}
+      </div>
+
+      <div className="mt-6 border-t border-neutral-200 pt-4">
+        <ListRow status="success" title="Due Payments" />
+      </div>
+    </div>
+  )
+}
