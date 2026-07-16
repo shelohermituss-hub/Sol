@@ -12,17 +12,44 @@
 ## 1. Liste des écrans identifiés
 
 ### Onboarding (14 captures)
-| # | Écran | Statut |
-|---|---|---|
-| 0 | Splash (logo seul) | ⬜ |
-| 1 | Écran d'accueil / value prop ("Reach for your goals effortlessly") | ⬜ |
-| 2-3 | Saisie numéro de téléphone (vide → rempli) | ⬜ |
-| 4-5 | Formulaire infos perso (prénom/nom/email + consentement) (vide → rempli) | ⬜ |
-| 6-7 | Création mot de passe (vide → checklist de validation) | ⬜ |
-| 8-10 | Code OTP (vide → partiellement rempli → soumission/loading) | ⬜ |
-| 11 | Prompt Face ID | ⬜ |
-| 12 | Prompt notifications (avec mockup iPhone) | ⬜ |
-| 13 | Upsell "Set & Save" (paywall-like, 3 bénéfices) | ⬜ |
+| # | Écran | Route | Statut |
+|---|---|---|---|
+| 0 | Splash (logo seul) | `/onboarding` | 🟡 |
+| 1 | Écran d'accueil / value prop ("Reach for your goals effortlessly") | `/onboarding/welcome` | 🟡 |
+| 2-3 | Saisie numéro de téléphone (vide → rempli) | `/onboarding/phone` | 🟡 |
+| 4-5 | Formulaire infos perso (prénom/nom/email + consentement) (vide → rempli) | `/onboarding/personal-info` | 🟡 |
+| 6-7 | Création mot de passe (vide → checklist de validation) | `/onboarding/password` | 🟡 |
+| 8-10 | Code OTP (vide → partiellement rempli → soumission/loading) | `/onboarding/otp` | 🟡 |
+| 11 | Prompt Face ID | `/onboarding/face-id` | 🟡 |
+| 12 | Prompt notifications (avec mockup iPhone) | `/onboarding/notifications` | 🟡 |
+| 13 | Upsell "Set & Save" (paywall-like, 3 bénéfices) | `/onboarding/upsell` | 🟡 |
+
+🟡 = codé + comparé visuellement (capture Playwright, tous états : vide,
+rempli, erreurs de validation, loading) contre `design-refs/`, match proche.
+Parcours complet cliquable : `/onboarding` (splash, redirige seul après
+1,2s) → `/welcome` → `/phone` → `/personal-info` → `/password` → `/otp`
+(auto-soumission dès le 6e chiffre) → `/face-id` → `/notifications` →
+`/upsell` → `/` (Home). Écarts connus : icône Face ID = Phosphor
+`ScanSmiley` (pas d'équivalent exact) ; mockup iPhone de l'écran
+notifications recréé en HTML/CSS (pas d'asset source) ; icône fleur de
+l'écran upsell recréée à la main en SVG
+(`components/icons/savings-flower-icon.tsx`), approximation des couleurs
+échantillonnées sur la capture. Boutons "Log in" (accueil), "Resend" et
+"Request a voice call" (OTP) sans écran cible construit — inertes, texte
+stylé uniquement (pattern cohérent avec le reste du projet). Le flux
+"Logging in" (accueil → mot de passe existant) n'est pas construit, seul le
+flux "Sign up" l'est.
+
+**Composant ajouté** : `SavingsFlowerIcon` (`components/icons/`), recréation
+SVG à la main de l'icône fleur/pièce de l'écran upsell, pas d'équivalent
+Phosphor. `TextField`, `OtpInput` et `Checkbox` (déjà présents depuis
+l'Étape 4) réutilisés tels quels sans modification.
+
+**Piège rencontré** : `Button` (`@base-ui/react/button`) émet un
+avertissement runtime ("expected a native `<button>`") quand on lui passe
+`render={<Link ... />}` sans préciser `nativeButton={false}` — la prop
+`nativeButton` est vraie par défaut. Ajouté sur tous les boutons-liens de
+l'Onboarding.
 
 ### Logging in (7 captures)
 | # | Écran | Statut |
