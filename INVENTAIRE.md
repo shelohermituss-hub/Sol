@@ -170,14 +170,29 @@ disponible/non inventée) — la section "Goal activity" est masquée dans ce
 cas plutôt que d'afficher une transaction fictive.
 
 ### Completing account setup (8 captures)
-| # | Écran | Statut |
-|---|---|---|
-| 0 | Intro / paywall "Set & Save" | ⬜ |
-| 1-2 | Connexion compte bancaire (Plaid) — avant/après connexion | ⬜ |
-| 3-4 | Revue des accords (2 checkboxes, non coché → coché) | ⬜ |
-| 5 | Écran de transition/chargement pédagogique | ⬜ |
-| 6 | Confirmation création du 1er but ("Rainy Day") | ⬜ |
-| 7 | Dashboard Set & Save (post-onboarding) | ⬜ |
+| # | Écran | Route | Statut |
+|---|---|---|---|
+| 0 | Intro / paywall "Set & Save" | `/onboarding/upsell` (écran partagé) | 🟡 |
+| 1-2 | Connexion compte bancaire (Plaid) — avant/après connexion | `/onboarding/setup/connect-bank` | 🟡 |
+| 3-4 | Revue des accords (2 checkboxes, non coché → coché) | `/onboarding/setup/agreements` | 🟡 |
+| 5 | Écran de transition/chargement pédagogique | `/onboarding/setup/transition` | 🟡 |
+| 6 | Confirmation création du 1er but ("Rainy Day") | `/onboarding/setup/first-goal` | 🟡 |
+| 7 | Dashboard Set & Save (post-onboarding) | `/set-and-save` (déjà construit) | 🟡 |
+
+🟡 = codé + comparé visuellement (capture Playwright, parcours complet
+cliqué de bout en bout) contre `design-refs/`. Découverte importante :
+l'écran 0 est identique à `/onboarding/upsell` (Onboarding #13) — "Get
+started" y menait jusqu'ici directement à l'accueil ; il enchaîne
+maintenant sur ce flux de connexion bancaire avant d'atteindre l'accueil,
+ce qui est le vrai parcours complet. "Connect bank" simule une connexion
+Plaid instantanée (pas de vraie intégration tierce). Icône Bank générique
+plutôt que le logo Bank of America (marque déposée, cf.
+ASSETS-A-REMPLACER.md). L'écran 6 est une confirmation visuelle du but
+"Rainy Day" déjà présent dans la graine `useGoals()` — pas de second ajout
+pour éviter un doublon. Illustration de l'écran 5
+(`educational-transition.svg`) déjà générée à l'Étape 3, utilisée ici pour
+la première fois. Liens verts légaux (Privacy Policy, Plaid, Subscription
+Fee Agreement, etc.) sans écran cible construit, restent décoratifs.
 
 ### Transferring money (8 captures)
 | # | Écran | Statut |
@@ -210,18 +225,42 @@ construit (`/set-and-save/low-balance-protection`, inerte pour l'instant).
 | 5 | Contact info (état stabilisé) | ⬜ |
 
 ### Connected account detail (4 captures)
-| # | Écran | Statut |
-|---|---|---|
-| 0 | Home (contexte) | ⬜ |
-| 1-2 | Détail compte connecté (variantes) | ⬜ |
-| 3 | Historique des transactions (liste complète) | ⬜ |
+| # | Écran | Route | Statut |
+|---|---|---|---|
+| 0 | Home (contexte) | `/` | 🟡 |
+| 1-2 | Détail compte connecté (variantes) | `/connected-account` | 🟡 |
+| 3 | Historique des transactions (liste complète) | `/connected-account/activity` | 🟡 |
+
+🟡 = codé + comparé visuellement (capture Playwright) contre
+`design-refs/`. Les captures 1 et 2 montrent deux instantanés de démo
+différents (nom "Adv Plus Banking" vs "Mobbin bank", "Safe saving level"
+vide vs "$10,000") — on retient la variante la plus complète (2) comme état
+initial. Icône Bank générique plutôt que le logo Bank of America (marque
+déposée). La ligne "Bank of America" sur Home est désormais cliquable.
+"Safe saving level" affiche un chevron dans la capture mais n'a pas d'écran
+cible dans les 15 flows documentés, reste décoratif. "Remove account" mène
+au flux "Removing an account" (pas encore construit), reste décoratif.
+
+**État partagé ajouté** : `AccountProvider`/`useAccount`
+(`src/lib/account-context.tsx`), posé dans `layout.tsx` à côté de
+`GoalsProvider` — tient le nom éditable du compte, partagé avec le flux
+"Editing an account name". `src/lib/account-data.ts` centralise le solde,
+la date de sync et les 9 transactions de démo (statiques, non éditables).
 
 ### Editing an account name (4 captures)
-| # | Écran | Statut |
-|---|---|---|
-| 0 | Détail compte (point d'entrée) | ⬜ |
-| 1-2 | Édition du nom (2 comptes en exemple) | ⬜ |
-| 3 | Détail compte (post-sauvegarde) | ⬜ |
+| # | Écran | Route | Statut |
+|---|---|---|---|
+| 0 | Détail compte (point d'entrée) | `/connected-account` | 🟡 |
+| 1-2 | Édition du nom (2 comptes en exemple) | `/connected-account/edit-name` | 🟡 |
+| 3 | Détail compte (post-sauvegarde) | `/connected-account` | 🟡 |
+
+🟡 = codé + comparé visuellement (capture Playwright, cycle complet
+édition → sauvegarde → retour) contre `design-refs/`. Un seul compte réel
+dans cette reproduction (contre 2 "exemples" dans les captures) — le champ
+part de la valeur courante et se sauvegarde via `useAccount()`, visible
+immédiatement sur `/connected-account` au retour. Champ texte simple
+(`Input`), pas de label flottant — fidèle à la capture qui n'en montre
+pas, contrairement aux autres formulaires de l'app.
 
 ### Removing an account (4 captures)
 | # | Écran | Statut |

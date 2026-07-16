@@ -26,9 +26,10 @@ const FEATURES = [
 ] as const
 
 // Écran de fin d'onboarding : upsell Set & Save. Cf. design-refs/
-// Oportun_iOS_Onboarding/Oportun iOS Onboarding 13.png. "Get started" et
-// la croix de fermeture mènent tous deux à l'écran d'accueil (fin du
-// parcours d'inscription).
+// Oportun_iOS_Onboarding/Oportun iOS Onboarding 13.png (= même écran que
+// design-refs/Oportun_iOS_Completing_account_setup/.../0.png). "Get
+// started" enchaîne sur la connexion bancaire (flux "Completing account
+// setup") ; la croix de fermeture saute directement à l'accueil.
 export default function OnboardingUpsellPage() {
   return (
     <div className="mx-auto flex min-h-dvh w-full max-w-md flex-col px-6 pt-4">
@@ -59,7 +60,7 @@ export default function OnboardingUpsellPage() {
       </div>
 
       <div className="mt-auto pb-6">
-        <Button className="w-full" nativeButton={false} render={<Link href="/" />}>
+        <Button className="w-full" nativeButton={false} render={<Link href="/onboarding/setup/connect-bank" />}>
           Get started
         </Button>
       </div>
