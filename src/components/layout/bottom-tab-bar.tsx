@@ -12,11 +12,22 @@ const TABS = [
   { href: "/activity", label: "Activity", icon: ActivityIcon },
 ] as const;
 
-export function BottomTabBar() {
+interface BottomTabBarProps {
+  theme?: "light" | "green";
+}
+
+export function BottomTabBar({ theme = "light" }: BottomTabBarProps) {
   const pathname = usePathname();
+  const isGreen = theme === "green";
 
   return (
-    <nav className="flex h-16 items-center justify-around border-t border-bg-page-alt bg-bg-card">
+    <nav
+      className={cn(
+        "flex h-16 items-center justify-around border-t",
+        isGreen ? "border-white/20" : "border-bg-page-alt bg-bg-card",
+      )}
+      style={isGreen ? { backgroundColor: "var(--color-brand-green-surface)" } : undefined}
+    >
       {TABS.map(({ href, label, icon: Icon }) => {
         const active = pathname === href;
         return (
@@ -25,7 +36,16 @@ export function BottomTabBar() {
             href={href}
             aria-label={label}
             aria-current={active ? "page" : undefined}
-            className={cn("flex items-center justify-center", active ? "text-text-primary" : "text-border-input")}
+            className={cn(
+              "flex items-center justify-center",
+              isGreen
+                ? active
+                  ? "text-white"
+                  : "text-white/60"
+                : active
+                  ? "text-text-primary"
+                  : "text-border-input",
+            )}
           >
             <Icon />
           </Link>

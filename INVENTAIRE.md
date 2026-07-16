@@ -92,19 +92,38 @@ Vérifié visuellement (capture Playwright) contre `money-home-populated-state.p
 
 ## 4. Module Pay / Envoi d'argent
 
-| # | Écran | Fichier | Statut |
-|---|---|---|---|
-| 4.1 | Clavier montant (plein écran vert) | `pay-amount-keypad.png` | ⬜ |
-| 4.2 | Détails paiement (destinataire, note, Cash/Gift Card/Stock) | `payment-details-recipient.png` | ⬜ |
+| # | Écran | Fichier | Route | Statut |
+|---|---|---|---|---|
+| 4.1 | Clavier montant (plein écran vert) | `pay-amount-keypad.png` | `/pay` | 🟡 |
+| 4.2 | Détails paiement (destinataire, note, Cash/Gift Card/Stock) | `payment-details-recipient.png` | `/pay/details` | 🟡 |
+
+**Écart connu** : aucune capture de référence pour l'écran "paiement envoyé" —
+le bouton "Pay" en haut de `/pay/details` reste un no-op documenté dans le code.
+Bouton "Request" sur `/pay` également non câblé (même raison).
 
 ## 5. Module Add Cash
 
-| # | Écran | Fichier | Statut |
-|---|---|---|---|
-| 5.1 | Add Cash (bottom sheet, montants rapides) | `add-cash-bottomsheet.png` | ⬜ |
-| 5.2 | Add Cash (clavier plein écran) | `add-cash-fullscreen-keypad.png` | ⬜ |
-| 5.3 | Confirmer le PIN | `confirm-pin.png` | ⬜ |
-| 5.4 | Succès + upsell Direct Deposit | `success-confirmation.png` | ⬜ |
+| # | Écran | Fichier | Route | Statut |
+|---|---|---|---|---|
+| 5.1 | Add Cash (bottom sheet, montants rapides) | `add-cash-bottomsheet.png` | `/` (déclenché par "Add Cash") | 🟡 |
+| 5.2 | Add Cash (clavier plein écran) | `add-cash-fullscreen-keypad.png` | `/add-cash` | 🟡 |
+| 5.3 | Confirmer le PIN | `confirm-pin.png` | `/add-cash/pin` | 🟡 |
+| 5.4 | Succès + upsell Direct Deposit | `success-confirmation.png` | `/add-cash/success` | 🟡 |
+
+Flow complet câblé : Home → "Add Cash" ouvre le bottom sheet → montant rapide ou
+"…" (montant personnalisé) → `/add-cash` (si custom) → `/add-cash/pin` → 4
+chiffres → `/add-cash/success` → "Done" → Home. Tous vérifiés visuellement
+(capture Playwright) contre `design-refs/05-add-cash/`.
+
+**Composants ajoutés** : `AddCashSheet` (`components/sections/add-cash/`),
+`useAmountBuffer` (`src/lib/use-amount-buffer.ts`, saisie de montant partagée
+entre Pay et Add Cash), `BottomTabBar` étendu avec un thème `"green"` pour
+l'écran Pay plein écran.
+
+**Écart connu** : les montants rapides du bottom sheet (`$1`/`$10`/…) naviguent
+directement vers la confirmation PIN (comme un raccourci "montant validé"), ce
+qui correspond au comportement observé mais n'a pas de capture d'écran
+intermédiaire à valider pixel par pixel.
 
 ## 6. Module Stocks / Investing
 

@@ -1,13 +1,19 @@
+"use client";
+
+import { useState } from "react";
 import { AvatarCircle } from "@/components/ui/avatar-circle";
 import { Sparkline } from "@/components/ui/sparkline";
 import { BottomTabBar } from "@/components/layout/bottom-tab-bar";
 import { BalanceCard } from "@/components/sections/home/balance-card";
 import { ShortcutCard } from "@/components/sections/home/shortcut-card";
+import { AddCashSheet } from "@/components/sections/add-cash/add-cash-sheet";
 
 // Écran 3.1 — Money home. Cf. design-refs/03-home/money-home-populated-state.png
 // (et money-home-empty-state.png pour la variante solde $0 / pas de position
 // Bitcoin ou Stocks — même structure, données à zéro).
 export default function Home() {
+  const [addCashOpen, setAddCashOpen] = useState(false);
+
   return (
     <div className="mx-auto flex min-h-dvh max-w-md flex-col bg-bg-page">
       <div className="flex-1 px-6 pt-4">
@@ -17,7 +23,7 @@ export default function Home() {
         </div>
 
         <div className="mt-6">
-          <BalanceCard balance="$88.44" />
+          <BalanceCard balance="$88.44" onAddCash={() => setAddCashOpen(true)} />
         </div>
 
         <div className="mt-4 grid grid-cols-2 gap-4">
@@ -61,6 +67,7 @@ export default function Home() {
       </div>
 
       <BottomTabBar />
+      <AddCashSheet open={addCashOpen} onClose={() => setAddCashOpen(false)} />
     </div>
   );
 }
