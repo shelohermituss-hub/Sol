@@ -102,6 +102,7 @@ export default function HomePage() {
             title="Bank of America"
             subtitle="Checking ••••"
             trailing="$7,741.33"
+            render={<Link href="/connected-account" />}
           />
         </div>
 
