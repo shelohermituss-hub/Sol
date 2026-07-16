@@ -176,12 +176,129 @@ Profile (onglet) → Personal Info
 - **Contrat, Insurance Note** (mentionnés dans "Payment Eligibility") : pas d'écran de détail capturé pour ces 2 items — resteront des liens inertes.
 - **FAB central "+"** (Home/Circles) : mène à "Choose a Service" — à confirmer que c'est le seul point d'entrée du flux Join (pas de bouton "Join now" direct sur une carte de circle recommandé qui sauterait une étape ?).
 
+**Décisions prises pour ne pas bloquer la construction** (exécution
+autonome demandée — pas d'invention visuelle, mais choix fonctionnels
+raisonnables documentés ici) :
+- Étapes 4/4 manquantes (révision Game'ya et Saving Program) : construites
+  par analogie avec la sheet de révision "Creating a goal" de l'app 1
+  (résumé + bouton de confirmation), puis redirection vers Payout Method.
+- Bouton "Join now" sur une carte de circle recommandée (Home/Circles) :
+  saute directement dans le flux Game'ya à l'étape "Payout Amount",
+  préremplie avec le montant de la carte (le FAB "+" reste le seul point
+  d'entrée du choix générique "Choose a Service").
+- Personal Info : 2 champs "First Name" traités comme First Name / Last
+  Name.
+- Payment Policy, Help, Insurance Note, Contract (détail) : aucun écran
+  fourni → liens/lignes inertes, pattern déjà établi sur l'app 1.
+
 ---
 
-## Prochaine étape
+## Étape 2 — Mapping design (app 2 → composants existants de l'app 1)
 
-Étape 2 (mapping design) : pour chaque élément listé ci-dessus, indiquer le
-composant existant de `src/components/ui/` à réutiliser, lister les
-composants manquants à créer dans le style de l'app 1, et identifier les
-écrans de l'app 1 pouvant servir de modèle de mise en page. **En attente de
-ta validation de ce document avant de continuer.**
+### Composants existants réutilisés tels quels
+
+| Élément app 2 | Composant app 1 (`src/components/ui/`) |
+|---|---|
+| Champs de saisie (Sign up, Personal Info, Add Card, montants) | `TextField` (label flottant — remplace les labels statiques de l'app 2, cohérence avec le reste de l'app 1) |
+| Code OTP (4 chiffres) | `OtpInput` (prop `length={4}`) |
+| Clavier numérique (Verify OTP, Your Monthly Income) | `NumericKeypad` |
+| Checkbox "Remember Me" | `Checkbox` |
+| Bottom sheets (Choose Duration, Change Language, Track Invitations) | `Sheet` / `SheetContent` / `SheetTitle` / `SheetDescription` |
+| Toggle switch (Deduct pay-in from payout, Enable Biometrics) | `Switch` |
+| Listes radio (Payout Method, Proof of Income, Change Language, Goal frequency-like) | `RadioGroup` / `RadioGroupItem` |
+| Lignes icône+titre+sous-titre+trailing/chevron (My Documents, Profile, Payment Settings, Payment History, Saved Cards) | `ListRow` (déjà extensible via `iconVariant`) |
+| Cartes/bandeaux info (Payout Amount info, Monthly pay-in info, upsell referral) | `Card` / `CardTitle` / `CardDescription` |
+| Badge "New" (Utility Bill) | `Badge` variant `new` (déjà bleu marque) |
+| Bouton primaire/secondaire pleine largeur | `Button` |
+| Boutons désactivés en tant que lien (`render={<Link/>}`) | `Button` avec le fix `aria-disabled` déjà en place |
+
+### Composants manquants à créer (dans le style app 1, jamais celui de l'app 2)
+
+| Composant à créer | Usage | Style |
+|---|---|---|
+| `SegmentedControl` | Toggle Active/Finished (Circles), Payments/Payouts (Payment History) | 2 (ou N) options pill, actif = fond `--color-ink` + texte `--color-paper`, inactif = fond transparent + texte `--color-neutral-500`, même hauteur/rayon que `Button` |
+| `Slider` | Payout Amount (montant du circle) | Basé sur `@base-ui/react/slider` (déjà une dépendance) — piste `--color-neutral-200`, portion remplie + poignée `--color-ink`, mêmes tokens que le reste |
+| `StepProgress` | Barre d'étapes du flux Join (1/4, 2/4, 3/4...) | Segments rectangulaires arrondis, actif `--color-ink`, inactif `--color-neutral-200` — même esprit que "Step 1 of 2" de l'Onboarding mais visuel (l'app 1 n'a que le texte, ici on ajoute la barre car l'app 2 le montre et c'est une vraie fonctionnalité de repère de progression) |
+| `CircleCard` | Carte "cercle" (Home, Circles) | Carte `rounded-card` bordée comme les autres cards app 1 ; montant en `font-heading` bold, frise de progression en segments neutral-200/ink, badge marqueur "Your Turn" en pill `--color-ink`, bouton "Join now" (`Button` size default) ou badge "Joined" (texte vert `--color-brand-green`, cohérent avec les liens de statut positif déjà utilisés) |
+| `CategoryCard` | Cartes "Popular Goals" (Home) | Vignette `rounded-card`, fond uni tiré de la palette illustration déjà définie dans `design-tokens.md` (jamais de nouvelle couleur), titre blanc bold en overlay |
+| `PromoCarousel` | Bannière "Latest Offers" (Home) | Scroll-snap horizontal natif (pas de librairie tierce, même pattern que `DateWheelPicker`), dots calculés par position de scroll |
+
+### Extension de composant existant (variante, pas de nouveau composant)
+
+- `Badge` : ajout des variants `neutral` (fond `--color-neutral-200`, texte `--color-ink` — pour "No Charge") et `success` (fond `--color-accent-mint`, texte `--color-brand-green` — pour "Zero Fees"/pay-ins discount), en plus du variant `new` existant. Cohérent avec les couleurs déjà en place, aucune nouvelle teinte.
+- `ListRow` : ajout d'un prop `status?: "success" | "warning"` pour les lignes à statut de "Payment Eligibility" (icône ✓ verte / ⚠ — en noir/gris comme le reste, pas de rouge, cohérent avec la règle "pas de rouge destructif" déjà actée sur l'app 1 ; le orange/rouge d'alerte de l'app 2 est remplacé par un style neutre + icône `WarningCircle` en `--color-ink`).
+
+### Icônes (Phosphor uniquement, jamais un autre pack)
+
+| Icône app 2 | Composant Phosphor |
+|---|---|
+| Flamme (streak, header) | `Fire` |
+| Cloche notifications | `Bell` (déjà utilisé) |
+| Carte scan / ID | `IdentificationCard` |
+| Appareil photo (scan) | `Camera` |
+| Document / lettre | `FileText` |
+| Coche statut ok | `CheckCircle` |
+| Avertissement statut à corriger | `WarningCircle` |
+| Ciseaux (deduct pay-in) | `Scissors` |
+| Cadenas (change passcode) | `LockKey` |
+| Empreinte biométrie | `Fingerprint` |
+| Globe (Fawry, langue) | `Globe` |
+| Enveloppe (email, invite) | `Envelope` |
+| Copier (code parrainage) | `Copy` |
+| Portefeuille numérique | `Wallet` |
+| Carte prépayée | `CreditCard` |
+| Banque (déjà utilisé) | `Bank` |
+| Éclair (fastest payout) | `Lightning` |
+| Horloge/bouclier (lowest fees) | `ClockCountdown` ou `ShieldCheck` (déjà utilisé) |
+| Flèche montante (highest return) | `TrendUp` |
+| Déconnexion | `SignOut` |
+
+*(à vérifier une par une lors de la construction — remplacer par l'équivalent Phosphor le plus proche si l'un de ces noms n'existe pas)*
+
+### Visuels à générer (Higgsfield, même style que l'app 1)
+
+À lister dans `ASSETS-A-REMPLACER.md` et soumettre en validation groupée
+avant génération :
+1. Illustration état vide "Circles" (équivalent du personnage qui lève une
+   tirelire avec un "?" — déjà présent en fond gris dans les captures,
+   sera régénérée dans la palette pastel déjà définie)
+2. Illustration état vide "Payment History"
+3. Illustration état vide "Saved Cards"
+4. Illustration état vide "Invite friends / Invitees"
+5. Illustration hero "Welcome to Dart" (mains + pièces) → remplacée par un
+   hero dans le style déjà validé (cf. `hero-reach-your-goals.svg`)
+6. Illustration "Payment" vide (personnage poches vides)
+
+### Écrans de l'app 1 servant de modèle de mise en page
+
+| Écran app 2 | Modèle app 1 |
+|---|---|
+| Home (Dart) | `/home` — header icônes + sections titrées + cards |
+| Circles | `/set-and-save` — toggle + liste + section "Recommended" |
+| Choose a Service | `/set-and-save/create` — 2 cartes de choix de type |
+| Payout Amount / Monthly Pay-in / Slot | `/set-and-save/create/details` — formulaire multi-champs + sheets, barre d'étapes façon "Step X of Y" de l'Onboarding |
+| Choose a Saving Circle / Choose Duration | `/set-and-save/create/category` (liste) + sheet fréquence de `/set-and-save/create/details` |
+| Étapes de révision manquantes | Sheet de révision "Creating a goal" (`/set-and-save/create/details`, section Review) |
+| Payout Method | Nouveau, inspiré des listes radio déjà utilisées (agreements, frequency) |
+| Payment (hub) | `/set-and-save` (état vide) + `/profile` (sections de raccourcis) |
+| Payment Eligibility | `/profile/contact-info` (lignes label/valeur) + statut façon `ListRow` étendu |
+| Payment History | `/connected-account/activity` — quasi identique (icône+date+montant) |
+| Payment Settings | `/set-and-save` "Low balance protection" (toggle inline) + `/connected-account` (lignes navigables) |
+| Saved Cards | `/connected-account` (lignes avec actions) |
+| Add Card | `/profile/contact-info/change-email` (formulaire simple + CTA) |
+| Profile (Dart) | `/profile` — quasi 1:1, mêmes sections de lignes |
+| Personal Info | `/onboarding/personal-info` |
+| My Documents | `/profile` (lignes de section, badge "New" comme "More from Oportun") |
+| Scan National ID / Upload HR Letter | `/onboarding/face-id` / `/onboarding/notifications` (icône + texte + CTA pleine largeur) |
+| Your Monthly Income | `/transfer/amount` — quasi identique (montant hero + clavier) |
+| Invite Friends | Étapes numérotées inspirées de `/onboarding/setup/first-goal` + carte referral de `/home` |
+| Track Invitations | Sheet de révision `/set-and-save/create/details` |
+| Change Language | Sheet fréquence de `/set-and-save/create/details` — quasi identique |
+
+---
+
+## Étape 3 — Construction
+
+Ordre : composants manquants d'abord, puis écrans un par un dans l'ordre
+des sections 1 à 13 ci-dessus, `npm run build` + comparaison visuelle
+Playwright après chaque écran, commit après chaque écran validé.
