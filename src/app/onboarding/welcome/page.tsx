@@ -6,8 +6,8 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 
 // Écran de bienvenue / proposition de valeur. Cf. design-refs/
-// Oportun_iOS_Onboarding/Oportun iOS Onboarding 1.png. Le flux "Logging
-// in" n'est pas encore construit — le bouton "Log in" reste décoratif.
+// Oportun_iOS_Onboarding/Oportun iOS Onboarding 1.png (identique à
+// design-refs/Oportun_iOS_Logging_in/Oportun iOS Logging in 0.png).
 export default function WelcomePage() {
   return (
     <div className="mx-auto flex min-h-dvh w-full max-w-md flex-col px-6 pt-4">
@@ -29,7 +29,7 @@ export default function WelcomePage() {
       </p>
 
       <div className="mt-auto flex gap-3 pb-6">
-        <Button variant="secondary" className="h-14 flex-1">
+        <Button variant="secondary" className="h-14 flex-1" nativeButton={false} render={<Link href="/login" />}>
           Log in
         </Button>
         <Button className="h-14 flex-1" nativeButton={false} render={<Link href="/onboarding/phone" />}>

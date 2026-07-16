@@ -52,12 +52,24 @@ avertissement runtime ("expected a native `<button>`") quand on lui passe
 l'Onboarding.
 
 ### Logging in (7 captures)
-| # | Écran | Statut |
-|---|---|---|
-| 0 | Écran d'accueil (identique à Onboarding #1) | ⬜ |
-| 1-2 | Formulaire login (vide → rempli, toggle Face ID) | ⬜ |
-| 3-5 | Code OTP (vide → rempli → loading) | ⬜ |
-| 6 | Home / dashboard (post-login) | ⬜ |
+| # | Écran | Route | Statut |
+|---|---|---|---|
+| 0 | Écran d'accueil (identique à Onboarding #1) | `/onboarding/welcome` | 🟡 |
+| 1-2 | Formulaire login (vide → rempli, toggle Face ID) | `/login` | 🟡 |
+| 3-5 | Code OTP (vide → rempli → loading) | `/login/otp` | 🟡 |
+| 6 | Home / dashboard (post-login) | `/` | 🟡 (déjà construit, Étape 5) |
+
+🟡 = codé + comparé visuellement (capture Playwright, tous états) contre
+`design-refs/`. Parcours cliquable : `/onboarding/welcome` → "Log in" →
+`/login` → `/login/otp` (auto-soumission dès le 6e chiffre) → `/` (Home,
+déjà construit). Le bouton "Log in" du formulaire s'active dès que le champ
+email/téléphone est renseigné, fidèle à la capture 2 où il est déjà noir
+alors que le mot de passe est vide. "Forgot password" et le toggle "Log in
+with Face ID" (réutilise `Switch`) n'ont pas d'écran/flux cible construit —
+restent décoratifs. La capture 6 (Home post-login) montre un état de
+données différent (soldes à $0, 2 buts) de celui déjà codé sur `/` — pas de
+nouvel écran créé, simple confirmation que le login redirige vers le Home
+existant.
 
 ### Home (5 captures)
 | # | Écran | Route | Statut |
