@@ -6,7 +6,7 @@ import "./globals.css";
 // src/styles/design-tokens.md, section Typographie.
 
 export const metadata: Metadata = {
-  title: "Cash App (reproduction)",
+  title: "Sol",
   description: "Reproduction pixel-perfect à partir du design Figma / des screenshots de référence.",
 };
 
