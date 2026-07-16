@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { CenteredPage } from "@/components/layout/centered-page";
 import { Header } from "@/components/ui/header";
 import { Checkbox } from "@/components/ui/checkbox";
 
@@ -19,7 +20,7 @@ export default function NotificationsPage() {
   const [bitcoin, setBitcoin] = useState(false);
 
   return (
-    <div className="mx-auto flex min-h-dvh max-w-md flex-col bg-bg-page px-6 pt-4">
+    <CenteredPage>
       <Header title="Notifications" onBack={() => router.back()} />
 
       <div className="mt-4 rounded-2xl bg-bg-card px-5">
@@ -50,6 +51,6 @@ export default function NotificationsPage() {
           <span className="font-semibold text-text-secondary">Manage</span>
         </div>
       </div>
-    </div>
+    </CenteredPage>
   );
 }

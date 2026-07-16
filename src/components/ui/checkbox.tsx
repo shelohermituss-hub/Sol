@@ -1,3 +1,5 @@
+import { Check } from "@phosphor-icons/react/ssr";
+
 interface CheckboxProps {
   checked: boolean;
   onChange: (checked: boolean) => void;
@@ -15,11 +17,7 @@ export function Checkbox({ checked, onChange, label }: CheckboxProps) {
             : { borderColor: "var(--color-border-input)" }
         }
       >
-        {checked && (
-          <svg width="14" height="11" viewBox="0 0 14 11" fill="none" aria-hidden="true">
-            <path d="M1 5.5L5 9.5L13 1.5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        )}
+        {checked && <Check size={14} weight="bold" color="white" />}
       </span>
       <span className="text-lg font-semibold text-text-primary">{label}</span>
     </button>

@@ -2,6 +2,8 @@
 
 import { Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { Money } from "@phosphor-icons/react/ssr";
+import { CenteredPage } from "@/components/layout/centered-page";
 import { Header } from "@/components/ui/header";
 import { SuccessState } from "@/components/ui/success-state";
 import { Card } from "@/components/ui/card";
@@ -14,7 +16,7 @@ function SuccessContent() {
   const amount = useSearchParams().get("amount") ?? "0";
 
   return (
-    <div className="mx-auto flex min-h-dvh max-w-md flex-col bg-bg-card px-6 pt-4">
+    <CenteredPage bgClassName="bg-bg-card">
       <Header onClose={() => router.push("/")} />
       <div className="mt-6">
         <SuccessState title={`You added $${amount} to your Cash App`} />
@@ -22,7 +24,7 @@ function SuccessContent() {
       <div className="mt-10 flex-1">
         <Card className="border border-bg-page-alt text-center">
           <div className="mx-auto flex h-16 w-24 items-center justify-center">
-            <BanknoteIcon />
+            <Money size={40} style={{ color: "var(--color-brand-green)" }} />
           </div>
           <p className="mt-3 text-lg font-semibold text-text-primary">
             Get paid up to 2 days faster with direct deposit
@@ -35,7 +37,7 @@ function SuccessContent() {
       <div className="py-6">
         <Button onClick={() => router.push("/")}>Done</Button>
       </div>
-    </div>
+    </CenteredPage>
   );
 }
 
@@ -44,23 +46,5 @@ export default function AddCashSuccessPage() {
     <Suspense>
       <SuccessContent />
     </Suspense>
-  );
-}
-
-function BanknoteIcon() {
-  return (
-    <svg width="72" height="40" viewBox="0 0 72 40" fill="none" aria-hidden="true">
-      <rect
-        x="2"
-        y="6"
-        width="60"
-        height="30"
-        rx="4"
-        fill="var(--color-bg-page)"
-        stroke="var(--color-brand-green)"
-        strokeWidth="1.5"
-      />
-      <circle cx="32" cy="21" r="8" stroke="var(--color-brand-green)" strokeWidth="1.5" />
-    </svg>
   );
 }

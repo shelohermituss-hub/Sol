@@ -31,8 +31,9 @@ Sources : `design-refs/01-onboarding` (22 écrans, zip "Cash App iOS Onboarding"
 🟡 = codé + comparé visuellement (capture Playwright) contre `design-refs/`, visuellement
 proche. Pas encore ✅ (pixel-perfect final) : polices/espacements/couleurs à
 raffiner une fois le quota Figma rétabli (valeurs actuelles = sondage pixel des
-screenshots), illustration de la Cash App Card en placeholder, icônes maison/
-contacts en approximations SVG/emoji.
+screenshots), illustration de la Cash App Card toujours en placeholder (couleur
+unie). Icônes migrées vers Phosphor Icons depuis l'audit du 16/07 (cf.
+AUDIT.md) — plus des approximations SVG faites main.
 
 **Écarts connus à corriger plus tard** :
 - Date de naissance (1.8) : simplifié en un seul champ texte, pas de 3 segments
@@ -82,8 +83,10 @@ Vérifié visuellement (capture Playwright) contre `money-home-populated-state.p
 - État "solde $0" (`money-home-empty-state.png`) pas encore branché — nécessite de
   passer des données à zéro à `BalanceCard`/`ShortcutCard` (pas de nouveau
   composant à créer).
-- Icônes Savings (cible) et Free tax filing (dossier) en SVG simplifiés, pas les
-  illustrations réelles du design.
+- Icônes Savings (`Target`) et Free tax filing (`FolderSimple`, Phosphor) —
+  pas les illustrations réelles du design (photo/dessin).
+- Bouton "Cash Out" : câblé mais volontairement inerte (pas de capture de
+  référence pour ce flow, cf. AUDIT.md), comme "Request" et "Buy stocks".
 - `21-money-home-post-onboarding.png` (module 1) montre une variante différente
   (labels "Add money/Withdraw", sections "Paychecks"/"Pools") non reprise ici —
   seule la version `money-home-*-state.png` a été retenue comme référence
@@ -148,7 +151,8 @@ distinct du vert Add Cash), `ShortcutCard` étend un prop `href` optionnel.
   Pay.
 - Cartes vedettes (Nike/GE/Coca-Cola/Walmart) : pas de prix/pourcentage affiché
   (non visible sur la capture source), juste logo + sparkline.
-- Icônes (cloche, dossier catégorie) approximées en SVG.
+- Icônes (`Bell`, `Briefcase`, Phosphor) : cohérentes avec le reste de l'app,
+  pas les vraies icônes du design.
 - "Buy stocks" (bouton violet pleine largeur) : pas de cible de navigation
   précisée par les captures — inerte pour l'instant.
 
@@ -197,10 +201,17 @@ les écrans du Module 1).
 - 🟡 ListRow (icône + label + chevron) — `src/components/ui/list-row.tsx`
 - 🟡 AvatarCircle — `src/components/ui/avatar-circle.tsx`
 
-⚠️ Icônes (chevron, close, backspace, tab bar) : dessinées en SVG inline
-approximatif faute d'accès aux vrais assets Figma (quota épuisé) — à remplacer
-par les icônes exportées de Figma (`download_assets`) dès que possible, par
-`CLAUDE.md`.
+⚠️ Icônes (chevron, close, backspace, tab bar) : `@phosphor-icons/react`
+depuis l'audit du 16/07 (cf. AUDIT.md, décision actée avec l'utilisateur) — pas
+encore les vraies icônes du design Figma (toujours en quota épuisé). À
+remplacer par les icônes exportées de Figma (`download_assets`) si le quota
+revient et qu'un écart visuel notable est identifié.
+
+Ajouts audit 16/07 : `AppShell` et `CenteredPage`
+(`src/components/layout/`) — coquilles responsives desktop (sidebar de nav /
+carte centrée) pour les écrans racine et les flows détail, faute de référence
+desktop (traitement standard, cf. AUDIT.md). `Switch`/`Checkbox` déjà listés
+au module 7.
 
 Page de vérification temporaire : `src/app/styleguide/page.tsx` (à supprimer
 une fois tous les écrans construits).

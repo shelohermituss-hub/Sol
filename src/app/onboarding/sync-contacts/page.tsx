@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { UsersThree } from "@phosphor-icons/react/ssr";
 import { OnboardingShell } from "@/components/layout/onboarding-shell";
 import { Header } from "@/components/ui/header";
 import { Button } from "@/components/ui/button";
@@ -31,7 +32,7 @@ export default function SyncContactsPage() {
         className="flex h-16 w-16 items-center justify-center rounded-full"
         style={{ backgroundColor: "var(--color-brand-green)" }}
       >
-        <span className="text-2xl text-white">👥</span>
+        <UsersThree size={28} weight="fill" color="white" />
       </div>
     </OnboardingShell>
   );

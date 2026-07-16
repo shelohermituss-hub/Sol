@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { CenteredPage } from "@/components/layout/centered-page";
 import { Header } from "@/components/ui/header";
 import { Card } from "@/components/ui/card";
 import { ListRow } from "@/components/ui/list-row";
@@ -23,7 +24,7 @@ export default function AccountSettingsHelpPage() {
   const router = useRouter();
 
   return (
-    <div className="mx-auto flex min-h-dvh max-w-md flex-col bg-bg-page px-6 pt-4">
+    <CenteredPage>
       <Header onBack={() => router.back()} onClose={() => router.push("/profile")} />
 
       <h1 className="mt-6 text-3xl font-extrabold text-text-primary">Account &amp; Settings</h1>
@@ -38,6 +39,6 @@ export default function AccountSettingsHelpPage() {
           ))}
         </div>
       </Card>
-    </div>
+    </CenteredPage>
   );
 }

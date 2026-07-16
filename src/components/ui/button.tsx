@@ -26,7 +26,7 @@ export function Button({
     <button
       disabled={disabled}
       className={cn(
-        "h-14 rounded-full px-6 text-lg font-semibold transition-opacity",
+        "h-14 whitespace-nowrap rounded-full px-4 text-base font-semibold transition-opacity sm:px-6 sm:text-lg",
         fullWidth ? "w-full" : "",
         disabled ? "bg-disabled-bg text-white/70" : VARIANT_CLASSES[variant],
         className,

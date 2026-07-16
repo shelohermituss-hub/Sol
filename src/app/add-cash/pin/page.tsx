@@ -2,6 +2,7 @@
 
 import { Suspense, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { CenteredPage } from "@/components/layout/centered-page";
 import { Header } from "@/components/ui/header";
 import { PinDots } from "@/components/ui/pin-dots";
 import { NumericKeypad } from "@/components/ui/numeric-keypad";
@@ -24,7 +25,7 @@ function ConfirmPinForm() {
   }
 
   return (
-    <div className="mx-auto flex min-h-dvh max-w-md flex-col bg-bg-card px-6 pt-4">
+    <CenteredPage bgClassName="bg-bg-card">
       <Header onClose={() => router.push("/")} onHelp={() => {}} />
       <p className="mt-6 text-3xl font-extrabold text-text-primary">Confirm your Cash PIN</p>
       <div className="mt-6">
@@ -33,7 +34,7 @@ function ConfirmPinForm() {
       <div className="mt-16 flex-1">
         <NumericKeypad theme="light" onDigit={handleDigit} onBackspace={() => setPin((p) => p.slice(0, -1))} />
       </div>
-    </div>
+    </CenteredPage>
   );
 }
 

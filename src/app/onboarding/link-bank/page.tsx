@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { LockSimple } from "@phosphor-icons/react/ssr";
 import { OnboardingShell } from "@/components/layout/onboarding-shell";
 import { Header } from "@/components/ui/header";
 import { TextInput } from "@/components/ui/text-input";
@@ -53,6 +54,7 @@ export default function LinkBankPage() {
     >
       <div className="flex flex-col gap-4">
         <TextInput
+          id="debit-card-number"
           label="Debit Card Number"
           placeholder="Debit Card Number"
           value={cardNumber}
@@ -61,6 +63,7 @@ export default function LinkBankPage() {
         <div className="flex gap-4">
           <div className="flex-1">
             <TextInput
+              id="card-expiration"
               label="Expiration date"
               placeholder="MM/YY"
               value={expiration}
@@ -69,6 +72,7 @@ export default function LinkBankPage() {
           </div>
           <div className="flex-1">
             <TextInput
+              id="card-cvv"
               label="CVV"
               placeholder="3-Digit CVV"
               value={cvv}
@@ -76,8 +80,17 @@ export default function LinkBankPage() {
             />
           </div>
         </div>
-        <TextInput label="ZIP Code" placeholder="ZIP Code" value={zip} onChange={(e) => setZip(e.target.value)} />
-        <p className="text-sm text-text-secondary">🔒 Secured with 256-bit encryption</p>
+        <TextInput
+          id="card-zip"
+          label="ZIP Code"
+          placeholder="ZIP Code"
+          value={zip}
+          onChange={(e) => setZip(e.target.value)}
+        />
+        <p className="flex items-center gap-1.5 text-sm text-text-secondary">
+          <LockSimple size={14} weight="fill" />
+          Secured with 256-bit encryption
+        </p>
       </div>
     </OnboardingShell>
   );

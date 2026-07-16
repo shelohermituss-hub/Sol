@@ -1,14 +1,15 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { Smiley, Lightning, Prohibit, ShieldCheck } from "@phosphor-icons/react/ssr";
 import { OnboardingShell } from "@/components/layout/onboarding-shell";
 import { Button } from "@/components/ui/button";
 
 const FEATURES = [
-  { icon: "🙂", label: "Customizable design" },
-  { icon: "⚡", label: "Instant discounts" },
-  { icon: "🚫", label: "No hidden fees" },
-  { icon: "🛡️", label: "FDIC insurance*" },
+  { Icon: Smiley, label: "Customizable design" },
+  { Icon: Lightning, label: "Instant discounts" },
+  { Icon: Prohibit, label: "No hidden fees" },
+  { Icon: ShieldCheck, label: "FDIC insurance*" },
 ];
 
 // Écran 1.9 — Meet the Cash App Card. Cf. design-refs/01-onboarding/16-card-intro-top.png,
@@ -38,7 +39,7 @@ export default function CardIntroPage() {
         <div className="flex w-full flex-col gap-6">
           {FEATURES.map((f) => (
             <div key={f.label} className="flex items-center gap-4">
-              <span className="text-2xl">{f.icon}</span>
+              <f.Icon size={26} className="text-text-primary" />
               <span className="text-lg font-semibold text-text-primary">{f.label}</span>
             </div>
           ))}

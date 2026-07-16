@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { CenteredPage } from "@/components/layout/centered-page";
 import { Header } from "@/components/ui/header";
 import { NumericKeypad } from "@/components/ui/numeric-keypad";
 import { Button } from "@/components/ui/button";
@@ -10,11 +11,10 @@ import { useAmountBuffer } from "@/lib/use-amount-buffer";
 // Cf. design-refs/05-add-cash/add-cash-fullscreen-keypad.png
 export default function AddCashPage() {
   const router = useRouter();
-  const { buffer, display, onDigit, onBackspace } = useAmountBuffer();
-  const isValid = buffer.length > 0 && buffer !== ".";
+  const { buffer, display, isValid, onDigit, onBackspace } = useAmountBuffer();
 
   return (
-    <div className="mx-auto flex min-h-dvh max-w-md flex-col bg-bg-card px-6 pt-4">
+    <CenteredPage bgClassName="bg-bg-card">
       <Header onClose={() => router.push("/")} />
       <p className="mt-4 text-center text-lg font-bold text-text-primary">Add Cash</p>
       <p
@@ -34,6 +34,6 @@ export default function AddCashPage() {
           Add
         </Button>
       </div>
-    </div>
+    </CenteredPage>
   );
 }

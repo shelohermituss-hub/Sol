@@ -13,8 +13,9 @@ ou de typographie est un bug.
 - TypeScript strict
 - Tailwind CSS (tokens personnalisés extraits du Figma)
 - Aucune librairie de composants UI externe (pas de MUI/AntD/Chakra)
-- lucide-react autorisé UNIQUEMENT si les icônes du design correspondent ;
-  sinon exporter les vraies icônes SVG depuis Figma
+- Icônes : `@phosphor-icons/react` (choix validé le 16/07, remplace les SVG
+  faits main utilisés en attendant — cf. AUDIT.md). Si une icône du design ne
+  s'y trouve pas, exporter la vraie icône SVG depuis Figma.
 
 ## Structure du projet
 ```

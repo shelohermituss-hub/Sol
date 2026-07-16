@@ -1,6 +1,8 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { CaretRight } from "@phosphor-icons/react/ssr";
+import { CenteredPage } from "@/components/layout/centered-page";
 import { Header } from "@/components/ui/header";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -25,7 +27,7 @@ export default function ProfilePage() {
   const router = useRouter();
 
   return (
-    <div className="mx-auto flex min-h-dvh max-w-md flex-col bg-bg-page px-6 pt-4">
+    <CenteredPage>
       <Header title="Your Account" onClose={() => router.push("/")} />
 
       <div className="mt-4">
@@ -64,7 +66,7 @@ export default function ProfilePage() {
             right={
               <div className="flex items-center">
                 <Badge />
-                <ChevronRightIcon />
+                <CaretRight size={18} className="text-border-input" />
               </div>
             }
           />
@@ -80,7 +82,7 @@ export default function ProfilePage() {
         </div>
       </Card>
 
-      <button type="button" className="mt-6 py-4 text-center font-bold" style={{ color: "#E0463C" }}>
+      <button type="button" className="mt-6 py-4 text-center font-bold" style={{ color: "var(--color-error)" }}>
         Sign Out
       </button>
 
@@ -92,7 +94,7 @@ export default function ProfilePage() {
         </p>
         <p>Version 4.7.1 (4071001)</p>
       </div>
-    </div>
+    </CenteredPage>
   );
 }
 
@@ -100,17 +102,9 @@ function Badge() {
   return (
     <span
       className="mr-2 rounded-full px-2.5 py-0.5 text-xs font-bold"
-      style={{ backgroundColor: "#DFF7E6", color: "var(--color-brand-green)" }}
+      style={{ backgroundColor: "var(--color-badge-bg)", color: "var(--color-brand-green)" }}
     >
       New
     </span>
-  );
-}
-
-function ChevronRightIcon() {
-  return (
-    <svg width="10" height="18" viewBox="0 0 10 18" fill="none" aria-hidden="true" className="text-border-input">
-      <path d="M1 1l8 8-8 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
   );
 }

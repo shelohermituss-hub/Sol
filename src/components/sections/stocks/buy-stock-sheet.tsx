@@ -1,5 +1,6 @@
 "use client";
 
+import { CaretDown } from "@phosphor-icons/react/ssr";
 import { BottomSheet } from "@/components/ui/bottom-sheet";
 import { cn } from "@/lib/cn";
 
@@ -22,10 +23,11 @@ export function BuyStockSheet({ open, onClose, stockName }: BuyStockSheetProps) 
       <div className="mt-4 flex justify-center">
         <button
           type="button"
-          className="rounded-full border px-4 py-1.5 text-sm font-semibold"
+          className="flex items-center gap-1 rounded-full border px-4 py-1.5 text-sm font-semibold"
           style={{ borderColor: "var(--color-accent-blue)", color: "var(--color-accent-blue)" }}
         >
-          Change Order Type ⌄
+          Change Order Type
+          <CaretDown size={12} />
         </button>
       </div>
       <div className="mt-6 grid grid-cols-3 gap-3">

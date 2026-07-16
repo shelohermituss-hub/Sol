@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { CaretRight } from "@phosphor-icons/react/ssr";
 
 interface ListRowProps {
   icon?: ReactNode;
@@ -16,15 +17,7 @@ export function ListRow({ icon, label, right, onClick }: ListRowProps) {
     >
       {icon && <span className="text-text-primary">{icon}</span>}
       <span className="flex-1 text-lg font-semibold text-text-primary">{label}</span>
-      {right ?? <ChevronRightIcon />}
+      {right ?? <CaretRight size={18} className="text-border-input" />}
     </Tag>
-  );
-}
-
-function ChevronRightIcon() {
-  return (
-    <svg width="10" height="18" viewBox="0 0 10 18" fill="none" aria-hidden="true" className="text-border-input">
-      <path d="M1 1l8 8-8 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
   );
 }

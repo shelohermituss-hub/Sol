@@ -78,6 +78,21 @@ Python/Pillow) + Figma (`iOPJoJTAYINs7qy4xcn1fs`, node `4-6`, page "Transactions
 - **List row** (Account & Settings) : icône à gauche, label, chevron/switch à
   droite, séparateur fin `#F0F0F0`.
 
+## Icônes
+Depuis l'audit du 16/07 : **`@phosphor-icons/react`** (import depuis
+`@phosphor-icons/react/ssr`), qui remplace les SVG faits main utilisés
+initialement. Exception documentée : `src/app/icon.tsx` (favicon généré via
+`ImageResponse`/Satori) garde des hex en dur (`#000000`, `#00E010`) — ce
+runtime ne peut pas lire les variables CSS de `globals.css`.
+
+## Tokens ajoutés lors de l'audit (16/07)
+| Token | Valeur | Usage |
+|---|---|---|
+| `--color-error` | `#E0463C` | Texte "Sign Out" |
+| `--color-badge-bg` | `#DFF7E6` | Fond badge "New" (Favorites) |
+| `--color-category-banking` | `#C1622D` | Carte catégorie "Banking & Finance" |
+| `--color-category-business` | `#C79A5B` | Carte catégorie "Business Services" |
+
 ## À faire en Phase 1 (exécution)
 1. Reprendre `get_variable_defs` / `get_design_context` sur les frames Figma dès
    que le quota MCP est rétabli, pour confirmer/affiner les hex et récupérer les

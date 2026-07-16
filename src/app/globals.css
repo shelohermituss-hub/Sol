@@ -20,6 +20,14 @@
   --color-accent-blue: #2c64d8;
   --color-accent-purple: #8420f4;
   --color-savings-green: #7ccc60;
+
+  /* États sémantiques */
+  --color-error: #e0463c;
+  --color-badge-bg: #dff7e6;
+
+  /* Catégories Stocks (design-refs/06-stocks/stocks-tab-scrolled.png) */
+  --color-category-banking: #c1622d;
+  --color-category-business: #c79a5b;
 }
 
 @theme inline {
@@ -40,6 +48,11 @@
   --color-accent-blue: var(--color-accent-blue);
   --color-accent-purple: var(--color-accent-purple);
   --color-savings-green: var(--color-savings-green);
+
+  --color-error: var(--color-error);
+  --color-badge-bg: var(--color-badge-bg);
+  --color-category-banking: var(--color-category-banking);
+  --color-category-business: var(--color-category-business);
 
   --font-sans: system-ui, -apple-system, "Segoe UI", sans-serif;
 }

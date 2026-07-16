@@ -1,5 +1,57 @@
 # Audit — État du code (après modules 1 à 7)
 
+## ✅ Corrections appliquées (16/07)
+Décisions validées avec l'utilisateur : icônes → **Phosphor Icons** (règle
+`CLAUDE.md` mise à jour en conséquence), 768/1440px → vraie mise en page
+desktop (pas de référence existante, traitement standard appliqué : sidebar de
+nav pour les écrans racine Home/Pay/Stocks, carte centrée pour les flows
+Onboarding/Add Cash/Pay details/Profile). Tous les points 🔴 et 🟠 corrigés :
+
+1. **Couleurs hex en dur** → 4 nouveaux tokens (`--color-error`,
+   `--color-badge-bg`, `--color-category-banking`, `--color-category-business`),
+   voir `design-tokens.md`. Exception documentée : `src/app/icon.tsx` (favicon
+   généré via Satori, ne peut pas lire les variables CSS).
+2. **Bug 375px (Home)** → `Button` et les headers de `BalanceCard`/`ShortcutCard`
+   passent en tailles/paddings responsives (`text-base sm:text-lg`,
+   `whitespace-nowrap`) ; `/pay/details` (pills "Send as") passe en
+   `flex-wrap`. Revérifié à 375/768/1440px, plus de wrap cassé.
+3. **Cash Out** → câblé (no-op documenté en commentaire, même statut que
+   "Request"/"Buy stocks" — pas de capture de référence pour un vrai flow).
+4. **Labels de formulaire** → `id` ajoutés sur tous les `TextInput` labellisés
+   (`link-bank`, styleguide — depuis supprimé).
+5. **BottomSheet** → `role="dialog"`, `aria-modal`, fermeture `Échap`, focus au
+   montant.
+6. **Validation de montant** → `useAmountBuffer` expose désormais `isValid`
+   (montant > 0, point final orphelin nettoyé) ; `/pay` et `/add-cash`
+   l'utilisent au lieu de dupliquer une validation locale.
+7. **Toutes les icônes SVG faites main → Phosphor Icons** (`@phosphor-icons/react/ssr`) :
+   Header, BottomTabBar, ListRow, NumericKeypad, Checkbox, SuccessState,
+   sections/profile/icons.tsx, sections/stocks, add-cash/success,
+   onboarding/card-intro, onboarding/sync-contacts, onboarding/link-bank,
+   pay/page, pay/details, sections/stocks/buy-stock-sheet, Home
+   (Target/FolderSimple), balance-card/shortcut-card (chevrons).
+8. **Responsive desktop** : nouveaux composants `AppShell`
+   (`components/layout/app-shell.tsx`, sidebar de nav à partir de md pour
+   Home/Pay/Stocks) et `CenteredPage` (`components/layout/centered-page.tsx`,
+   carte centrée à partir de md pour Profile/Add Cash/Pay details).
+   `OnboardingShell` a reçu le même traitement carte-centrée. `BottomTabBar`
+   supporte un mode sidebar verticale (`md:flex-col`).
+9. **Boilerplate nettoyé** : 5 SVG morts supprimés, `README.md` réécrit,
+   favicon par défaut remplacé par une icône générée (`src/app/icon.tsx`,
+   reprend le mark du splash), `/styleguide` supprimé (superseded par les
+   écrans réels des 7 modules).
+
+Non corrigé (accepté comme limite, pas une régression) : point 9 de l'audit
+original (`<title>` unique par app) — nécessiterait un `layout.tsx` par route
+pour ~24 pages client, jugé disproportionné pour un gain cosmétique mineur.
+
+Vérifié après corrections : `npm run build` + `eslint` propres, **0 erreur
+console sur 24 routes × 3 breakpoints (72 chargements)**, captures visuelles à
+375/768/1440px pour Home/Pay/Stocks/Profile/Onboarding/Add Cash.
+
+---
+
+
 Audit réalisé par : lecture systématique de tous les fichiers `src/`, tests
 Playwright (console/erreurs sur 25 routes, breakpoints 375/768/1440px, cas
 limites), `grep` ciblé sur les règles `CLAUDE.md`. Aucune modification de code

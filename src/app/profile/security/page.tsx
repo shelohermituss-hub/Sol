@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { CenteredPage } from "@/components/layout/centered-page";
 import { Header } from "@/components/ui/header";
 import { Switch } from "@/components/ui/switch";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -15,7 +16,7 @@ export default function SecurityPrivacyPage() {
   const [unlockApp, setUnlockApp] = useState(false);
 
   return (
-    <div className="mx-auto flex min-h-dvh max-w-md flex-col bg-bg-page px-6 pt-4">
+    <CenteredPage>
       <Header title="Security & Privacy" onBack={() => router.back()} />
 
       <p className="mt-6 text-sm font-bold uppercase text-text-secondary">Security</p>
@@ -61,6 +62,6 @@ export default function SecurityPrivacyPage() {
       <button type="button" className="mt-6 pb-8 text-center font-semibold underline">
         View all
       </button>
-    </div>
+    </CenteredPage>
   );
 }

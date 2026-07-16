@@ -1,3 +1,4 @@
+import { Backspace } from "@phosphor-icons/react/ssr";
 import { cn } from "@/lib/cn";
 
 interface NumericKeypadProps {
@@ -44,22 +45,8 @@ export function NumericKeypad({ theme = "light", showDecimal = false, onDigit, o
         aria-label="Backspace"
         className={cn("flex items-center justify-center py-3", textClass)}
       >
-        <BackspaceIcon />
+        <Backspace size={24} />
       </button>
     </div>
-  );
-}
-
-function BackspaceIcon() {
-  return (
-    <svg width="26" height="20" viewBox="0 0 26 20" fill="none" aria-hidden="true">
-      <path
-        d="M9 1H24a1 1 0 011 1v16a1 1 0 01-1 1H9L1 10l8-9z"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinejoin="round"
-      />
-      <path d="M13 6l7 8M20 6l-7 8" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-    </svg>
   );
 }

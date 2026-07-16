@@ -2,6 +2,8 @@
 
 import { Suspense, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { X, CaretDown, Check } from "@phosphor-icons/react/ssr";
+import { CenteredPage } from "@/components/layout/centered-page";
 import { AvatarCircle } from "@/components/ui/avatar-circle";
 import { cn } from "@/lib/cn";
 
@@ -25,13 +27,19 @@ function PaymentDetailsForm() {
   const [selectedContact, setSelectedContact] = useState(SUGGESTED_CONTACTS[0].cashtag);
 
   return (
-    <div className="mx-auto flex min-h-dvh max-w-md flex-col bg-bg-card px-6 pt-4">
-      <div className="flex items-center justify-between">
-        <button type="button" onClick={() => router.back()} aria-label="Close" className="text-2xl text-text-primary">
-          ×
+    <CenteredPage bgClassName="bg-bg-card">
+      <div className="flex items-center justify-between gap-2">
+        <button type="button" onClick={() => router.back()} aria-label="Close" className="shrink-0 text-text-primary">
+          <X size={20} weight="bold" />
         </button>
-        <span className="text-lg font-bold text-text-primary">${amount} Bank of America ⌄</span>
-        <button type="button" className="rounded-full bg-cta-black px-4 py-1.5 text-sm font-bold text-white">
+        <span className="flex items-center gap-1 whitespace-nowrap text-base font-bold text-text-primary sm:text-lg">
+          ${amount} Bank of America
+          <CaretDown size={14} />
+        </span>
+        <button
+          type="button"
+          className="shrink-0 rounded-full bg-cta-black px-4 py-1.5 text-sm font-bold text-white"
+        >
           Pay
         </button>
       </div>
@@ -60,7 +68,7 @@ function PaymentDetailsForm() {
         </label>
       </div>
 
-      <div className="flex items-center gap-3 py-4">
+      <div className="flex flex-wrap items-center gap-2 py-4">
         <span className="text-lg text-text-secondary">Send as</span>
         {SEND_AS_OPTIONS.map((option) => (
           <button
@@ -68,13 +76,13 @@ function PaymentDetailsForm() {
             type="button"
             onClick={() => setSendAs(option)}
             className={cn(
-              "rounded-full px-4 py-2 text-sm font-semibold",
+              "flex items-center gap-1 whitespace-nowrap rounded-full px-4 py-2 text-sm font-semibold",
               sendAs === option ? "text-white" : "bg-bg-page text-text-primary",
             )}
             style={sendAs === option ? { backgroundColor: "var(--color-brand-green)" } : undefined}
           >
             {option}
-            {option !== "Cash" && " ⌄"}
+            {option !== "Cash" && <CaretDown size={12} />}
           </button>
         ))}
       </div>
@@ -102,13 +110,13 @@ function PaymentDetailsForm() {
                 )}
                 style={selected ? { backgroundColor: "var(--color-brand-green)" } : undefined}
               >
-                {selected && "✓"}
+                {selected && <Check size={14} weight="bold" color="white" />}
               </span>
             </button>
           );
         })}
       </div>
-    </div>
+    </CenteredPage>
   );
 }
 

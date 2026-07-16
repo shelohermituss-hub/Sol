@@ -2,16 +2,17 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { Bell, Briefcase } from "@phosphor-icons/react/ssr";
 import { Header } from "@/components/ui/header";
 import { Sparkline } from "@/components/ui/sparkline";
-import { BottomTabBar } from "@/components/layout/bottom-tab-bar";
+import { AppShell } from "@/components/layout/app-shell";
 import { STOCKS } from "@/lib/stocks-data";
 
 const FEATURED = ["nike", "ge", "coca-cola", "walmart"];
 
 const CATEGORIES = [
-  { label: "Banking & Finance", bg: "#C1622D" },
-  { label: "Business Services", bg: "#C79A5B" },
+  { label: "Banking & Finance", bg: "var(--color-category-banking)" },
+  { label: "Business Services", bg: "var(--color-category-business)" },
 ];
 
 // Écran 6.3/6.4 — Onglet Stocks (une seule page scrollable).
@@ -20,10 +21,11 @@ export default function StocksPage() {
   const router = useRouter();
 
   return (
-    <div className="mx-auto flex min-h-dvh max-w-md flex-col bg-bg-card px-6 pt-4">
+    <AppShell bgClassName="bg-bg-card">
+      <div className="px-6 pt-4 md:px-0 md:pt-0">
       <Header title="Stocks" onBack={() => router.push("/")} />
       <div className="mt-2 flex justify-end">
-        <BellIcon />
+        <Bell size={22} style={{ color: "var(--color-accent-purple)" }} />
       </div>
 
       <input
@@ -75,7 +77,7 @@ export default function StocksPage() {
             className="flex h-28 w-32 shrink-0 flex-col items-center justify-center gap-2 rounded-2xl text-center text-white"
             style={{ backgroundColor: c.bg }}
           >
-            <BriefcaseIcon />
+            <Briefcase size={24} color="white" />
             <span className="text-sm font-semibold">{c.label}</span>
           </div>
         ))}
@@ -97,32 +99,8 @@ export default function StocksPage() {
         <span className="text-text-secondary">↓ 1.70%</span>
       </Link>
 
-      <div className="flex-1" />
-      <BottomTabBar />
-    </div>
-  );
-}
-
-function BellIcon() {
-  return (
-    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true" style={{ color: "var(--color-accent-purple)" }}>
-      <path
-        d="M11 2a5 5 0 00-5 5v3.5L4 14h14l-2-3.5V7a5 5 0 00-5-5z"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinejoin="round"
-      />
-      <path d="M9 17a2 2 0 004 0" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-function BriefcaseIcon() {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <rect x="3" y="8" width="18" height="12" rx="2" stroke="white" strokeWidth="1.6" />
-      <path d="M8 8V6a2 2 0 012-2h4a2 2 0 012 2v2" stroke="white" strokeWidth="1.6" />
-    </svg>
+      </div>
+    </AppShell>
   );
 }
 
