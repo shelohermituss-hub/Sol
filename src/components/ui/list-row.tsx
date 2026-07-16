@@ -12,6 +12,8 @@ type ListRowProps = useRender.ComponentProps<"div"> & {
   trailing?: React.ReactNode
   /** Affiche un chevron de navigation à droite (ligne cliquable menant à un sous-écran). */
   showChevron?: boolean
+  /** "circle" (défaut, buts/comptes) ou "square" (badges colorés, articles "More from Oportun"). */
+  iconVariant?: "circle" | "square"
 }
 
 // Ligne de liste récurrente : icône circulaire + titre/sous-titre + élément
@@ -26,6 +28,7 @@ function ListRow({
   subtitle,
   trailing,
   showChevron,
+  iconVariant = "circle",
   render,
   ...props
 }: ListRowProps) {
@@ -38,13 +41,18 @@ function ListRow({
         children: (
           <>
             {icon && (
-              <span className="flex size-14 shrink-0 items-center justify-center rounded-full border border-neutral-200">
+              <span
+                className={cn(
+                  "flex size-14 shrink-0 items-center justify-center overflow-hidden",
+                  iconVariant === "circle" ? "rounded-full border border-neutral-200" : "rounded-2xl"
+                )}
+              >
                 {icon}
               </span>
             )}
             <span className="flex min-w-0 flex-1 flex-col">
-              <span className="truncate font-heading text-[17px] font-bold text-ink">{title}</span>
-              {subtitle && <span className="truncate text-[15px] text-neutral-500">{subtitle}</span>}
+              <span className="font-heading text-[17px] font-bold text-ink">{title}</span>
+              {subtitle && <span className="text-[15px] text-neutral-500">{subtitle}</span>}
             </span>
             {trailing && <span className="shrink-0 font-heading text-[17px] font-bold text-ink">{trailing}</span>}
             {showChevron && <CaretRight className="size-4 shrink-0 text-ink" />}

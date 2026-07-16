@@ -33,12 +33,35 @@
 | 6 | Home / dashboard (post-login) | ⬜ |
 
 ### Home (5 captures)
-| # | Écran | Statut |
-|---|---|---|
-| 0 | Onglet "Set & Save" (vide) | ⬜ |
-| 1 | Onglet "Home" (vide, $0.00) | ⬜ |
-| 2 | Onglet "Home" (rempli, $3.00, tri par échéance) | ⬜ |
-| 3-4 | Home scrollé — carte parrainage + "More from Oportun" + footer légal | ⬜ |
+| # | Écran | Route | Statut |
+|---|---|---|---|
+| 0 | Onglet "Set & Save" (vide) | `/set-and-save` | 🟡 (état rempli construit, pas l'état $0 séparément — mêmes composants, données à zéro) |
+| 1 | Onglet "Home" (vide, $0.00) | `/` | 🟡 (idem) |
+| 2 | Onglet "Home" (rempli, $3.00, tri par échéance) | `/` | 🟡 |
+| 3-4 | Home scrollé — carte parrainage + "More from Oportun" + footer légal | `/` | 🟡 |
+
+🟡 = codé + comparé visuellement (capture Playwright) contre `design-refs/`,
+match proche. Écarts connus : icônes de but (Rainy Day/Emergency
+cushion/Cell phone) et icônes "More from Oportun" (jauge crédit/tirelire) en
+Phosphor coloré, pas les illustrations plates fidèles au design (cf.
+design-tokens.md, section Icônes — recréation SVG prévue plus tard). Bouton
+"Get $5", icône profil, "Create goal", "Transfer money", "Invite friends" et
+liens "Click here"/articles "More from Oportun" navigent vers des écrans pas
+encore construits — inertes pour l'instant (pattern cohérent avec le reste du
+projet). Montants/comptes en dur (`src/lib/goals-data.ts`), pas de vraies
+données.
+
+**Composant ajouté** : `ListRow` étend un prop `iconVariant` ("circle" |
+"square") pour les badges colorés des articles "More from Oportun".
+`GoalIcon` (`components/sections/goal-icon.tsx`) mappe les buts à une icône
+Phosphor colorée. `src/lib/goals-data.ts` centralise les buts, partagés entre
+`/` et `/set-and-save`.
+
+**Bug corrigé en cours de route** : `ListRow` tronquait titres/sous-titres
+(`truncate`) au lieu de les laisser passer à la ligne — cassait "Emergency
+cushion", "Low balance protection" et les titres d'articles à 375px. Corrigé
+en retirant `truncate` (le composant est utilisé par plusieurs futurs écrans,
+fix global).
 
 ### Creating a goal (home) (12 captures)
 | # | Écran | Statut |
@@ -80,10 +103,15 @@
 | 7 | Home mis à jour (soldes actualisés) | ⬜ |
 
 ### Set & save (3 captures)
-| # | Écran | Statut |
-|---|---|---|
-| 0 | Dashboard Set & Save (état $0) | ⬜ |
-| 1-2 | Scrollé — liste des buts + ligne "Low balance protection" (toggle) | ⬜ |
+| # | Écran | Route | Statut |
+|---|---|---|---|
+| 0 | Dashboard Set & Save (état $0) | `/set-and-save` | 🟡 |
+| 1-2 | Scrollé — liste des buts + ligne "Low balance protection" (toggle) | `/set-and-save` | 🟡 |
+
+Même page que "Home #0" ci-dessus (états de scroll de `/set-and-save`), pas de
+nouvel écran distinct. Ligne "Low balance protection" : pastille verte "On" +
+chevron construits, mais navigue vers un écran de réglage pas encore
+construit (`/set-and-save/low-balance-protection`, inerte pour l'instant).
 
 ### Changing an email (6 captures)
 | # | Écran | Statut |
