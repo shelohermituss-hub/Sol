@@ -20,8 +20,12 @@ export default function SetAndSavePage() {
     <div className="mx-auto flex min-h-dvh w-full max-w-md flex-col">
       <div className="flex-1 px-6 pt-4">
         <div className="flex items-center justify-between">
-          <UserCircle className="size-8 text-ink" />
-          <Gear className="size-6 text-ink" />
+          <Link href="/profile" aria-label="Profile & settings" className="text-ink">
+            <UserCircle className="size-8" />
+          </Link>
+          <Link href="/profile" aria-label="Settings" className="text-ink">
+            <Gear className="size-6" />
+          </Link>
         </div>
 
         <h1 className="mt-6 font-heading text-[32px] font-bold text-ink">Set &amp; Save™</h1>

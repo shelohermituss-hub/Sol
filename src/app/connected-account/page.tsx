@@ -1,10 +1,15 @@
 "use client"
 
+import * as React from "react"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { ArrowDown, Bank, CaretRight } from "@phosphor-icons/react/ssr"
 
 import { NavHeader, NavBackButton } from "@/components/layout/nav-header"
+import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet"
+import { Button } from "@/components/ui/button"
 import { useAccount } from "@/lib/account-context"
+import { useGoals } from "@/lib/goals-context"
 import { ACCOUNT_LAST_SYNCED, ACCOUNT_SAFE_SAVING_LEVEL, ACCOUNT_TRANSACTIONS } from "@/lib/account-data"
 
 // Détail du compte connecté. Cf. design-refs/
@@ -15,11 +20,20 @@ import { ACCOUNT_LAST_SYNCED, ACCOUNT_SAFE_SAVING_LEVEL, ACCOUNT_TRANSACTIONS } 
 // le logo Bank of America (marque déposée, cf. ASSETS-A-REMPLACER.md).
 // "Safe saving level" n'a pas d'écran cible construit (pas dans les 15
 // flows documentés), reste décoratif malgré le chevron affiché dans la
-// capture. "Remove account" mène au flux "Removing an account" (pas
-// encore construit), reste décoratif pour l'instant.
+// capture. "Remove account" ouvre la sheet de confirmation du flux
+// "Removing an account" (design-refs/Oportun_iOS_Removing_an_account/
+// Oportun iOS Removing an account 1.png).
 export default function ConnectedAccountPage() {
-  const { accountName, availableBalance } = useAccount()
+  const router = useRouter()
+  const { accountName, availableBalance, removeAccount } = useAccount()
+  const { totalSaved } = useGoals()
   const preview = ACCOUNT_TRANSACTIONS[0]
+  const [removeSheetOpen, setRemoveSheetOpen] = React.useState(false)
+
+  function handleRemove() {
+    removeAccount()
+    router.push("/profile/connected-accounts?removed=1")
+  }
 
   return (
     <div className="mx-auto flex min-h-dvh w-full max-w-md flex-col px-6 pt-4">
@@ -60,7 +74,13 @@ export default function ConnectedAccountPage() {
         <CaretRight className="size-5 shrink-0 text-ink" />
       </div>
 
-      <p className="mt-4 text-[17px] font-bold text-brand-green">Remove account</p>
+      <button
+        type="button"
+        onClick={() => setRemoveSheetOpen(true)}
+        className="text-left text-[17px] font-bold text-brand-green"
+      >
+        Remove account
+      </button>
 
       <h2 className="mt-8 font-heading text-[20px] font-bold text-ink">Recent activity</h2>
       <Link href="/connected-account/activity" className="flex items-center gap-3 py-4">
@@ -72,6 +92,28 @@ export default function ConnectedAccountPage() {
           -${Math.abs(preview.amount).toLocaleString("en-US", { minimumFractionDigits: 2 })}
         </span>
       </Link>
+
+      <Sheet open={removeSheetOpen} onOpenChange={setRemoveSheetOpen}>
+        <SheetContent>
+          <SheetTitle>Remove account?</SheetTitle>
+          <p className="text-[15px] text-neutral-500">
+            This means Oportun won&apos;t be able to move money to or from this account.
+          </p>
+          <p className="text-[15px] text-neutral-500">
+            We will initiate a transfer of ${totalSaved.toFixed(2)} to your {accountName} account shortly. Please
+            note, it may take 3-5 days for the transfer to complete and for the money to be available in your
+            account.
+          </p>
+          <div className="flex gap-3">
+            <Button variant="secondary" className="flex-1" onClick={() => setRemoveSheetOpen(false)}>
+              Cancel
+            </Button>
+            <Button className="flex-1" onClick={handleRemove}>
+              Remove
+            </Button>
+          </div>
+        </SheetContent>
+      </Sheet>
     </div>
   )
 }

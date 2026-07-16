@@ -17,17 +17,18 @@ import { CreatedGoalBanner } from "@/components/sections/created-goal-banner"
 // Écran "Home" (onglet 1/2), route /home — la racine "/" redirige vers
 // /onboarding pour simuler un vrai premier lancement d'app (cf.
 // src/app/page.tsx). Cf. design-refs/Oportun_iOS_Home/
-// Invite friends/Profile & settings pas encore construits — le bouton
-// "Get $5" et l'icône profil restent décoratifs pour l'instant.
+// Invite friends pas encore construit — le bouton "Get $5" reste décoratif.
 export default function HomePage() {
   const { goals, totalSaved } = useGoals()
-  const { availableBalance } = useAccount()
+  const { availableBalance, removed: accountRemoved } = useAccount()
 
   return (
     <div className="mx-auto flex min-h-dvh w-full max-w-md flex-col">
       <div className="flex-1 px-6 pt-4">
         <div className="flex items-center justify-between">
-          <UserCircle className="size-8 text-ink" />
+          <Link href="/profile" aria-label="Profile & settings" className="text-ink">
+            <UserCircle className="size-8" />
+          </Link>
           <Button size="default" className="h-9 px-4 text-[15px]">
             Get $5
           </Button>
@@ -105,16 +106,20 @@ export default function HomePage() {
           )}
         </Card>
 
-        <h2 className="mt-8 font-heading text-[20px] font-bold text-ink">Connected account</h2>
-        <div className="mt-2">
-          <ListRow
-            icon={<Bank className="size-6 text-ink" />}
-            title="Bank of America"
-            subtitle="Checking ••••"
-            trailing={`$${availableBalance.toLocaleString("en-US", { minimumFractionDigits: 2 })}`}
-            render={<Link href="/connected-account" />}
-          />
-        </div>
+        {!accountRemoved && (
+          <>
+            <h2 className="mt-8 font-heading text-[20px] font-bold text-ink">Connected account</h2>
+            <div className="mt-2">
+              <ListRow
+                icon={<Bank className="size-6 text-ink" />}
+                title="Bank of America"
+                subtitle="Checking ••••"
+                trailing={`$${availableBalance.toLocaleString("en-US", { minimumFractionDigits: 2 })}`}
+                render={<Link href="/connected-account" />}
+              />
+            </div>
+          </>
+        )}
 
         <Card className="mt-8 items-start gap-4">
           <Image

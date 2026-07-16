@@ -252,13 +252,30 @@ chevron construits, mais navigue vers un écran de réglage pas encore
 construit (`/set-and-save/low-balance-protection`, inerte pour l'instant).
 
 ### Changing an email (6 captures)
-| # | Écran | Statut |
-|---|---|---|
-| 0 | Contact info (point d'entrée) | ⬜ |
-| 1-2 | Formulaire changement email (vide → rempli) | ⬜ |
-| 3 | Écran "Verify your email" (lien envoyé) | ⬜ |
-| 4 | Contact info + bandeau succès | ⬜ |
-| 5 | Contact info (état stabilisé) | ⬜ |
+| # | Écran | Route | Statut |
+|---|---|---|---|
+| 0 | Contact info (point d'entrée) | `/profile/contact-info` | 🟡 |
+| 1-2 | Formulaire changement email (vide → rempli) | `/profile/contact-info/change-email` | 🟡 |
+| 3 | Écran "Verify your email" (lien envoyé) | idem (état local) | 🟡 |
+| 4 | Contact info + bandeau succès | `/profile/contact-info?updated=1` | 🟡 |
+| 5 | Contact info (état stabilisé) | `/profile/contact-info` | 🟡 |
+
+🟡 = codé + comparé visuellement (capture Playwright, parcours complet
+cliqué) contre `design-refs/`. "Change email" et "Verify your email" sont
+un seul écran à deux états locaux (`step`), pas deux routes — le titre de
+la barre de nav et le contenu changent, fidèle aux captures qui montrent
+la même structure de navigation. Aucune capture ne montre de bouton pour
+continuer depuis "Verify your email" (l'utilisateur cliquerait le lien
+reçu par email dans la vraie app) — auto-avance après 2s, même pattern que
+le splash `/onboarding` et l'écran de transition "Completing account
+setup". "Resend" et "Change" sur Phone n'ont pas de comportement démontré/
+d'écran cible construit, restent décoratifs.
+
+**État partagé ajouté** : `ProfileProvider`/`useProfile`
+(`src/lib/profile-context.tsx`), posé dans `layout.tsx`. Nom complet et
+téléphone statiques (pas de flux "Changing a name"/"Changing a phone"
+documenté) ; seul l'email est éditable et persiste réellement après le
+cycle changement → vérification → retour.
 
 ### Connected account detail (4 captures)
 | # | Écran | Route | Statut |
@@ -299,18 +316,38 @@ immédiatement sur `/connected-account` au retour. Champ texte simple
 pas, contrairement aux autres formulaires de l'app.
 
 ### Removing an account (4 captures)
-| # | Écran | Statut |
-|---|---|---|
-| 0 | Détail compte (point d'entrée) | ⬜ |
-| 1 | Bottom sheet confirmation "Remove account?" | ⬜ |
-| 2 | Liste comptes + bandeau succès "Account removed!" | ⬜ |
-| 3 | Liste comptes (état vide) | ⬜ |
+| # | Écran | Route | Statut |
+|---|---|---|---|
+| 0 | Détail compte (point d'entrée) | `/connected-account` | 🟡 |
+| 1 | Bottom sheet confirmation "Remove account?" | idem (sheet) | 🟡 |
+| 2 | Liste comptes + bandeau succès "Account removed!" | `/profile/connected-accounts?removed=1` | 🟡 |
+| 3 | Liste comptes (état vide) | `/profile/connected-accounts` | 🟡 |
+
+🟡 = codé + comparé visuellement (capture Playwright, cycle complet
+suppression → bandeau → état stabilisé, et vérifié que la section
+"Connected account" disparaît de Home) contre `design-refs/`. Nouvelle
+route `/profile/connected-accounts` (liste, pluriel) distincte de
+`/connected-account` (détail, un seul compte dans cette reproduction) —
+la ligne "Bank of America" y disparaît une fois `useAccount().removed`
+vrai, ne laissant que "Add account" (décoratif, pas de flux d'ajout
+construit). Le montant du transfert de retour dans la sheet utilise le
+vrai `totalSaved` de `useGoals()`, pas le "$0.00" figé de la capture.
 
 ### Contact information (2 captures)
-| # | Écran | Statut |
-|---|---|---|
-| 0 | Menu "Profile & settings" | ⬜ |
-| 1 | Contact info (détail) | ⬜ |
+| # | Écran | Route | Statut |
+|---|---|---|---|
+| 0 | Menu "Profile & settings" | `/profile` | 🟡 |
+| 1 | Contact info (détail) | `/profile/contact-info` | 🟡 |
+
+🟡 = codé + comparé visuellement (capture Playwright) contre
+`design-refs/`. Construit comme point d'entrée nécessaire du flux
+"Changing an email". Icônes profil (Home) et réglages (Set & Save),
+jusqu'ici décoratives, mènent maintenant à `/profile`. Seules les lignes
+"Contact information" et "Connected accounts" mènent à un écran construit
+— "Subscription", "Notifications", "Security", "Link my loan", "Set &
+Save statements", "ACH & autopay agreements", "Legal notices" ne sont pas
+dans les 15 flows documentés (ou pas encore construits), restent
+décoratives.
 
 ### Subscription (3 captures)
 | # | Écran | Statut |

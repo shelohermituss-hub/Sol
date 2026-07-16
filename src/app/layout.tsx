@@ -4,6 +4,7 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import { GoalsProvider } from "@/lib/goals-context";
 import { AccountProvider } from "@/lib/account-context";
+import { ProfileProvider } from "@/lib/profile-context";
 
 // Police : diagnostic visuel à partir des screenshots (pas de fichier de
 // police fourni) — Poppins pour les titres, Inter pour le corps de texte.
@@ -35,7 +36,9 @@ export default function RootLayout({
     <html lang="en" className={cn("h-full antialiased", poppins.variable, inter.variable)}>
       <body className="min-h-full flex flex-col">
         <GoalsProvider>
-          <AccountProvider>{children}</AccountProvider>
+          <AccountProvider>
+            <ProfileProvider>{children}</ProfileProvider>
+          </AccountProvider>
         </GoalsProvider>
       </body>
     </html>
