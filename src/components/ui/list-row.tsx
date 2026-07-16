@@ -5,8 +5,9 @@ import { CaretRight, CheckCircle, WarningCircle } from "@phosphor-icons/react"
 
 import { cn } from "@/lib/utils"
 
-type ListRowProps = useRender.ComponentProps<"div"> & {
+type ListRowProps = Omit<useRender.ComponentProps<"div">, "title"> & {
   icon?: React.ReactNode
+  /** ReactNode (pas seulement string) — masque volontairement l'attribut HTML natif `title` (info-bulle) du <div>, jamais utilisé ici. */
   title: React.ReactNode
   subtitle?: React.ReactNode
   trailing?: React.ReactNode
