@@ -28,7 +28,7 @@ Python/Pillow) + Figma (`iOPJoJTAYINs7qy4xcn1fs`, node `4-6`, page "Transactions
 | Token | Valeur | Usage |
 |---|---|---|
 | `--color-brand-green` | `#00E010` (splash) / `#00D450` (CTA pill) / `#00B440` (fond plein écran Pay) | Couleur signature Cash App — 3 nuances selon contexte (splash vs bouton vs fond) |
-| `--color-cta-black` | `#000000` | Bouton principal (CTA actif) dans le flow d'onboarding "classique" |
+| `--color-cta-black` | `#000000` | **CTA par défaut retenu** pour tout le flow Onboarding (module 1 + écrans additionnels du module 2). Le CTA vert du module 2 (`02-onboarding-kyc-variant/`) est un thème alternatif, non retenu — conservé en référence uniquement. |
 | `--color-accent-card-lime` | `#BCE828` / `#CCFC2C` | Carte Cash App Card (illustration + bannière promo) |
 | `--color-accent-blue` | `#2C64D8` (bouton) / `#60D0F8`–`#4CA4F8` (illustration Bitcoin) | Actions liées à Bitcoin / vérification d'identité |
 | `--color-accent-purple` | `#8420F4` | Actions liées aux Stocks ("Buy stocks", graphe Invest) |

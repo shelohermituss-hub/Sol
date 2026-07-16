@@ -1,26 +1,51 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Neutres */
+  --color-bg-page: #f4f4f4;
+  --color-bg-card: #fcfcfc;
+  --color-bg-page-alt: #f0f0f0;
+  --color-border-input: #949494;
+  --color-text-primary: #181818;
+  --color-text-secondary: #686868;
+  --color-disabled-bg: #b0b0b0;
+  --color-pill-secondary-bg: #e8e8e8;
+
+  /* Marque / accents — voir src/styles/design-tokens.md */
+  --color-brand-green: #00d450;
+  --color-brand-green-splash: #00e010;
+  --color-brand-green-surface: #00b440;
+  --color-cta-black: #000000;
+  --color-accent-card-lime: #cce828;
+  --color-accent-blue: #2c64d8;
+  --color-accent-purple: #8420f4;
+  --color-savings-green: #7ccc60;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-bg-page: var(--color-bg-page);
+  --color-bg-card: var(--color-bg-card);
+  --color-bg-page-alt: var(--color-bg-page-alt);
+  --color-border-input: var(--color-border-input);
+  --color-text-primary: var(--color-text-primary);
+  --color-text-secondary: var(--color-text-secondary);
+  --color-disabled-bg: var(--color-disabled-bg);
+  --color-pill-secondary-bg: var(--color-pill-secondary-bg);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-brand-green: var(--color-brand-green);
+  --color-brand-green-splash: var(--color-brand-green-splash);
+  --color-brand-green-surface: var(--color-brand-green-surface);
+  --color-cta-black: var(--color-cta-black);
+  --color-accent-card-lime: var(--color-accent-card-lime);
+  --color-accent-blue: var(--color-accent-blue);
+  --color-accent-purple: var(--color-accent-purple);
+  --color-savings-green: var(--color-savings-green);
+
+  --font-sans: system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-bg-page);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
 }

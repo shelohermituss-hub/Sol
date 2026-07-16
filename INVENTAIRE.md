@@ -96,31 +96,59 @@ tab bar (Home, Card, Pay `$`, Search, Activity).
 | 7.5 | Account & Settings (aide) | `account-settings-help.png` | ⬜ |
 
 ## Composants UI de base (transverses à tous les modules)
-- ⬜ Button (pill : primaire, secondaire, désactivé, tailles)
-- ⬜ TextInput (avec/sans label, bordure, focus state)
-- ⬜ NumericKeypad (thème clair / thème vert plein écran)
-- ⬜ PinDots
-- ⬜ Card (balance card, shortcut card, list card)
-- ⬜ BottomSheet (grabber + overlay)
-- ⬜ BottomTabBar (5 icônes)
-- ⬜ Header (back / close / help)
-- ⬜ SuccessState (icône check + titre + CTA)
-- ⬜ ListRow (icône + label + chevron/switch, pour Account & Settings)
-- ⬜ AvatarCircle
+🟡 = première version codée + smoke-test visuel via `/styleguide`, pas encore
+validée pixel-perfect contre un écran composé précis (viendra en construisant
+les écrans du Module 1).
 
-## Questions ouvertes (à valider avant Phase 3)
-1. **Module 2 (KYC/variante)** : intégrer ces écrans comme continuation du flow
-   d'onboarding principal (ex. vérification d'identité déclenchée avant Bitcoin),
-   ou les traiter comme des écrans standalone à part ? Le CTA vert de ce lot
-   diffère du CTA noir du module 1 — lequel doit être la référence par défaut ?
-2. **Bitcoin** : présent comme raccourci sur Money home et dans le module KYC,
-   mais aucun écran dédié (achat, portefeuille) n'a été fourni — à ajouter au
-   périmètre ou explicitement exclu ?
-3. **Card (onglet "Card" de la bottom tab bar)** : aucune capture fournie — à
-   inclure ?
-4. **Search / Activity** (2 derniers onglets de la bottom tab bar) : aucune
-   capture fournie — à inclure ?
-5. Le fichier Figma lié contient aussi une section **"Landing Page"** (Frame 13,
-   node `4:219`) au sens Figma du terme — à ne pas confondre avec le module Home
-   ci-dessus. Vu le quota Figma épuisé, son contenu réel n'a pas pu être vérifié.
-   Si elle diffère de Home/Money, prévoir un aller Figma dédié en Phase 1.
+- 🟡 Button (pill : primaire, secondaire, désactivé) — `src/components/ui/button.tsx`
+- 🟡 TextInput (avec/sans label) — `src/components/ui/text-input.tsx`
+- 🟡 NumericKeypad (thème clair / thème vert plein écran) — `src/components/ui/numeric-keypad.tsx`
+- 🟡 PinDots — `src/components/ui/pin-dots.tsx`
+- 🟡 Card — `src/components/ui/card.tsx`
+- 🟡 BottomSheet (grabber + overlay) — `src/components/ui/bottom-sheet.tsx`
+- 🟡 BottomTabBar (5 icônes, placé dans `components/layout/` par cohérence avec
+  la structure CLAUDE.md) — `src/components/layout/bottom-tab-bar.tsx`
+- 🟡 Header (back / close / help) — `src/components/ui/header.tsx`
+- 🟡 SuccessState (icône check + titre) — `src/components/ui/success-state.tsx`
+- 🟡 ListRow (icône + label + chevron) — `src/components/ui/list-row.tsx`
+- 🟡 AvatarCircle — `src/components/ui/avatar-circle.tsx`
+
+⚠️ Icônes (chevron, close, backspace, tab bar) : dessinées en SVG inline
+approximatif faute d'accès aux vrais assets Figma (quota épuisé) — à remplacer
+par les icônes exportées de Figma (`download_assets`) dès que possible, par
+`CLAUDE.md`.
+
+Page de vérification temporaire : `src/app/styleguide/page.tsx` (à supprimer
+une fois tous les écrans construits).
+
+## Décisions (validées avec l'utilisateur)
+1. **Module 2 (KYC/variante)** → **thème alternatif**, pas une continuation du
+   flow principal. Le module 1 (CTA noir) reste la référence par défaut pour
+   tous les écrans qu'il couvre déjà (email, OTP, cashtag, nom). Les écrans du
+   module 2 qui n'ont pas d'équivalent dans le module 1 (vérification
+   d'identité, code postal) seront ajoutés au flow principal **restylés en CTA
+   noir**, pas en vert — le vert du module 2 n'est pas repris.
+2. **Bitcoin** → raccourci visuel uniquement pour le moment (carte "Buy bitcoin"
+   sur Money home). Pas d'écrans dédiés (achat, portefeuille) dans ce périmètre.
+3. **Card** (onglet bottom tab bar) → **inclus**. ⚠️ Aucune capture fournie —
+   bloqué tant que des assets ne sont pas fournis (screenshot et/ou accès Figma
+   à ce node).
+4. **Search** (onglet bottom tab bar) → **inclus**. ⚠️ Aucune capture fournie —
+   même blocage que Card.
+5. **Activity** (onglet bottom tab bar) → **inclus**. ⚠️ Aucune capture fournie —
+   même blocage que Card.
+
+## Points encore bloqués (assets manquants)
+- Écrans **Card**, **Search**, **Activity** : aucun screenshot fourni. Le MCP
+  Figma reste en quota épuisé (`Starter` plan) au moment de la reprise — impossible
+  de les récupérer via `get_screenshot`/`get_design_context` pour l'instant.
+  → Prochaine étape possible : fournir des screenshots (comme pour les modules
+  précédents), ou attendre/relancer le quota Figma, ou passer à un plan Figma
+  supérieur.
+- Section Figma **"Landing Page"** (Frame 13, node `4:219`) : toujours pas
+  vérifiée, même blocage de quota. À confirmer si elle recoupe le module Home
+  actuel ou si elle est distincte (à traiter alors comme module 8).
+
+Ces 4 points sont mis de côté ; ils ne bloquent pas le démarrage de l'Étape 1
+(composants UI de base) ni du Module 1 (Onboarding), qui disposent de tous
+leurs assets.
