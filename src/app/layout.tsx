@@ -1,9 +1,22 @@
 import type { Metadata } from "next";
+import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
 
-// Police : pile système en attendant la confirmation de la police exacte via
-// Figma (get_variable_defs / inspection des text nodes) — voir
-// src/styles/design-tokens.md, section Typographie.
+// Police : diagnostic visuel à partir des screenshots (pas de fichier de
+// police fourni) — Poppins pour les titres, Inter pour le corps de texte.
+// Voir src/styles/design-tokens.md, section Typographie, pour le détail du
+// diagnostic et les instructions de remplacement si un brand book officiel
+// devient disponible.
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+  variable: "--font-poppins",
+});
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+});
 
 export const metadata: Metadata = {
   title: "Sol",
@@ -16,7 +29,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full antialiased">
+    <html lang="en" className={`h-full antialiased ${poppins.variable} ${inter.variable}`}>
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );

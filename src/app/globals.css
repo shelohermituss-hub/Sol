@@ -2,20 +2,47 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #000000;
+
+  /* Neutres */
+  --color-ink: #000000;
+  --color-paper: #ffffff;
+  --color-neutral-200: #e5e5e5;
+  --color-neutral-500: #6b6b6b;
+
+  /* Marque */
+  --color-brand-green: #0b9b3c;
+  --color-brand-blue: #009adc;
+  --color-brand-blue-tint: #e6f5fb;
+  --color-accent-peach: #ffc6ac;
+  --color-accent-mint: #e7f9ec;
+
+  /* Rayons */
+  --radius-input: 14px;
+  --radius-card: 16px;
+  --radius-sheet: 24px;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: system-ui, -apple-system, "Segoe UI", sans-serif;
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-ink: var(--color-ink);
+  --color-paper: var(--color-paper);
+  --color-neutral-200: var(--color-neutral-200);
+  --color-neutral-500: var(--color-neutral-500);
+  --color-brand-green: var(--color-brand-green);
+  --color-brand-blue: var(--color-brand-blue);
+  --color-brand-blue-tint: var(--color-brand-blue-tint);
+  --color-accent-peach: var(--color-accent-peach);
+  --color-accent-mint: var(--color-accent-mint);
+
+  --radius-input: var(--radius-input);
+  --radius-card: var(--radius-card);
+  --radius-sheet: var(--radius-sheet);
+
+  --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
+  --font-heading: var(--font-poppins), var(--font-inter), system-ui, sans-serif;
 }
 
 body {
