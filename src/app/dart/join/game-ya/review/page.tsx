@@ -1,0 +1,90 @@
+"use client"
+
+import { Suspense } from "react"
+import { useRouter, useSearchParams } from "next/navigation"
+import { ArrowLeft } from "@phosphor-icons/react/ssr"
+
+import { NavHeader } from "@/components/layout/nav-header"
+import { Button } from "@/components/ui/button"
+import { useDart } from "@/lib/dart-context"
+
+// Étape 4/4 : révision (écran non capturé dans app-cible/, construit par
+// analogie avec la sheet de révision "Creating a goal" de l'app 1 — cf.
+// FONCTIONNEL.md, décisions Étape 1). "Confirm" ajoute le circle à "Your
+// Circles" puis enchaîne sur Payout Method, comme pour tout circle
+// nouvellement rejoint.
+function ReviewJoinForm() {
+  const router = useRouter()
+  const params = useSearchParams()
+  const amount = Number(params.get("amount")) || 30000
+  const monthly = Number(params.get("monthly")) || 5000
+  const months = Number(params.get("months")) || 6
+  const date = params.get("date") ?? ""
+
+  const { addJoinedCircle } = useDart()
+
+  function handleConfirm() {
+    addJoinedCircle({
+      id: `circle-${Date.now()}`,
+      amount,
+      monthly,
+      totalMonths: months,
+      yourTurnIndex: Math.floor(months / 3),
+      startLabel: "Now",
+      endLabel: date || "—",
+      adminFees: Math.round(amount * 0.096),
+    })
+    router.push("/dart/payout-method")
+  }
+
+  return (
+    <div className="mx-auto flex min-h-dvh w-full max-w-md flex-col px-6 pt-4">
+      <NavHeader
+        leading={
+          <button type="button" onClick={() => router.back()} aria-label="Back" className="text-ink">
+            <ArrowLeft className="size-6" />
+          </button>
+        }
+        title="Review"
+      />
+
+      <h1 className="mt-6 font-heading text-[24px] font-bold text-ink">Review your circle</h1>
+
+      <div className="mt-6 rounded-card border border-neutral-200 px-5">
+        <div className="flex items-center justify-between border-b border-neutral-200 py-4">
+          <span className="text-[15px] text-neutral-500">Circle amount</span>
+          <span className="text-[15px] font-bold text-ink">{amount.toLocaleString("en-US")} MAD</span>
+        </div>
+        <div className="flex items-center justify-between border-b border-neutral-200 py-4">
+          <span className="text-[15px] text-neutral-500">Monthly pay-in</span>
+          <span className="text-[15px] font-bold text-ink">
+            {monthly.toLocaleString("en-US")} MAD for {months} months
+          </span>
+        </div>
+        <div className="flex items-center justify-between py-4">
+          <span className="text-[15px] text-neutral-500">Slot</span>
+          <span className="text-[15px] font-bold text-ink">{date || "—"}</span>
+        </div>
+      </div>
+
+      <p className="mt-6 text-[13px] text-neutral-500">
+        By tapping Confirm, I <span className="font-bold text-brand-green">authorize</span> the recurring monthly
+        pay-in for this circle.
+      </p>
+
+      <div className="mt-auto pb-6">
+        <Button className="w-full" onClick={handleConfirm}>
+          Confirm &amp; join circle
+        </Button>
+      </div>
+    </div>
+  )
+}
+
+export default function ReviewJoinPage() {
+  return (
+    <Suspense fallback={null}>
+      <ReviewJoinForm />
+    </Suspense>
+  )
+}

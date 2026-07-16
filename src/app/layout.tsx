@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { GoalsProvider } from "@/lib/goals-context";
 import { AccountProvider } from "@/lib/account-context";
 import { ProfileProvider } from "@/lib/profile-context";
+import { DartProvider } from "@/lib/dart-context";
 
 // Police : diagnostic visuel à partir des screenshots (pas de fichier de
 // police fourni) — Poppins pour les titres, Inter pour le corps de texte.
@@ -37,7 +38,9 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         <GoalsProvider>
           <AccountProvider>
-            <ProfileProvider>{children}</ProfileProvider>
+            <ProfileProvider>
+              <DartProvider>{children}</DartProvider>
+            </ProfileProvider>
           </AccountProvider>
         </GoalsProvider>
       </body>
