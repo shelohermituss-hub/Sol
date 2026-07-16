@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link"
 import { useParams } from "next/navigation"
 import { ArrowDown, Gear, Info } from "@phosphor-icons/react/ssr"
 
@@ -11,13 +12,13 @@ import { useGoals } from "@/lib/goals-context"
 // Détail d'un but. Cf. design-refs/Oportun_iOS_Goal_detail/
 // Oportun iOS Goal detail 1.png (but simple, "Rainy Day") et 2.png (but
 // récurrent "Smart bill", "Cell phone" — carte fréquence/montant/échéance +
-// callout info, réservés aux buts `recurring`). "Add money" et l'icône
-// réglages n'ont pas d'écran cible construit (flux "Transferring money" pas
-// encore fait), restent décoratifs. Le solde affiché ($0.00 pour Rainy Day
-// et Cell phone dans la capture) diffère de l'état courant des buts —
-// cohérent avec les écarts déjà documentés entre captures Home (mêmes
-// buts, montants différents selon l'instantané de démo) : on affiche le
-// solde réel de `useGoals()`, pas le chiffre figé de cette capture précise.
+// callout info, réservés aux buts `recurring`). L'icône réglages n'a pas
+// d'écran cible construit, reste décorative. Le solde affiché ($0.00 pour
+// Rainy Day et Cell phone dans la capture) diffère de l'état courant des
+// buts — cohérent avec les écarts déjà documentés entre captures Home
+// (mêmes buts, montants différents selon l'instantané de démo) : on
+// affiche le solde réel de `useGoals()`, pas le chiffre figé de cette
+// capture précise.
 export default function GoalDetailPage() {
   const { goalId } = useParams<{ goalId: string }>()
   const { goals } = useGoals()
@@ -50,7 +51,12 @@ export default function GoalDetailPage() {
       <p className="mt-6 text-[15px] text-neutral-500">Current balance</p>
       <p className="font-heading text-[32px] font-bold text-ink">${goal.amount.toFixed(2)}</p>
 
-      <Button variant="secondary" className="mt-6 w-full">
+      <Button
+        variant="secondary"
+        className="mt-6 w-full"
+        nativeButton={false}
+        render={<Link href={`/transfer?to=${goal.id}`} />}
+      >
         Add money
       </Button>
 

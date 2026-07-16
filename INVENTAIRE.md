@@ -199,14 +199,46 @@ la première fois. Liens verts légaux (Privacy Policy, Plaid, Subscription
 Fee Agreement, etc.) sans écran cible construit, restent décoratifs.
 
 ### Transferring money (8 captures)
-| # | Écran | Statut |
-|---|---|---|
-| 0 | Home (point d'entrée) | ⬜ |
-| 1-2 | Sélection compte source/destination (vide → rempli) | ⬜ |
-| 3-4 | Saisie montant (clavier numérique, $0 → $1) | ⬜ |
-| 5 | Révision du transfert | ⬜ |
-| 6 | Confirmation "Transfer submitted!" | ⬜ |
-| 7 | Home mis à jour (soldes actualisés) | ⬜ |
+| # | Écran | Route | Statut |
+|---|---|---|---|
+| 0 | Home (point d'entrée) | `/home` | 🟡 |
+| 1-2 | Sélection compte source/destination (vide → rempli) | `/transfer` | 🟡 |
+| 3-4 | Saisie montant (clavier numérique, $0 → $1) | `/transfer/amount` | 🟡 |
+| 5 | Révision du transfert | `/transfer/review` | 🟡 |
+| 6 | Confirmation "Transfer submitted!" | `/transfer/submitted` | 🟡 |
+| 7 | Home mis à jour (soldes actualisés) | `/home` | 🟡 |
+
+🟡 = codé + comparé visuellement (capture Playwright, parcours complet
+cliqué de bout en bout, y compris vérification que les soldes bougent
+réellement) contre `design-refs/`. "From" n'a qu'une seule option dans
+cette reproduction (le compte bancaire connecté, seul compte du projet) —
+la sheet s'ouvre quand même pour rester fidèle à l'interaction montrée.
+"To" liste tous les buts existants (pas de transfert but→but ou vers le
+compte bancaire, non documenté dans les captures). "Make transfer" crédite
+réellement le but visé (`useGoals().addToGoalAmount`) et débite le solde du
+compte connecté (`useAccount().withdraw`) — vérifié sur Home, Set & Save et
+Connected account après un transfert. Icône de l'écran 6 approximée en
+Phosphor `PaperPlaneTilt` (pas d'équivalent exact au pictogramme de la
+capture).
+
+**Composant ajouté** : `NumericKeypad` (`components/ui/numeric-keypad.tsx`),
+clavier 1-9/./0/retour arrière, réutilisable pour de futurs écrans de
+saisie de montant.
+
+**État partagé étendu** : `useGoals()` gagne `addToGoalAmount(goalId,
+amount)` ; `useAccount()` gagne `availableBalance`/`withdraw(amount)`
+(remplace la constante statique `ACCOUNT_AVAILABLE_BALANCE`, désormais
+seulement la valeur de départ). Home et Connected account lisent le solde
+depuis le contexte.
+
+**Bug corrigé en cours de route** : `Button` stylait l'état `disabled`
+uniquement via le pseudo-sélecteur CSS `:disabled`, qui ne s'applique
+jamais à un `<a>` — un bouton désactivé combiné à `render={<Link .../>}`
+(`nativeButton={false}`) restait visuellement noir/actif alors que le clic
+était bien bloqué en pratique (Base UI pose `aria-disabled` sur les
+éléments non natifs). Ajouté les variantes `aria-disabled:*` en plus de
+`disabled:*` dans `buttonVariants` — fix global, affecte tous les futurs
+boutons-liens désactivés.
 
 ### Set & save (3 captures)
 | # | Écran | Route | Statut |

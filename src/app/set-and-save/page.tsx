@@ -29,7 +29,13 @@ export default function SetAndSavePage() {
         <p className="font-heading text-[32px] font-bold text-ink">${totalSaved.toFixed(2)}</p>
 
         <div className="mt-6 flex gap-3">
-          <Button variant="secondary" size="default" className="h-14 flex-1">
+          <Button
+            variant="secondary"
+            size="default"
+            className="h-14 flex-1"
+            nativeButton={false}
+            render={<Link href="/transfer" />}
+          >
             Transfer money
           </Button>
           <Button size="default" className="h-14 flex-1" nativeButton={false} render={<Link href="/set-and-save/create" />}>

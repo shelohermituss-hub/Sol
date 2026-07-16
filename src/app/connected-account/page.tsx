@@ -5,7 +5,7 @@ import { ArrowDown, Bank, CaretRight } from "@phosphor-icons/react/ssr"
 
 import { NavHeader, NavBackButton } from "@/components/layout/nav-header"
 import { useAccount } from "@/lib/account-context"
-import { ACCOUNT_AVAILABLE_BALANCE, ACCOUNT_LAST_SYNCED, ACCOUNT_SAFE_SAVING_LEVEL, ACCOUNT_TRANSACTIONS } from "@/lib/account-data"
+import { ACCOUNT_LAST_SYNCED, ACCOUNT_SAFE_SAVING_LEVEL, ACCOUNT_TRANSACTIONS } from "@/lib/account-data"
 
 // Détail du compte connecté. Cf. design-refs/
 // Oportun_iOS_Connected_account_detail/Oportun iOS Connected account
@@ -18,7 +18,7 @@ import { ACCOUNT_AVAILABLE_BALANCE, ACCOUNT_LAST_SYNCED, ACCOUNT_SAFE_SAVING_LEV
 // capture. "Remove account" mène au flux "Removing an account" (pas
 // encore construit), reste décoratif pour l'instant.
 export default function ConnectedAccountPage() {
-  const { accountName } = useAccount()
+  const { accountName, availableBalance } = useAccount()
   const preview = ACCOUNT_TRANSACTIONS[0]
 
   return (
@@ -44,7 +44,7 @@ export default function ConnectedAccountPage() {
 
       <div className="border-b border-neutral-200 py-4">
         <p className="text-[15px] text-neutral-500">Available balance</p>
-        <p className="mt-1 text-[17px] text-ink">${ACCOUNT_AVAILABLE_BALANCE.toLocaleString("en-US", { minimumFractionDigits: 2 })}</p>
+        <p className="mt-1 text-[17px] text-ink">${availableBalance.toLocaleString("en-US", { minimumFractionDigits: 2 })}</p>
       </div>
 
       <div className="border-b border-neutral-200 py-4">

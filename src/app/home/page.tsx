@@ -11,6 +11,7 @@ import { Badge } from "@/components/ui/badge"
 import { BottomTabBar } from "@/components/layout/bottom-tab-bar"
 import { GoalIcon } from "@/components/sections/goal-icon"
 import { useGoals } from "@/lib/goals-context"
+import { useAccount } from "@/lib/account-context"
 import { CreatedGoalBanner } from "@/components/sections/created-goal-banner"
 
 // Écran "Home" (onglet 1/2), route /home — la racine "/" redirige vers
@@ -20,6 +21,7 @@ import { CreatedGoalBanner } from "@/components/sections/created-goal-banner"
 // "Get $5" et l'icône profil restent décoratifs pour l'instant.
 export default function HomePage() {
   const { goals, totalSaved } = useGoals()
+  const { availableBalance } = useAccount()
 
   return (
     <div className="mx-auto flex min-h-dvh w-full max-w-md flex-col">
@@ -54,7 +56,13 @@ export default function HomePage() {
             <Button size="default" className="h-11 flex-1 text-[15px]" nativeButton={false} render={<Link href="/set-and-save/create" />}>
               Create goal
             </Button>
-            <Button variant="secondary" size="default" className="h-11 flex-1 text-[15px]">
+            <Button
+              variant="secondary"
+              size="default"
+              className="h-11 flex-1 text-[15px]"
+              nativeButton={false}
+              render={<Link href="/transfer" />}
+            >
               Transfer money
             </Button>
           </div>
@@ -103,7 +111,7 @@ export default function HomePage() {
             icon={<Bank className="size-6 text-ink" />}
             title="Bank of America"
             subtitle="Checking ••••"
-            trailing="$7,741.33"
+            trailing={`$${availableBalance.toLocaleString("en-US", { minimumFractionDigits: 2 })}`}
             render={<Link href="/connected-account" />}
           />
         </div>
