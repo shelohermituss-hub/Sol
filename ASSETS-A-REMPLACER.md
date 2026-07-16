@@ -35,3 +35,40 @@ Icônes de petite taille (fleur-pièce Set & Save, icônes de but, badges de
 fonctionnalités, icône Face ID, icônes Subscription/More from Oportun) : non
 générées par IA, seront recréées à la main en SVG lors de la construction
 des composants (Étape 4), cf. `design-tokens.md` section Icônes.
+
+## Reskin Dart (app 2) — illustrations en attente de génération
+
+Écrans construits sous `/dart` avec des placeholders (icône Phosphor en
+badge circulaire, mêmes tokens que l'app 1) en lieu et place de ces
+illustrations, le temps de la validation groupée des prompts avant
+génération Higgsfield — cf. `FONCTIONNEL.md`, Étape 2.
+
+| Écran source (capture app-cible/) | Remplace | Statut |
+|---|---|---|
+| `Onboarding.png` (héro "Welcome to Dart", main + pièces) | `HandCoins` en badge pêche sur `/dart/welcome` | ⬜ en attente de validation des prompts |
+| `Circles.png` (personnage tirelire, état vide "Your active circles") | Carte texte seule (pas d'illustration, pattern "No auto saves" déjà en place côté app 1) | ⬜ à confirmer si une illustration est vraiment souhaitée ici |
+| `Payment.png` (personnage poches vides, état vide) | `Wallet` en badge neutre sur `/dart/payment` | ⬜ en attente |
+| `Payment History(Empty).png` | `ClockCounterClockwise` en badge neutre | ⬜ en attente |
+| `Payment/Payment Settings/Saved Cards(Empty).png` | `Wallet` en badge neutre | ⬜ en attente |
+| `Profile/Invite Friends/Track Invitiations.png` (illustration invitees vide) | Carte texte seule | ⬜ à confirmer |
+
+Prompts proposés (mêmes contraintes que les 4 visuels Oportun déjà validés :
+style plat vectoriel, palette strictement limitée aux tokens de
+`design-tokens.md` — ink/paper/neutral/brand-green/brand-blue/accent-peach/
+accent-mint/palette d'illustration corail-lavande-menthe-bleu ciel-violet,
+jamais le bleu marque de l'app 2) :
+
+1. **Hero "Welcome to Dart"** : "Flat vector illustration, a hand gently
+   offering three gold coins to another open hand, warm and optimistic
+   mood, [palette tokens app 1], no outlines, soft geometric shapes,
+   matching the style of hero-reach-your-goals.svg"
+2. **État vide "Circles"** : "Flat vector illustration, a person looking
+   curiously into an empty basket, friendly and simple, [palette tokens
+   app 1]"
+3. **État vide "Payment"** : "Flat vector illustration, a person with empty
+   pockets shown turned out, lighthearted mood, [palette tokens app 1]"
+
+**En attente de ta validation de ces 3 prompts avant génération** (les 3
+autres lignes du tableau ci-dessus resteront en carte texte simple, pas
+d'illustration nécessaire — cohérent avec le pattern déjà en place côté
+app 1 pour les états vides sans visuel).
