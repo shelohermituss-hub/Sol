@@ -21,7 +21,7 @@ export default function SetupTransitionPage() {
 
   return (
     <div className="mx-auto flex min-h-dvh w-full max-w-md flex-col px-6 pt-4">
-      <NavHeader leading={<NavCloseButton href="/" />} />
+      <NavHeader leading={<NavCloseButton href="/home" />} />
 
       <div className="mt-16">
         <svg viewBox="0 0 44 44" className="size-11 -rotate-90">

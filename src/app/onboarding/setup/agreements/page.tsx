@@ -20,7 +20,7 @@ export default function SetupAgreementsPage() {
     <div className="mx-auto flex min-h-dvh w-full max-w-md flex-col px-6 pt-4">
       <NavHeader
         leading={<NavBackButton href="/onboarding/setup/connect-bank" />}
-        trailing={<CancelLink href="/" />}
+        trailing={<CancelLink href="/home" />}
       />
 
       <p className="mt-4 text-[15px] text-neutral-500">Step 2 of 2</p>

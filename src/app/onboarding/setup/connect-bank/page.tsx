@@ -19,7 +19,7 @@ export default function ConnectBankPage() {
 
   return (
     <div className="mx-auto flex min-h-dvh w-full max-w-md flex-col px-6 pt-4">
-      <NavHeader leading={<NavBackButton href="/onboarding/upsell" />} trailing={<CancelLink href="/" />} />
+      <NavHeader leading={<NavBackButton href="/onboarding/upsell" />} trailing={<CancelLink href="/home" />} />
 
       <p className="mt-4 text-[15px] text-neutral-500">Step 1 of 2</p>
       <h1 className="mt-1 font-heading text-[28px] font-bold text-ink">

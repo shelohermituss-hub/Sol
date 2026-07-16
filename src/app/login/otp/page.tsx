@@ -23,7 +23,7 @@ export default function LoginOtpPage() {
 
   React.useEffect(() => {
     if (!submitting) return
-    const timeout = setTimeout(() => router.push("/"), 1000)
+    const timeout = setTimeout(() => router.push("/home"), 1000)
     return () => clearTimeout(timeout)
   }, [submitting, router])
 

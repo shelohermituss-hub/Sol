@@ -18,7 +18,7 @@ function CreatedGoalBannerInner() {
 
   React.useEffect(() => {
     if (!created) return
-    const timeout = setTimeout(() => router.replace("/"), 4000)
+    const timeout = setTimeout(() => router.replace("/home"), 4000)
     return () => clearTimeout(timeout)
   }, [created, router])
 

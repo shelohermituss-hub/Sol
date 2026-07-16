@@ -6,11 +6,11 @@ import { cn } from "@/lib/utils"
 import { SetAndSaveIcon } from "@/components/icons/set-and-save-icon"
 
 const TABS = [
-  { href: "/", label: "Home" },
+  { href: "/home", label: "Home" },
   { href: "/set-and-save", label: "Set & Save" },
 ] as const
 
-function BottomTabBar({ active }: { active: "/" | "/set-and-save" }) {
+function BottomTabBar({ active }: { active: "/home" | "/set-and-save" }) {
   return (
     <nav className="flex items-center justify-around border-t border-neutral-200 bg-paper py-3">
       {TABS.map((tab) => {
@@ -24,7 +24,7 @@ function BottomTabBar({ active }: { active: "/" | "/set-and-save" }) {
               isActive ? "text-ink" : "text-neutral-500"
             )}
           >
-            {tab.href === "/" ? (
+            {tab.href === "/home" ? (
               <House className="size-6" weight={isActive ? "fill" : "regular"} />
             ) : (
               <SetAndSaveIcon className="size-6" weight={isActive ? "fill" : "regular"} />

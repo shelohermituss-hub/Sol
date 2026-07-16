@@ -125,7 +125,7 @@ function CreateGoalDetailsForm() {
       isNew: true,
       recurring: true,
     })
-    router.push("/?created=1")
+    router.push("/home?created=1")
   }
 
   return (

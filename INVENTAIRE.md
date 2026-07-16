@@ -6,6 +6,10 @@
 > **pas** une partie de l'app à reproduire, à ignorer partout.
 >
 > Statuts : ⬜ à faire / 🟡 en cours / ✅ validé
+>
+> **Racine de l'app** : `/` redirige vers `/onboarding` (splash) pour
+> reproduire fidèlement un vrai premier lancement — impossible d'atteindre
+> Home sans traverser Onboarding et/ou Login. Le Home réel vit sur `/home`.
 
 ---
 
@@ -29,7 +33,7 @@ rempli, erreurs de validation, loading) contre `design-refs/`, match proche.
 Parcours complet cliquable : `/onboarding` (splash, redirige seul après
 1,2s) → `/welcome` → `/phone` → `/personal-info` → `/password` → `/otp`
 (auto-soumission dès le 6e chiffre) → `/face-id` → `/notifications` →
-`/upsell` → `/` (Home). Écarts connus : icône Face ID = Phosphor
+`/upsell` → `/home` (Home). Écarts connus : icône Face ID = Phosphor
 `ScanSmiley` (pas d'équivalent exact) ; mockup iPhone de l'écran
 notifications recréé en HTML/CSS (pas d'asset source) ; icône fleur de
 l'écran upsell recréée à la main en SVG
@@ -57,17 +61,17 @@ l'Onboarding.
 | 0 | Écran d'accueil (identique à Onboarding #1) | `/onboarding/welcome` | 🟡 |
 | 1-2 | Formulaire login (vide → rempli, toggle Face ID) | `/login` | 🟡 |
 | 3-5 | Code OTP (vide → rempli → loading) | `/login/otp` | 🟡 |
-| 6 | Home / dashboard (post-login) | `/` | 🟡 (déjà construit, Étape 5) |
+| 6 | Home / dashboard (post-login) | `/home` | 🟡 (déjà construit, Étape 5) |
 
 🟡 = codé + comparé visuellement (capture Playwright, tous états) contre
 `design-refs/`. Parcours cliquable : `/onboarding/welcome` → "Log in" →
-`/login` → `/login/otp` (auto-soumission dès le 6e chiffre) → `/` (Home,
+`/login` → `/login/otp` (auto-soumission dès le 6e chiffre) → `/home` (Home,
 déjà construit). Le bouton "Log in" du formulaire s'active dès que le champ
 email/téléphone est renseigné, fidèle à la capture 2 où il est déjà noir
 alors que le mot de passe est vide. "Forgot password" et le toggle "Log in
 with Face ID" (réutilise `Switch`) n'ont pas d'écran/flux cible construit —
 restent décoratifs. La capture 6 (Home post-login) montre un état de
-données différent (soldes à $0, 2 buts) de celui déjà codé sur `/` — pas de
+données différent (soldes à $0, 2 buts) de celui déjà codé sur `/home` — pas de
 nouvel écran créé, simple confirmation que le login redirige vers le Home
 existant.
 
@@ -75,9 +79,9 @@ existant.
 | # | Écran | Route | Statut |
 |---|---|---|---|
 | 0 | Onglet "Set & Save" (vide) | `/set-and-save` | 🟡 (état rempli construit, pas l'état $0 séparément — mêmes composants, données à zéro) |
-| 1 | Onglet "Home" (vide, $0.00) | `/` | 🟡 (idem) |
-| 2 | Onglet "Home" (rempli, $3.00, tri par échéance) | `/` | 🟡 |
-| 3-4 | Home scrollé — carte parrainage + "More from Oportun" + footer légal | `/` | 🟡 |
+| 1 | Onglet "Home" (vide, $0.00) | `/home` | 🟡 (idem) |
+| 2 | Onglet "Home" (rempli, $3.00, tri par échéance) | `/home` | 🟡 |
+| 3-4 | Home scrollé — carte parrainage + "More from Oportun" + footer légal | `/home` | 🟡 |
 
 🟡 = codé + comparé visuellement (capture Playwright) contre `design-refs/`,
 match proche. Écarts connus : icônes de but (Rainy Day/Emergency
@@ -94,7 +98,7 @@ données.
 "square") pour les badges colorés des articles "More from Oportun".
 `GoalIcon` (`components/sections/goal-icon.tsx`) mappe les buts à une icône
 Phosphor colorée. `src/lib/goals-data.ts` centralise les buts, partagés entre
-`/` et `/set-and-save`.
+`/home` et `/set-and-save`.
 
 **Bug corrigé en cours de route** : `ListRow` tronquait titres/sous-titres
 (`truncate`) au lieu de les laisser passer à la ligne — cassait "Emergency
@@ -105,7 +109,7 @@ fix global).
 ### Creating a goal (home) (12 captures)
 | # | Écran | Route | Statut |
 |---|---|---|---|
-| 0 | Home (point d'entrée) | `/` | 🟡 |
+| 0 | Home (point d'entrée) | `/home` | 🟡 |
 | 1 | Choix type de but ("Savings goal" / "Smart bill") | `/set-and-save/create` | 🟡 |
 | 2 | Choix catégorie de facture | `/set-and-save/create/category` | 🟡 |
 | 3 | Formulaire détails du but (vide) | `/set-and-save/create/details` | 🟡 |
@@ -113,7 +117,7 @@ fix global).
 | 6-7 | Date picker natif iOS (roue Mois/Jour/Année) | idem (sheet) | 🟡 |
 | 8 | Formulaire détails (rempli) | idem | 🟡 |
 | 9-10 | Écran de révision (résumé + "How we'll save") | idem (sheet) | 🟡 |
-| 11 | Home + bandeau succès "goal created" | `/?created=1` | 🟡 |
+| 11 | Home + bandeau succès "goal created" | `/home?created=1` | 🟡 |
 
 🟡 = codé + comparé visuellement (capture Playwright, tous états et
 interactions) contre `design-refs/`. Fréquence, date et révision sont des
@@ -131,7 +135,7 @@ décoratifs.
 
 **État partagé ajouté** : `GoalsProvider`/`useGoals` (`src/lib/goals-context.tsx`),
 contexte React posé dans `layout.tsx`, remplace les imports statiques
-`GOALS`/`TOTAL_SAVED` sur `/` et `/set-and-save` — nécessaire pour que
+`GOALS`/`TOTAL_SAVED` sur `/home` et `/set-and-save` — nécessaire pour que
 "Confirm & create goal" ajoute réellement un but visible sur les deux
 onglets. En mémoire uniquement (pas de backend), réinitialisé au
 rechargement.
@@ -150,12 +154,12 @@ inatteignable. Fix global, affecte toutes les sheets futures.
 ### Goal detail (3 captures)
 | # | Écran | Route | Statut |
 |---|---|---|---|
-| 0 | Home (point d'entrée) | `/` | 🟡 |
+| 0 | Home (point d'entrée) | `/home` | 🟡 |
 | 1 | Détail but simple ("Rainy Day", solde, transferts en attente) | `/set-and-save/[goalId]` | 🟡 |
 | 2 | Détail but récurrent "Smart bill" ("Cell phone", carte fréquence/montant/échéance + callout info) | `/set-and-save/[goalId]` | 🟡 |
 
 🟡 = codé + comparé visuellement (capture Playwright) contre `design-refs/`.
-Les lignes de but sur `/` et `/set-and-save` sont maintenant cliquables
+Les lignes de but sur `/home` et `/set-and-save` sont maintenant cliquables
 (`render={<Link href="/set-and-save/[id]" />}` sur `ListRow`, sans chevron —
 fidèle aux captures qui n'en montrent pas sur ces lignes précises). Le
 solde affiché est celui réel de `useGoals()`, pas le montant figé de la
@@ -227,7 +231,7 @@ construit (`/set-and-save/low-balance-protection`, inerte pour l'instant).
 ### Connected account detail (4 captures)
 | # | Écran | Route | Statut |
 |---|---|---|---|
-| 0 | Home (contexte) | `/` | 🟡 |
+| 0 | Home (contexte) | `/home` | 🟡 |
 | 1-2 | Détail compte connecté (variantes) | `/connected-account` | 🟡 |
 | 3 | Historique des transactions (liste complète) | `/connected-account/activity` | 🟡 |
 

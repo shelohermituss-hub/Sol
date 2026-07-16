@@ -33,7 +33,7 @@ const FEATURES = [
 export default function OnboardingUpsellPage() {
   return (
     <div className="mx-auto flex min-h-dvh w-full max-w-md flex-col px-6 pt-4">
-      <NavHeader leading={<NavCloseButton href="/" />} />
+      <NavHeader leading={<NavCloseButton href="/home" />} />
 
       <span className="mt-6 flex size-20 items-center justify-center rounded-2xl bg-accent-peach">
         <SavingsFlowerIcon className="size-11" />

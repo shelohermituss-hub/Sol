@@ -23,7 +23,7 @@ export default function ConnectedAccountPage() {
 
   return (
     <div className="mx-auto flex min-h-dvh w-full max-w-md flex-col px-6 pt-4">
-      <NavHeader leading={<NavBackButton href="/" />} title="Connected account" />
+      <NavHeader leading={<NavBackButton href="/home" />} title="Connected account" />
 
       <span className="mt-6 flex size-16 items-center justify-center rounded-2xl border border-neutral-200">
         <Bank className="size-7 text-ink" />
