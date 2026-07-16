@@ -154,13 +154,30 @@ distinct du vert Add Cash), `ShortcutCard` étend un prop `href` optionnel.
 
 ## 7. Module Profile / Account & Settings
 
-| # | Écran | Fichier | Statut |
-|---|---|---|---|
-| 7.1 | Your Account (haut : avatar, Edit Profile, Invite friends) | `account-profile-top.png` | ⬜ |
-| 7.2 | Your Account (scrollé : Favorites → Sign Out) | `account-profile-scrolled.png` | ⬜ |
-| 7.3 | Security & Privacy | `security-privacy.png` | ⬜ |
-| 7.4 | Notifications | `notifications.png` | ⬜ |
-| 7.5 | Account & Settings (aide) | `account-settings-help.png` | ⬜ |
+| # | Écran | Fichier | Route | Statut |
+|---|---|---|---|---|
+| 7.1 | Your Account (haut : avatar, Edit Profile, Invite friends) | `account-profile-top.png` | `/profile` | 🟡 |
+| 7.2 | Your Account (scrollé : Favorites → Sign Out) | `account-profile-scrolled.png` | `/profile` (scrollé) | 🟡 |
+| 7.3 | Security & Privacy | `security-privacy.png` | `/profile/security` | 🟡 |
+| 7.4 | Notifications | `notifications.png` | `/profile/notifications` | 🟡 |
+| 7.5 | Account & Settings (aide) | `account-settings-help.png` | `/profile/help` | 🟡 |
+
+Accès : avatar de Home (`/`) → `/profile`. Tous vérifiés visuellement (capture
+Playwright) contre `design-refs/07-profile-settings/`.
+
+**Composants ajoutés** : `Switch` et `Checkbox` (`components/ui/`, nouveaux
+primitifs pour les réglages on/off), `icons.tsx`
+(`components/sections/profile/`, jeu d'icônes de la liste Account & Settings).
+
+**Écarts connus** :
+- Nom/avatar/cashtag de `/profile` en dur ("Judy Smith" / "$JudySmith",
+  cohérent avec `judy.mobbin@gmail.com` vu dans le module 2 KYC) — pas de
+  données réelles branchées.
+- Notifications : 2 lignes étaient floutées dans la capture source
+  ("Email Notifications"/"SMS Notifications" approximés) — à confirmer.
+- Personal, Linked Banks, Family, Limits, Documents : lignes présentes dans la
+  liste mais sans écran de destination (pas de capture fournie) — non cliquables
+  pour l'instant.
 
 ## Composants UI de base (transverses à tous les modules)
 🟡 = première version codée + smoke-test visuel via `/styleguide`, pas encore

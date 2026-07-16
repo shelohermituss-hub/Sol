@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { AvatarCircle } from "@/components/ui/avatar-circle";
 import { Sparkline } from "@/components/ui/sparkline";
 import { BottomTabBar } from "@/components/layout/bottom-tab-bar";
@@ -19,7 +20,9 @@ export default function Home() {
       <div className="flex-1 px-6 pt-4">
         <div className="flex items-center justify-between">
           <h1 className="text-3xl font-extrabold text-text-primary">Money</h1>
-          <AvatarCircle size={40} />
+          <Link href="/profile">
+            <AvatarCircle size={40} />
+          </Link>
         </div>
 
         <div className="mt-6">
