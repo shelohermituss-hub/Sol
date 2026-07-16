@@ -69,13 +69,26 @@ système iOS (home indicator), pas un composant applicatif — non reproduite.
 
 ## 3. Module Home (Money)
 
-| # | Écran | Fichier | États | Statut |
-|---|---|---|---|---|
-| 3.1 | Money home | `money-home-empty-state.png` (solde $0) / `money-home-populated-state.png` (solde $88.44, avatar) | vide, peuplé | ⬜ |
+| # | Écran | Fichier | États | Route | Statut |
+|---|---|---|---|---|---|
+| 3.1 | Money home | `money-home-empty-state.png` (solde $0) / `money-home-populated-state.png` (solde $88.44, avatar) | peuplé construit ; vide = mêmes composants avec données à zéro | `/` | 🟡 |
 
-**Composants** : Balance card (Cash Balance, Add Cash / Cash Out), grille de
-raccourcis 2×2 (Savings, Buy bitcoin, Invest in stocks, Free tax filing), bottom
-tab bar (Home, Card, Pay `$`, Search, Activity).
+**Composants** : `BalanceCard`, `ShortcutCard` (`src/components/sections/home/`),
+`Sparkline` (`src/components/ui/sparkline.tsx`), `AvatarCircle`, `BottomTabBar`.
+Vérifié visuellement (capture Playwright) contre `money-home-populated-state.png`
+— match proche (montants, deltas Bitcoin/Stocks, sparklines, grille 2×2).
+
+**Écarts connus** :
+- État "solde $0" (`money-home-empty-state.png`) pas encore branché — nécessite de
+  passer des données à zéro à `BalanceCard`/`ShortcutCard` (pas de nouveau
+  composant à créer).
+- Icônes Savings (cible) et Free tax filing (dossier) en SVG simplifiés, pas les
+  illustrations réelles du design.
+- `21-money-home-post-onboarding.png` (module 1) montre une variante différente
+  (labels "Add money/Withdraw", sections "Paychecks"/"Pools") non reprise ici —
+  seule la version `money-home-*-state.png` a été retenue comme référence
+  canonique du module 3, à clarifier si besoin.
+- Écran non branché sur de vraies données (montants en dur dans `page.tsx`).
 
 ## 4. Module Pay / Envoi d'argent
 

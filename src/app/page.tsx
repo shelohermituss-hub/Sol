@@ -1,65 +1,88 @@
-import Image from "next/image";
+import { AvatarCircle } from "@/components/ui/avatar-circle";
+import { Sparkline } from "@/components/ui/sparkline";
+import { BottomTabBar } from "@/components/layout/bottom-tab-bar";
+import { BalanceCard } from "@/components/sections/home/balance-card";
+import { ShortcutCard } from "@/components/sections/home/shortcut-card";
 
+// Écran 3.1 — Money home. Cf. design-refs/03-home/money-home-populated-state.png
+// (et money-home-empty-state.png pour la variante solde $0 / pas de position
+// Bitcoin ou Stocks — même structure, données à zéro).
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="mx-auto flex min-h-dvh max-w-md flex-col bg-bg-page">
+      <div className="flex-1 px-6 pt-4">
+        <div className="flex items-center justify-between">
+          <h1 className="text-3xl font-extrabold text-text-primary">Money</h1>
+          <AvatarCircle size={40} />
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        <div className="mt-6">
+          <BalanceCard balance="$88.44" />
         </div>
-      </main>
+
+        <div className="mt-4 grid grid-cols-2 gap-4">
+          <ShortcutCard label="Savings">
+            <div
+              className="flex h-11 w-11 items-center justify-center rounded-full"
+              style={{ backgroundColor: "var(--color-savings-green)" }}
+            >
+              <TargetIcon />
+            </div>
+            <div>
+              <p className="text-2xl font-extrabold text-text-primary">$0.00</p>
+              <p className="text-sm text-text-secondary">Save for a goal</p>
+            </div>
+          </ShortcutCard>
+
+          <ShortcutCard label="Bitcoin">
+            <p className="text-2xl font-extrabold text-text-primary">$92.05</p>
+            <div className="flex items-center justify-between">
+              <p className="text-sm font-semibold" style={{ color: "var(--color-brand-green)" }}>
+                ↑ 0.50% today
+              </p>
+              <Sparkline points={[10, 14, 9, 16, 13, 18, 20]} color="var(--color-accent-blue)" />
+            </div>
+          </ShortcutCard>
+
+          <ShortcutCard label="Stocks">
+            <p className="text-2xl font-extrabold text-text-primary">$2,995.85</p>
+            <div className="flex items-center justify-between">
+              <p className="text-sm font-semibold text-text-secondary">↓ 0.80% today</p>
+              <Sparkline points={[18, 12, 15, 8, 11, 9, 7]} color="var(--color-accent-purple)" />
+            </div>
+          </ShortcutCard>
+
+          <ShortcutCard label="Free tax filing">
+            <div className="flex h-11 w-11 items-center justify-center">
+              <FolderIcon />
+            </div>
+          </ShortcutCard>
+        </div>
+      </div>
+
+      <BottomTabBar />
     </div>
+  );
+}
+
+function TargetIcon() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+      <circle cx="11" cy="11" r="9" stroke="white" strokeWidth="1.6" />
+      <circle cx="11" cy="11" r="4" stroke="white" strokeWidth="1.6" />
+    </svg>
+  );
+}
+
+function FolderIcon() {
+  return (
+    <svg width="32" height="26" viewBox="0 0 32 26" fill="none" aria-hidden="true">
+      <path
+        d="M1 5a2 2 0 012-2h8l3 3h15a2 2 0 012 2v14a2 2 0 01-2 2H3a2 2 0 01-2-2V5z"
+        fill="var(--color-accent-card-lime)"
+        stroke="var(--color-cta-black)"
+        strokeWidth="1"
+      />
+    </svg>
   );
 }
