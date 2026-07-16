@@ -87,6 +87,47 @@ secondaire, input, OTP, checkbox, toggle, list row, card, bottom sheet,
 badge "NEW", bandeau succès, tab bar, etc.) — base pour les composants
 `src/components/ui/`.
 
+## Icônes
+
+Stratégie (voir `CLAUDE.md`) : `@phosphor-icons/react` en priorité ; icône
+recréée en SVG à la main si aucune correspondance (pas de Figma disponible
+pour cet export, donc recréation directe depuis les captures plutôt
+qu'un export Figma).
+
+### Icônes utilitaires → correspondance Phosphor directe
+| Icône observée | Composant Phosphor |
+|---|---|
+| Flèche retour (‹) | `ArrowLeft` |
+| Fermeture (X) | `X` |
+| Chevron simple (›) | `CaretRight` |
+| Chevron accordéon (haut/bas) | `CaretDown` / `CaretUp` |
+| Œil (afficher/masquer mot de passe) | `Eye` / `EyeSlash` |
+| Profil / compte | `UserCircle` |
+| Réglages | `Gear` |
+| Cloche notifications | `Bell` |
+| "+" (créer un but) | `Plus` |
+| Info "i" | `Info` |
+| Bouclier "Low balance protection" | `ShieldCheck` |
+| "?" aide (Invite friends) | `Question` |
+| Flèche de transaction reçue | `ArrowDown` |
+| Flèche de navigation carte (Set & Save →) | `ArrowRight` |
+| Coche (checkbox, succès) | `Check` |
+| Banque générique (remplace le logo tiers Bank of America) | `Bank` |
+
+### Icônes/illustrations sans équivalent Phosphor fidèle → à recréer en SVG à la main
+Ces éléments portent un style illustratif propre à la marque (formes plates,
+2-3 couleurs) que les icônes en traits de Phosphor ne rendraient pas
+fidèlement ; recréation SVG directe à partir des couleurs déjà échantillonnées :
+- Icône de marque Set & Save (fleur-pièce, fond pêche `#ffc6ac`)
+- Icônes de but (parapluie "Rainy Day", nuage-éclair "Emergency cushion",
+  téléphone, maison, ampoule, voiture, crayon "créer un but personnalisé")
+- Icône Face ID (scan, fond pêche) — pas d'équivalent Phosphor exact
+- Icônes de fonctionnalités Subscription (tirelire, document $, banque
+  illustrée, cadenas, plante+pièce, main+téléphone)
+- Icônes "More from Oportun" (jauge de crédit, tirelire, lettre "ñ")
+- Icône succès transfert (feuille/sparkle vert)
+- Confetti / party-popper (upsell plan annuel)
+
 ## Breakpoints & mise en page responsive
 
 Le design source est une app iOS (largeur logique ~390–430px). Décision
