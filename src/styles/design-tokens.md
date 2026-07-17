@@ -42,6 +42,17 @@ jamais pour remplacer `--color-brand-green` sur une action primaire.
 | `--color-accent-purple` | `#8420f4` | Graphique Stocks (courbe) |
 | `--color-accent-orange-vivid` | `#ee9d44` | Fond plein écran promo/reward (1 capture, moins constant que les autres) |
 
+### Application des accents mesurés (Lot D5)
+`--color-accent-blue-vivid` appliqué au `Sparkline` d'Exchange Rate
+(`src/app/dart/exchange-rate/page.tsx`), qui utilisait jusqu'ici
+`#7fc1e1` — une couleur de la palette d'illustration décorative (ci-
+dessous), détournée de son usage prévu pour un graphique de données.
+Analogue au traitement des graphiques Bitcoin/Stocks sur Cash App
+(courbes en couleur vive dédiée). Pas d'autre usage de `Sparkline`
+ailleurs dans l'app (vérifié) ; `--color-accent-cyan`/`--color-accent-
+purple`/`--color-accent-orange-vivid` restent disponibles mais inutilisés
+en l'absence d'autre graphique/badge dans l'app actuelle.
+
 ### Palette d'illustration (usage décoratif uniquement, jamais en UI/texte)
 Mesurée sur l'illustration héro "Reach for your goals effortlessly" :
 `#ff8f75` (corail), `#c7baee` (lavande), `#b3dfbc` (vert menthe clair),
