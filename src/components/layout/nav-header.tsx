@@ -9,6 +9,14 @@ import { cn } from "@/lib/utils"
 // plein écran), et emplacement trailing libre (lien "Cancel", icône
 // réglages, icône aide "?"). Purement présentationnel : la navigation
 // (href/onClick) est fournie par la page appelante.
+//
+// Fixe en haut d'écran (sticky) pendant le scroll — cf. demande explicite
+// "fixe le header". `-mx-6 px-6` casse le padding horizontal du
+// conteneur page (px-6, appliqué de façon constante sur tous les écrans
+// utilisant NavHeader) pour un fond plein écran ; `pt-3` est porté par le
+// header lui-même plutôt que par le conteneur parent, pour garder une
+// respiration correcte une fois "collé" en haut (un padding parent
+// disparaît visuellement une fois l'élément sticky).
 function NavHeader({
   leading,
   title,
@@ -21,7 +29,7 @@ function NavHeader({
   className?: string
 }) {
   return (
-    <div className={cn("flex h-14 items-center justify-between", className)}>
+    <div className={cn("sticky top-0 z-20 -mx-6 flex min-h-14 items-center justify-between bg-canvas px-6 pt-3 pb-1", className)}>
       <div className="flex w-14 items-center">{leading}</div>
       {title && <div className="flex-1 text-center font-heading text-[17px] font-bold text-ink">{title}</div>}
       {!title && <div className="flex-1" />}

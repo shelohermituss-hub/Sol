@@ -28,12 +28,16 @@ const TABS = [
 // que 2 onglets sans FAB, mais l'app 2 a réellement un point d'entrée
 // central pour "Join" : fonctionnalité à conserver, habillée dans le
 // style app 1 (cercle plein ink, icône Plus paper).
+//
+// Fixe en bas d'écran (sticky) pendant le scroll — cf. demande explicite
+// "fixe le tab bar". Déjà pleine largeur (sibling du conteneur padding
+// px-6, pas un enfant), aucun -mx-6 nécessaire contrairement aux headers.
 function DartTabBar({ active }: { active: (typeof TABS)[number]["href"] }) {
   const leftTabs = TABS.slice(0, 2)
   const rightTabs = TABS.slice(2)
 
   return (
-    <nav className="relative flex items-center justify-around border-t border-neutral-200 bg-paper py-3">
+    <nav className="sticky bottom-0 z-20 relative flex items-center justify-around border-t border-neutral-200 bg-paper py-3">
       {leftTabs.map((tab) => (
         <DartTab key={tab.href} tab={tab} isActive={tab.href === active} />
       ))}
@@ -41,7 +45,7 @@ function DartTabBar({ active }: { active: (typeof TABS)[number]["href"] }) {
       <Link
         href="/dart/join"
         aria-label="Join a circle"
-        className="absolute left-1/2 -top-6 flex size-14 -translate-x-1/2 items-center justify-center rounded-full bg-ink text-paper shadow-lg"
+        className="absolute left-1/2 -top-6 flex size-14 -translate-x-1/2 items-center justify-center rounded-full bg-ink text-paper shadow-lg transition-transform duration-150 active:scale-90"
       >
         <Plus className="size-6" weight="fill" />
       </Link>

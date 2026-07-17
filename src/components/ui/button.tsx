@@ -7,8 +7,11 @@ import { cn } from "@/lib/utils"
 // s'applique qu'aux <button> natifs (nativeButton), le second aux boutons
 // rendus via `render={<Link .../>}` (nativeButton={false}), où Base UI pose
 // aria-disabled plutôt que l'attribut disabled (invalide sur une <a>).
+// active:scale-[0.97] + transition-transform : retour tactile au tap,
+// pour fluidifier l'interaction (demande explicite) — s'ajoute à
+// transition-colors existant, ne le remplace pas.
 const buttonVariants = cva(
-  "inline-flex shrink-0 items-center justify-center gap-2 rounded-full font-heading text-[17px] font-semibold whitespace-nowrap transition-colors outline-none select-none focus-visible:ring-3 focus-visible:ring-ring disabled:pointer-events-none aria-disabled:pointer-events-none [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-5",
+  "inline-flex shrink-0 items-center justify-center gap-2 rounded-full font-heading text-[17px] font-semibold whitespace-nowrap transition-[color,background-color,border-color,transform] duration-150 outline-none select-none active:scale-[0.97] focus-visible:ring-3 focus-visible:ring-ring disabled:pointer-events-none disabled:active:scale-100 aria-disabled:pointer-events-none aria-disabled:active:scale-100 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-5",
   {
     variants: {
       variant: {
