@@ -12,11 +12,15 @@ import { Slider } from "@/components/ui/slider"
 import { Card, CardTitle, CardDescription } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { formatCurrency } from "@/lib/currency"
+import { SAVING_TIERS } from "@/lib/dart-data"
 
-const MIN_AMOUNT = 3000
-const MAX_AMOUNT = 120000
+// Bornes du slider alignées sur la grille de paliers Bronze/Silver/Gold
+// déjà établie (SAVING_TIERS) : Lite (3 000 HTG) à Silver 3 (100 000
+// HTG), plutôt qu'une plage arbitraire.
+const MIN_AMOUNT = Math.min(...SAVING_TIERS.map((t) => t.amount))
+const MAX_AMOUNT = Math.max(...SAVING_TIERS.map((t) => t.amount))
 
-// Étape 1/4 du flux "Join a Game'ya" : choix du montant du circle. Cf.
+// Étape 1/4 du flux "Join a Sòl" : choix du montant. Cf.
 // app-cible/Join/Join a Game'ya.png. Slider nouveau composant (cf.
 // FONCTIONNEL.md, Étape 2).
 function PayoutAmountForm() {
@@ -48,7 +52,7 @@ function PayoutAmountForm() {
       <Card className="mt-8 flex-row items-center gap-4">
         <div className="flex-1">
           <CardTitle className="text-[15px]">
-            Payout Amount <span className="font-normal text-neutral-500">Your monthly pay-in is automatically deducted from your circle amount.</span>
+            Payout Amount <span className="font-normal text-neutral-500">Your monthly pay-in is automatically deducted from your sòl amount.</span>
           </CardTitle>
           <CardDescription className="mt-2 flex items-center gap-1 font-bold text-brand-green">
             Learn More <ArrowRight className="size-4" />

@@ -64,27 +64,45 @@ export const SAVING_DURATIONS: SavingDuration[] = [
   { months: 24, monthly: 125 },
 ]
 
-export const MONTHLY_PAYIN_OPTIONS = [
-  { monthly: 5000, months: 6 },
-  { monthly: 3000, months: 10 },
-  { monthly: 2500, months: 12 },
-]
+// Durées de mensualité proposées pour un Sòl : mêmes paliers que
+// SAVING_DURATIONS (6/12/24 mois, grille Bronze/Silver/Gold déjà
+// établie). La mensualité elle-même est calculée dynamiquement
+// (montant du Sòl ÷ durée) sur l'écran Monthly Pay-in — plus de liste
+// figée déconnectée du montant choisi.
+export const PAYIN_DURATIONS_MONTHS = SAVING_DURATIONS.map((d) => d.months)
 
-export interface SlotOption {
-  id: "fastest" | "lowest-fees" | "highest-return"
+// Score de fiabilité (cf. CLAUDE.md, "Score de fiabilité") : remplace le
+// choix libre de créneau (Fastest/Lowest/Highest) par une position dans
+// le cycle déterminée par le score du membre. Score simulé en l'absence
+// de backend — un nouveau membre commence avec un score bas (positions
+// tardives), le score augmente avec l'historique de paiements à l'heure.
+export const CURRENT_USER_RELIABILITY_SCORE = 62
+
+export interface ReliabilityTier {
+  id: "trusted" | "building-trust" | "new-member"
   label: string
   description: string
+  minScore: number
   tag?: string
   tagVariant?: "neutral" | "success"
 }
 
-export const SLOT_OPTIONS: SlotOption[] = [
-  { id: "fastest", label: "Fastest Payout", description: "First slots (from November to December)", tag: "fees apply", tagVariant: "neutral" },
-  { id: "lowest-fees", label: "Lowest Fees", description: "Middle slots (from January to February)" },
-  { id: "highest-return", label: "Highest Return", description: "Last slots (from March to April)", tag: "pay-ins discount", tagVariant: "success" },
+// Score élevé → positions précoces (premier tiers du cycle) ; nouveau
+// membre/score bas → positions tardives, compensées par une remise
+// (même logique de compensation "attendre = bonus" que l'ancien
+// "Highest Return", mais l'éligibilité n'est plus un choix libre : elle
+// dépend du score, pas d'une préférence de l'utilisateur).
+export const RELIABILITY_TIERS: ReliabilityTier[] = [
+  { id: "trusted", label: "Trusted", description: "Early positions (from November to December)", minScore: 70, tag: "fees apply", tagVariant: "neutral" },
+  { id: "building-trust", label: "Building Trust", description: "Middle positions (from January to February)", minScore: 40 },
+  { id: "new-member", label: "New Member", description: "Later positions (from March to April)", minScore: 0, tag: "pay-ins discount", tagVariant: "success" },
 ]
 
-export interface SlotDate {
+export function reliabilityTierForScore(score: number): ReliabilityTier {
+  return RELIABILITY_TIERS.find((tier) => score >= tier.minScore) ?? RELIABILITY_TIERS[RELIABILITY_TIERS.length - 1]
+}
+
+export interface PositionDate {
   id: string
   month: string
   year: number
@@ -94,21 +112,21 @@ export interface SlotDate {
   zeroFees?: boolean
 }
 
-// Seules les dates de l'onglet "highest-return" sont issues d'une capture
-// (Slot/Highest Return.png). Les dates "fastest" et "lowest-fees" ne sont
-// visibles dans aucun screenshot de app-cible/ : elles suivent la même
-// plage de mois annoncée par SLOT_OPTIONS[].description (nov-déc,
-// jan-fév) avec des montants extrapolés, faute de capture source.
-export const SLOT_DATES: Record<SlotOption["id"], SlotDate[]> = {
-  fastest: [
+// Seules les dates du palier "trusted" sont issues d'une capture (Slot/
+// Highest Return.png, rebaptisé). Les dates "building-trust" et
+// "new-member" ne sont visibles dans aucun screenshot de app-cible/ :
+// elles suivent la même plage de mois que RELIABILITY_TIERS[].description
+// avec des montants extrapolés, faute de capture source.
+export const POSITION_DATES: Record<ReliabilityTier["id"], PositionDate[]> = {
+  trusted: [
     { id: "nov", month: "November", year: 2025, day: "3rd", fees: 3600 },
     { id: "dec", month: "December", year: 2025, day: "5th", fees: 2900 },
   ],
-  "lowest-fees": [
+  "building-trust": [
     { id: "jan", month: "January", year: 2025, day: "4th", fees: 0 },
     { id: "feb", month: "February", year: 2025, day: "6th", fees: 0 },
   ],
-  "highest-return": [
+  "new-member": [
     { id: "march", month: "March", year: 2025, day: "5th", fees: 2400 },
     { id: "april", month: "April", year: 2025, day: "6th", zeroFees: true, discount: 1200 },
   ],

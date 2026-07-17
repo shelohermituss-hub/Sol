@@ -10,14 +10,21 @@ import { NavHeader, NavBackButton } from "@/components/layout/nav-header"
 import { StepProgress } from "@/components/ui/step-progress"
 import { Card, CardDescription } from "@/components/ui/card"
 import { formatCurrency } from "@/lib/currency"
-import { MONTHLY_PAYIN_OPTIONS } from "@/lib/dart-data"
+import { PAYIN_DURATIONS_MONTHS } from "@/lib/dart-data"
 
 // Étape 2/4 : choix de la mensualité. Cf. app-cible/
-// Join/Join a Game'ya/Monthly pay-in.png.
+// Join/Join a Game'ya/Monthly pay-in.png. Les paliers sont calculés
+// dynamiquement (montant ÷ durée) sur les durées de la grille Bronze/
+// Silver/Gold déjà établie (PAYIN_DURATIONS_MONTHS, cf. SAVING_DURATIONS)
+// — plus une liste figée déconnectée du montant choisi à l'étape 1.
 function MonthlyPayInForm() {
   const router = useRouter()
   const params = useSearchParams()
   const amount = Number(params.get("amount")) || 30000
+  const payinOptions = PAYIN_DURATIONS_MONTHS.map((months) => ({
+    months,
+    monthly: Math.round(amount / months),
+  }))
 
   return (
     <div className="mx-auto flex min-h-dvh w-full max-w-md flex-col px-6 pt-4">
@@ -38,7 +45,7 @@ function MonthlyPayInForm() {
       <h1 className="mt-6 font-heading text-[20px] font-bold text-ink">Choose your suitable monthly pay-in</h1>
 
       <div className="mt-4 flex flex-col gap-3">
-        {MONTHLY_PAYIN_OPTIONS.map((option) => (
+        {payinOptions.map((option) => (
           <button
             key={option.months}
             type="button"
@@ -64,7 +71,7 @@ function MonthlyPayInForm() {
       <Card className="mt-6 flex-row items-center gap-4">
         <CardDescription className="flex-1">
           <span className="font-bold text-ink">Monthly pay-in</span> may vary according to the discount or fees
-          applied on your payout slot.
+          applied on your position in the cycle.
         </CardDescription>
         <RocketLaunch className="size-10 shrink-0 text-ink" weight="duotone" />
       </Card>

@@ -11,9 +11,11 @@ import { useDart } from "@/lib/dart-context"
 
 // Étape 4/4 : révision (écran non capturé dans app-cible/, construit par
 // analogie avec la sheet de révision "Creating a goal" de l'app 1 — cf.
-// FONCTIONNEL.md, décisions Étape 1). "Confirm" ajoute le circle à "Your
-// Circles" puis enchaîne sur Payout Method, comme pour tout circle
-// nouvellement rejoint.
+// FONCTIONNEL.md, décisions Étape 1). "Confirm" ajoute le sòl à "Your
+// Circles" puis enchaîne sur Payout Method, comme pour tout sòl
+// nouvellement rejoint. Terminologie affichée "Sòl" (cf. CLAUDE.md) — le
+// nom de fonction interne `addJoinedCircle`/`circle-${...}` reste
+// inchangé, jamais exposé à l'écran.
 function ReviewJoinForm() {
   const router = useRouter()
   const params = useSearchParams()
@@ -49,11 +51,11 @@ function ReviewJoinForm() {
         title="Review"
       />
 
-      <h1 className="mt-6 font-heading text-[24px] font-bold text-ink">Review your circle</h1>
+      <h1 className="mt-6 font-heading text-[24px] font-bold text-ink">Review your sòl</h1>
 
       <div className="mt-6 rounded-card border border-neutral-200 px-5">
         <div className="flex items-center justify-between border-b border-neutral-200 py-4">
-          <span className="text-[15px] text-neutral-500">Circle amount</span>
+          <span className="text-[15px] text-neutral-500">Sòl amount</span>
           <span className="text-[15px] font-bold text-ink">{formatCurrency(amount)}</span>
         </div>
         <div className="flex items-center justify-between border-b border-neutral-200 py-4">
@@ -63,19 +65,19 @@ function ReviewJoinForm() {
           </span>
         </div>
         <div className="flex items-center justify-between py-4">
-          <span className="text-[15px] text-neutral-500">Slot</span>
+          <span className="text-[15px] text-neutral-500">Position</span>
           <span className="text-[15px] font-bold text-ink">{date || "—"}</span>
         </div>
       </div>
 
       <p className="mt-6 text-[13px] text-neutral-500">
         By tapping Confirm, I <span className="font-bold text-brand-green">authorize</span> the recurring monthly
-        pay-in for this circle.
+        pay-in for this sòl.
       </p>
 
       <div className="mt-auto pb-6">
         <Button className="w-full" onClick={handleConfirm}>
-          Confirm &amp; join circle
+          Confirm &amp; join sòl
         </Button>
       </div>
     </div>
