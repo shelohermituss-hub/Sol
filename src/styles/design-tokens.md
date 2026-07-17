@@ -85,6 +85,31 @@ appliquée.
 | Labels / eyebrow ("Step 1 of 2", labels de champ) | 13–14px | Regular (400) |
 | Boutons | 17px | Semibold/Bold (600–700) |
 
+## Ombres et élévation
+
+**Audit qualitatif (Lot D1)** — comparaison visuelle sur les captures Cash
+App réelles (`Home.png`, `Frame 27.png`/liste "Account & Settings",
+`Pay amount.png`, `Frame 41.png`/clavier ZIP code) : aucune ombre portée
+n'est perceptible nulle part dans l'app, y compris sur les cartes qui
+flottent sur le fond gris, les boutons pill pleins, et les inputs. La
+profondeur vient uniquement du contraste de couleur (blanc sur
+`--color-canvas` gris), jamais d'un flou/dégradé d'ombre — écran plat.
+Ombres jamais mesurables au pixel près comme les couleurs (trop diffuses/
+faible opacité) : audit qualitatif, pas d'échantillonnage programmatique.
+
+Conséquence : `Card`/`CategoryCard` (`shadow-[0_1px_3px_rgba(0,0,0,0.06),
+0_1px_2px_rgba(0,0,0,0.04)]`, estimation initiale de l'exception #2) sont
+allégées à une ombre unique quasi imperceptible
+`shadow-[0_1px_2px_rgba(0,0,0,0.05)]`, plus fidèle à la platitude
+observée. Le FAB de `DartTabBar` (bouton "Join", sans équivalent Cash
+App — leur tab bar n'a pas de bouton central) garde une ombre plus
+marquée que les cartes par nécessité fonctionnelle (affordance de bouton
+flottant au-dessus du contenu et de la tab bar), mais allégée du
+`shadow-lg` Tailwind par défaut à `shadow-[0_4px_10px_rgba(0,0,0,0.14)]`
+pour rester dans le même esprit sobre. `Sheet` (bottom sheet) n'a jamais
+eu d'ombre (seulement `border-t`) et n'a pas été modifié : cohérent avec
+l'absence d'ombre observée sur les modales Cash App.
+
 ## Espacements & rayons
 
 Échelle 4/8px standard (Tailwind par défaut), confirmée par les marges
