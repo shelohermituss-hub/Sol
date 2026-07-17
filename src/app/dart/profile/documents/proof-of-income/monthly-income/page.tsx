@@ -6,6 +6,7 @@ import Link from "next/link"
 import { NavHeader, NavBackButton } from "@/components/layout/nav-header"
 import { NumericKeypad } from "@/components/ui/numeric-keypad"
 import { Button } from "@/components/ui/button"
+import { CURRENCY_CODE } from "@/lib/currency"
 
 // Saisie du revenu mensuel (clavier numérique non visible sur la capture
 // source mais impliqué par l'affichage montant — même pattern que
@@ -35,7 +36,7 @@ export default function MonthlyIncomePage() {
 
       <div className="mt-6 rounded-card bg-neutral-200/40 py-8 text-center">
         <p className="font-heading text-[28px] font-bold text-ink">
-          <span className="text-neutral-500">{amount || "0"}</span> MAD
+          <span className="text-neutral-500">{amount || "0"}</span> {CURRENCY_CODE}
         </p>
       </div>
 

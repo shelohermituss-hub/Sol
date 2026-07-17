@@ -7,6 +7,7 @@ import { ArrowDown, ArrowRight, ArrowUp, Bell } from "@phosphor-icons/react/ssr"
 
 import { NavHeader, NavBackButton } from "@/components/layout/nav-header"
 import { SegmentedControl, SegmentedControlList, SegmentedControlTab } from "@/components/ui/segmented-control"
+import { formatCurrency } from "@/lib/currency"
 import { PAYMENT_TRANSACTIONS } from "@/lib/dart-data"
 
 // Historique des paiements. Cf. app-cible/Payment/Payment History/
@@ -42,7 +43,7 @@ export default function PaymentHistoryPage() {
                 <div className="min-w-0 flex-1">
                   <p className="flex items-baseline gap-2">
                     <span className="font-heading text-[17px] font-bold text-ink">
-                      {t.amount.toLocaleString("en-US")} MAD
+                      {formatCurrency(t.amount)}
                     </span>
                     <span className="text-[13px] text-neutral-500">
                       {t.time}, {t.date}

@@ -9,6 +9,7 @@ import { CaretRight, CheckCircle, PencilSimple, RocketLaunch } from "@phosphor-i
 import { NavHeader, NavBackButton } from "@/components/layout/nav-header"
 import { StepProgress } from "@/components/ui/step-progress"
 import { Card, CardDescription } from "@/components/ui/card"
+import { formatCurrency } from "@/lib/currency"
 import { MONTHLY_PAYIN_OPTIONS } from "@/lib/dart-data"
 
 // Étape 2/4 : choix de la mensualité. Cf. app-cible/
@@ -27,7 +28,7 @@ function MonthlyPayInForm() {
       <div className="mt-6 flex items-center justify-between rounded-card border border-neutral-200 px-5 py-4">
         <span className="flex items-center gap-2">
           <CheckCircle className="size-5 shrink-0 text-brand-blue" weight="fill" />
-          <span className="font-heading text-[17px] font-bold text-ink">{amount.toLocaleString("en-US")} MAD</span>
+          <span className="font-heading text-[17px] font-bold text-ink">{formatCurrency(amount)}</span>
         </span>
         <Link href={`/dart/join/game-ya?amount=${amount}`} className="flex items-center gap-1 font-bold text-brand-green">
           Edit <PencilSimple className="size-4" />
@@ -49,7 +50,7 @@ function MonthlyPayInForm() {
             className="flex items-center justify-between rounded-input border border-neutral-200 px-4 py-4 text-left"
           >
             <span className="text-[15px] text-ink">
-              <span className="font-bold text-brand-green">{option.monthly.toLocaleString("en-US")} MAD</span>
+              <span className="font-bold text-brand-green">{formatCurrency(option.monthly)}</span>
               <span className="text-neutral-500">/Monthly</span>
             </span>
             <span className="flex items-center gap-1 text-[15px] text-neutral-500">

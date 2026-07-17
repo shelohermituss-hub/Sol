@@ -1,8 +1,7 @@
 import { redirect } from "next/navigation"
 
-// Racine de l'app : Dart est l'application principale, redirige vers son
-// splash (/dart, qui enchaîne lui-même sur /dart/welcome). L'app Oportun
-// reste accessible directement via /onboarding pour qui a le lien.
+// Racine de l'app : redirige vers le splash (/dart, qui enchaîne
+// lui-même sur /dart/welcome).
 export default function RootPage() {
   redirect("/dart")
 }

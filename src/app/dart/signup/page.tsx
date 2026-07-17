@@ -17,7 +17,7 @@ export default function DartSignupPage() {
   return (
     <div className="mx-auto flex min-h-dvh w-full max-w-md flex-col px-6 pt-4">
       <div className="mt-4 flex justify-center">
-        <span className="font-heading text-[28px] font-bold text-ink">Dart</span>
+        <span className="font-heading text-[28px] font-bold text-ink">Sòlid</span>
       </div>
 
       <h1 className="mt-6 text-center font-heading text-[22px] font-bold text-ink">Welcome</h1>
@@ -42,7 +42,7 @@ export default function DartSignupPage() {
       </Button>
 
       <p className="mt-auto pb-6 text-center text-[13px] text-neutral-500">
-        By clicking Continue, you agree to Dart{" "}
+        By clicking Continue, you agree to Sòlid{" "}
         <span className="font-medium text-brand-green">Terms of Use</span> and{" "}
         <span className="font-medium text-brand-green">Privacy Policy</span>.
       </p>

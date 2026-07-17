@@ -1,4 +1,5 @@
 import type { CircleCardData } from "@/components/sections/circle-card"
+import { formatCurrency } from "@/lib/currency"
 
 // Données de démonstration pour le reskin Dart. Cf. app-cible/ (captures
 // source) — structure/fonctionnalités reprises, aucune valeur visuelle
@@ -110,7 +111,7 @@ export const SLOT_DATES: Record<SlotOption["id"], SlotDate[]> = {
 
 export const PAYOUT_METHODS = [
   { id: "digital-wallet", label: "Digital Wallets", description: "Receive your payout on any digital wallet.", available: true },
-  { id: "prepaid-card", label: "Prepaid Card", description: "Receive your payout on any Prepaid Card. Card limit is 100,000 MAD", available: true, badge: "No Charge" },
+  { id: "prepaid-card", label: "Prepaid Card", description: `Receive your payout on any Prepaid Card. Card limit is ${formatCurrency(100000)}`, available: true, badge: "No Charge" },
   { id: "bank-transfer", label: "Bank Transfer", description: "Direct your payout to your bank account.", available: true, badge: "No Charge" },
   { id: "fawry", label: "Fawry", description: "Receive your payout from any of Fawry Plus stores without bank account.", available: false },
 ] as const

@@ -6,6 +6,7 @@ import { ArrowLeft } from "@phosphor-icons/react/ssr"
 
 import { NavHeader } from "@/components/layout/nav-header"
 import { Button } from "@/components/ui/button"
+import { formatCurrency } from "@/lib/currency"
 import { useDart } from "@/lib/dart-context"
 
 // Révision du Saving Program (écran non capturé, construit par analogie —
@@ -50,17 +51,17 @@ function ReviewSavingForm() {
       <div className="mt-6 rounded-card border border-neutral-200 px-5">
         <div className="flex items-center justify-between border-b border-neutral-200 py-4">
           <span className="text-[15px] text-neutral-500">Saving amount</span>
-          <span className="text-[15px] font-bold text-ink">{amount.toLocaleString("en-US")} MAD</span>
+          <span className="text-[15px] font-bold text-ink">{formatCurrency(amount)}</span>
         </div>
         <div className="flex items-center justify-between border-b border-neutral-200 py-4">
           <span className="text-[15px] text-neutral-500">Monthly pay-in</span>
           <span className="text-[15px] font-bold text-ink">
-            {monthly.toLocaleString("en-US")} MAD for {months} months
+            {formatCurrency(monthly)} for {months} months
           </span>
         </div>
         <div className="flex items-center justify-between py-4">
           <span className="text-[15px] text-neutral-500">Cashback</span>
-          <span className="text-[15px] font-bold text-brand-green">Up to {cashback.toLocaleString("en-US")} MAD</span>
+          <span className="text-[15px] font-bold text-brand-green">Up to {formatCurrency(cashback)}</span>
         </div>
       </div>
 

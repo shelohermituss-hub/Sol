@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button"
 export default function DartWelcomePage() {
   return (
     <div className="mx-auto flex min-h-dvh w-full max-w-md flex-col px-6 pt-4">
-      <span className="mt-4 font-heading text-[24px] font-bold text-ink">Dart</span>
+      <span className="mt-4 font-heading text-[24px] font-bold text-ink">Sòlid</span>
 
       <Image
         src="/images/illustrations/dart-welcome-hero.svg"
@@ -22,7 +22,7 @@ export default function DartWelcomePage() {
         priority
       />
 
-      <h1 className="mt-8 font-heading text-[28px] font-bold text-ink">Welcome to Dart</h1>
+      <h1 className="mt-8 font-heading text-[28px] font-bold text-ink">Welcome to Sòlid</h1>
       <p className="mt-4 text-[17px] text-neutral-500">
         Explore everything you require for your financial progress and your adventure - browse, learn, network, all
         in one place.

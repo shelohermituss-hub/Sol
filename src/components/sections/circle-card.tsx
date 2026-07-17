@@ -2,6 +2,7 @@ import Link from "next/link"
 import { PlusCircle, Receipt } from "@phosphor-icons/react/ssr"
 
 import { Button } from "@/components/ui/button"
+import { formatCurrency } from "@/lib/currency"
 import { cn } from "@/lib/utils"
 
 export interface CircleCardData {
@@ -28,9 +29,9 @@ function CircleCard({ circle, joinHref }: { circle: CircleCardData; joinHref: st
     <div className="w-full shrink-0 rounded-card border border-neutral-200 bg-paper p-5">
       <div className="flex items-center justify-between">
         <div>
-          <p className="font-heading text-[20px] font-bold text-ink">{amount.toLocaleString("en-US")} MAD</p>
+          <p className="font-heading text-[20px] font-bold text-ink">{formatCurrency(amount)}</p>
           <p className="mt-0.5 text-[15px] text-neutral-500">
-            {monthly.toLocaleString("en-US")} MAD<span className="text-neutral-500">/Monthly</span>
+            {formatCurrency(monthly)}<span className="text-neutral-500">/Monthly</span>
           </p>
         </div>
         {joined ? (
@@ -68,7 +69,7 @@ function CircleCard({ circle, joinHref }: { circle: CircleCardData; joinHref: st
       <div className="mt-4 flex items-center gap-1.5 border-t border-neutral-200 pt-4 text-[13px] text-neutral-500">
         <Receipt className="size-4" />
         <span>
-          Admin Fees: <span className="font-bold text-ink">{adminFees.toLocaleString("en-US")} MAD</span>
+          Admin Fees: <span className="font-bold text-ink">{formatCurrency(adminFees)}</span>
         </span>
       </div>
     </div>

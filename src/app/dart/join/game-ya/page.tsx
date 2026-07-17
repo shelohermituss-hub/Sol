@@ -11,6 +11,7 @@ import { StepProgress } from "@/components/ui/step-progress"
 import { Slider } from "@/components/ui/slider"
 import { Card, CardTitle, CardDescription } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
+import { formatCurrency } from "@/lib/currency"
 
 const MIN_AMOUNT = 3000
 const MAX_AMOUNT = 120000
@@ -29,7 +30,7 @@ function PayoutAmountForm() {
       <StepProgress steps={4} current={1} className="mt-4" />
 
       <p className="mt-8 text-[15px] text-neutral-500">Payout Amount</p>
-      <p className="font-heading text-[32px] font-bold text-ink">{amount.toLocaleString("en-US")} MAD</p>
+      <p className="font-heading text-[32px] font-bold text-ink">{formatCurrency(amount)}</p>
 
       <Slider
         className="mt-4"
@@ -40,8 +41,8 @@ function PayoutAmountForm() {
         onValueChange={(v) => setAmount(v as number)}
       />
       <div className="flex items-center justify-between text-[13px] text-neutral-500">
-        <span>{MIN_AMOUNT.toLocaleString("en-US")} MAD</span>
-        <span>{MAX_AMOUNT.toLocaleString("en-US")} MAD</span>
+        <span>{formatCurrency(MIN_AMOUNT)}</span>
+        <span>{formatCurrency(MAX_AMOUNT)}</span>
       </div>
 
       <Card className="mt-8 flex-row items-center gap-4">

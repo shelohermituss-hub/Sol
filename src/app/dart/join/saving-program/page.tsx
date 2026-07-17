@@ -7,6 +7,7 @@ import { Coins } from "@phosphor-icons/react/ssr"
 import { NavHeader, NavBackButton } from "@/components/layout/nav-header"
 import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet"
 import { Button } from "@/components/ui/button"
+import { formatCurrency } from "@/lib/currency"
 import { cn } from "@/lib/utils"
 import { SAVING_DURATIONS, SAVING_TIERS, type SavingTier } from "@/lib/dart-data"
 
@@ -48,9 +49,9 @@ export default function SavingProgramPage() {
           >
             <div>
               <p className="text-[11px] font-bold tracking-wide text-neutral-500 uppercase">{tier.label}</p>
-              <p className="mt-1 font-heading text-[20px] font-bold text-ink">{tier.amount.toLocaleString("en-US")} MAD</p>
+              <p className="mt-1 font-heading text-[20px] font-bold text-ink">{formatCurrency(tier.amount)}</p>
               <p className="mt-1 text-[13px] text-neutral-500">
-                Up to <span className="text-brand-green">{tier.cashback.toLocaleString("en-US")} MAD</span> extra
+                Up to <span className="text-brand-green">{formatCurrency(tier.cashback)}</span> extra
               </p>
             </div>
             <Coins className="size-8 shrink-0 text-ink" weight="fill" />
@@ -74,7 +75,7 @@ export default function SavingProgramPage() {
               >
                 <p className="font-heading text-[22px] font-bold text-ink">{duration.months}</p>
                 <p className="text-[13px] text-neutral-500">Months</p>
-                <p className="mt-2 text-[13px] font-bold text-ink">{duration.monthly} MAD/Monthly</p>
+                <p className="mt-2 text-[13px] font-bold text-ink">{formatCurrency(duration.monthly)}/Monthly</p>
               </button>
             ))}
           </div>
@@ -92,7 +93,7 @@ export default function SavingProgramPage() {
               <div>
                 <p className="text-neutral-500">TOTAL PAYOUT</p>
                 <p className="mt-1 font-bold text-ink">
-                  {(selectedTier.amount + selectedTier.cashback).toLocaleString("en-US")} MAD
+                  {formatCurrency(selectedTier.amount + selectedTier.cashback)}
                 </p>
               </div>
             </div>

@@ -21,6 +21,7 @@ import { Switch } from "@/components/ui/switch"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { formatCurrency } from "@/lib/currency"
 
 // Onglet Profile (hub). Cf. app-cible/Profile.png. Suit quasi 1:1 la mise
 // en page du /profile de l'app 1 (sections de lignes de réglages).
@@ -48,7 +49,7 @@ export default function DartProfilePage() {
         <div className="mt-6 flex items-center justify-between rounded-card bg-ink px-5 py-5">
           <div>
             <p className="text-[13px] text-paper/70">Monthly Pay-in Limit</p>
-            <p className="mt-1 font-heading text-[20px] font-bold text-paper">3,000 MAD</p>
+            <p className="mt-1 font-heading text-[20px] font-bold text-paper">{formatCurrency(3000)}</p>
           </div>
           <CaretRight className="size-5 text-paper" />
         </div>

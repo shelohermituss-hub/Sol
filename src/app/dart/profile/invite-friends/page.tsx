@@ -7,11 +7,12 @@ import { ArrowRight, Bell, Copy, Envelope, Gift, Percent } from "@phosphor-icons
 import { NavHeader, NavBackButton } from "@/components/layout/nav-header"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet"
+import { formatCurrency } from "@/lib/currency"
 
 const STEPS = [
   { icon: Envelope, title: "Invite your friends", description: "Share your referral link and code to your friends who still haven't download app." },
-  { icon: Gift, title: "Gift them a discount", description: "Once they sign up with the promocode and join their first Game'ya through the invitation link, they will enjoy 150 MAD OFF their first pay-in." },
-  { icon: Percent, title: "Enjoy your own discount!", description: "On settling their first pay-in, you'll get 150 MAD OFF your next pay-in." },
+  { icon: Gift, title: "Gift them a discount", description: `Once they sign up with the promocode and join their first Game'ya through the invitation link, they will enjoy ${formatCurrency(150)} OFF their first pay-in.` },
+  { icon: Percent, title: "Enjoy your own discount!", description: `On settling their first pay-in, you'll get ${formatCurrency(150)} OFF your next pay-in.` },
 ]
 
 // Parrainage. Cf. app-cible/Profile/Invite Friends.png et
@@ -28,7 +29,7 @@ export default function InviteFriendsPage() {
         trailing={<Bell className="size-6 text-ink" />}
       />
 
-      <h1 className="mt-4 font-heading text-[24px] font-bold text-ink">Spread the word &amp; Get 150 MAD OFF!</h1>
+      <h1 className="mt-4 font-heading text-[24px] font-bold text-ink">Spread the word &amp; Get {formatCurrency(150)} OFF!</h1>
       <button
         type="button"
         onClick={() => setTrackOpen(true)}
@@ -71,21 +72,21 @@ export default function InviteFriendsPage() {
         <SheetContent>
           <SheetTitle>My Referrals</SheetTitle>
           <p className="text-[15px] text-neutral-500">
-            For every friend who joins through your invitation, you get 150 MAD OFF your next pay-in.
+            For every friend who joins through your invitation, you get {formatCurrency(150)} OFF your next pay-in.
           </p>
 
           <div className="flex items-center justify-between rounded-card border border-neutral-200 p-4">
             <div>
               <p className="text-[11px] text-neutral-500 uppercase">Earned</p>
-              <p className="mt-1 font-heading text-[17px] font-bold text-ink">0 MAD</p>
+              <p className="mt-1 font-heading text-[17px] font-bold text-ink">{formatCurrency(0)}</p>
             </div>
             <div>
               <p className="text-[11px] text-neutral-500 uppercase">Redeemed</p>
-              <p className="mt-1 font-heading text-[17px] font-bold text-ink">0 MAD</p>
+              <p className="mt-1 font-heading text-[17px] font-bold text-ink">{formatCurrency(0)}</p>
             </div>
             <div>
               <p className="text-[11px] text-neutral-500 uppercase">Balance</p>
-              <p className="mt-1 font-heading text-[17px] font-bold text-brand-green">0 MAD</p>
+              <p className="mt-1 font-heading text-[17px] font-bold text-brand-green">{formatCurrency(0)}</p>
             </div>
           </div>
 

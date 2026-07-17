@@ -17,7 +17,7 @@ export default function DartSplashPage() {
 
   return (
     <div className="flex min-h-dvh w-full items-center justify-center bg-paper">
-      <span className="font-heading text-[40px] font-bold text-ink">Dart</span>
+      <span className="font-heading text-[40px] font-bold text-ink">Sòlid</span>
     </div>
   )
 }

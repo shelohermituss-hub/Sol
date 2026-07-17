@@ -11,6 +11,7 @@ import { StepProgress } from "@/components/ui/step-progress"
 import { Card, CardDescription } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import { formatCurrency } from "@/lib/currency"
 import { cn } from "@/lib/utils"
 import { SLOT_DATES, SLOT_OPTIONS, type SlotOption } from "@/lib/dart-data"
 
@@ -45,7 +46,7 @@ function SlotForm() {
       <div className="mt-6 flex items-center justify-between rounded-card border border-neutral-200 px-5 py-4">
         <span className="flex items-center gap-2">
           <CheckCircle className="size-5 shrink-0 text-brand-blue" weight="fill" />
-          <span className="font-heading text-[17px] font-bold text-ink">{amount.toLocaleString("en-US")} MAD</span>
+          <span className="font-heading text-[17px] font-bold text-ink">{formatCurrency(amount)}</span>
         </span>
         <Link href={`/dart/join/game-ya?amount=${amount}`} className="flex items-center gap-1 font-bold text-brand-green">
           Edit <PencilSimple className="size-4" />
@@ -54,7 +55,7 @@ function SlotForm() {
       <div className="mt-2 flex items-center justify-between rounded-card border border-neutral-200 px-5 py-4">
         <span className="flex items-center gap-2 text-[15px] text-ink">
           <CheckCircle className="size-5 shrink-0 text-brand-blue" weight="fill" />
-          <span className="font-bold">{monthly.toLocaleString("en-US")} MAD</span>
+          <span className="font-bold">{formatCurrency(monthly)}</span>
           <span className="text-neutral-500">/Monthly</span> for {months} months
         </span>
         <Link href={backHref} className="flex items-center gap-1 font-bold text-brand-green">
@@ -148,11 +149,11 @@ function SlotForm() {
                 </Badge>
               ) : (
                 <p className="mt-2 text-[13px] text-neutral-500">
-                  <span className="font-bold text-ink">{date.fees?.toLocaleString("en-US")}</span> MAD Fees
+                  <span className="font-bold text-ink">{date.fees !== undefined ? formatCurrency(date.fees) : ""}</span> Fees
                 </p>
               )}
               {date.discount && (
-                <p className="mt-1 text-[13px] font-bold text-brand-green">{date.discount} MAD Discount</p>
+                <p className="mt-1 text-[13px] font-bold text-brand-green">{formatCurrency(date.discount)} Discount</p>
               )}
             </button>
           ))}

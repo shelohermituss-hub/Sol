@@ -6,7 +6,7 @@ import { Bell, Fire } from "@phosphor-icons/react/ssr"
 function DartHeader() {
   return (
     <div className="flex items-center justify-between">
-      <span className="font-heading text-[24px] font-bold text-ink">Dart</span>
+      <span className="font-heading text-[24px] font-bold text-ink">Sòlid</span>
       <div className="flex items-center gap-4">
         <Fire className="size-6 text-ink" />
         <Bell className="size-6 text-ink" />
