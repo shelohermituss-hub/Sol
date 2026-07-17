@@ -189,7 +189,8 @@ export interface EligibilityItem {
   label: string
   description: string
   status: "success" | "warning"
-  chevron?: boolean
+  /** Chevron affiché seulement si `href` pointe vers un écran réel — jamais un chevron sans destination. */
+  href?: string
 }
 
 // Cf. CLAUDE.md, "Réglementaire" : toute référence légale/bancaire est
@@ -197,11 +198,13 @@ export interface EligibilityItem {
 // Note" reste tel quel (le libellé n'est pas remplacé par autre chose)
 // mais porte désormais ce marqueur — l'exigence réelle reste à confirmer
 // avec la Banque de la République d'Haïti avant mise en production.
+// "Insurance Note" et "Contract" n'ont pas d'écran dédié dans le produit
+// actuel : pas de `href`, donc pas de chevron (cf. pattern DocumentItem).
 export const ELIGIBILITY_ITEMS: EligibilityItem[] = [
-  { id: "national-id", label: "CIN (National ID)", description: "You will need to upload a valid CIN (Carte d'Identification Nationale).", status: "success", chevron: false },
-  { id: "insurance-note", label: "Insurance Note [A VALIDER - BRH]", description: "You will need to sign the Insurance Note first, if you signed it ignore this.", status: "warning", chevron: true },
-  { id: "payout-method", label: "Payout Method Selected", description: "You will need to select a payout method.", status: "warning", chevron: true },
-  { id: "contract", label: "Contract", description: "You will need to sign the contract first.", status: "warning", chevron: true },
+  { id: "national-id", label: "CIN (National ID)", description: "You will need to upload a valid CIN (Carte d'Identification Nationale).", status: "success" },
+  { id: "insurance-note", label: "Insurance Note [A VALIDER - BRH]", description: "You will need to sign the Insurance Note first, if you signed it ignore this.", status: "warning" },
+  { id: "payout-method", label: "Payout Method Selected", description: "You will need to select a payout method.", status: "warning", href: "/dart/payout-method" },
+  { id: "contract", label: "Contract", description: "You will need to sign the contract first.", status: "warning" },
 ]
 
 export interface SavedCard {

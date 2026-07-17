@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link"
 import { Bell, CheckCircle, FilePlus } from "@phosphor-icons/react/ssr"
 
 import { NavHeader, NavBackButton } from "@/components/layout/nav-header"
@@ -30,8 +31,9 @@ export default function PaymentEligibilityPage() {
             status={item.status}
             title={item.label}
             subtitle={item.description}
-            showChevron={item.chevron}
+            showChevron={Boolean(item.href)}
             className="rounded-card border border-neutral-200 px-4"
+            {...(item.href ? { render: <Link href={item.href} /> } : {})}
           />
         ))}
       </div>

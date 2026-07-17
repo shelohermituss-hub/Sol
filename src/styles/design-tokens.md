@@ -1,4 +1,4 @@
-# Design Tokens — Oportun (extraits des screenshots `design-refs/`)
+# Design Tokens (extraits des screenshots de l'app source, `design-refs/`)
 
 > Extraction visuelle (pas de fichier Figma disponible pour ce projet — voir
 > `INVENTAIRE.md`). Les couleurs ci-dessous sont mesurées au pixel exact par
@@ -48,12 +48,12 @@ qu'aucun écran ne le montre.
 - **Titres (bold/semibold)** : sans-serif géométrique à empattements arrondis,
   "o" parfaitement circulaires, "g" bas-de-casse à boucle ouverte simple
   (visible sur "goals"), très proche de **Poppins**. Le wordmark du logo
-  splash ("Oportun") est composé dans cette même famille.
+  splash de l'app source est composé dans cette même famille.
 - **Corps de texte / labels** : sans-serif plus neutre/humaniste, proportions
   moins géométriques que les titres — proche de **Inter**.
 - Chargées via `next/font/google` (Poppins pour les titres, Inter pour le
   corps), voir `src/app/layout.tsx`.
-- ⚠️ Si un brand book Oportun officiel est fourni par la suite, comparer et
+- ⚠️ Si un brand book officiel est fourni par la suite, comparer et
   remplacer si la police exacte diffère.
 
 ### Échelle
@@ -92,7 +92,7 @@ badge "NEW", bandeau succès, tab bar, etc.) — base pour les composants
 `shadcn/ui` initialisé (`components.json`, style `base-nova`, primitives
 `@base-ui/react`, `iconLibrary: "phosphor"` — jamais `lucide-react`, retiré
 des dépendances). Le thème par défaut shadcn (oklch gris) a été entièrement
-remappé sur les tokens Oportun ci-dessus dans `globals.css` (`--primary`,
+remappé sur les tokens ci-dessus dans `globals.css` (`--primary`,
 `--background`, `--border`, etc. pointent vers `--color-ink`,
 `--color-paper`, `--color-neutral-200`...) ; `--destructive` reprend
 `--color-ink` en l'absence de tout rouge observé. Mode sombre retiré
@@ -150,7 +150,7 @@ fidèlement ; recréation SVG directe à partir des couleurs déjà échantillon
 - Icône Face ID (scan, fond pêche) — pas d'équivalent Phosphor exact
 - Icônes de fonctionnalités Subscription (tirelire, document $, banque
   illustrée, cadenas, plante+pièce, main+téléphone)
-- Icônes "More from Oportun" (jauge de crédit, tirelire, lettre "ñ")
+- Icônes de la section "Plus de fonctionnalités" (jauge de crédit, tirelire, lettre "ñ")
 - Icône succès transfert (feuille/sparkle vert)
 - Confetti / party-popper (upsell plan annuel)
 

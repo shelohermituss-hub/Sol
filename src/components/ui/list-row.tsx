@@ -13,7 +13,7 @@ type ListRowProps = Omit<useRender.ComponentProps<"div">, "title"> & {
   trailing?: React.ReactNode
   /** Affiche un chevron de navigation à droite (ligne cliquable menant à un sous-écran). */
   showChevron?: boolean
-  /** "circle" (défaut, buts/comptes) ou "square" (badges colorés, articles "More from Oportun"). */
+  /** "circle" (défaut, buts/comptes) ou "square" (badges colorés, articles de section additionnelle). */
   iconVariant?: "circle" | "square"
   /** Icône de statut sans fond (remplace `icon`) — lignes à vérifier (ex. "Payment Eligibility"). Jamais de rouge : "warning" reste en ink, cohérent avec l'absence de rouge destructif déjà actée. */
   status?: "success" | "warning"
