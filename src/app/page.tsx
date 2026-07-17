@@ -1,9 +1,8 @@
 import { redirect } from "next/navigation"
 
-// Racine de l'app : redirige vers l'Onboarding (splash), pour reproduire
-// fidèlement un vrai premier lancement — pas d'accès direct à Home sans
-// passer par Onboarding/Login. Le Home réel vit sur /home (cf.
-// src/app/home/page.tsx).
+// Racine de l'app : Dart est l'application principale, redirige vers son
+// splash (/dart, qui enchaîne lui-même sur /dart/welcome). L'app Oportun
+// reste accessible directement via /onboarding pour qui a le lien.
 export default function RootPage() {
-  redirect("/onboarding")
+  redirect("/dart")
 }
