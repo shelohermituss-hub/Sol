@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import { Bell } from "@phosphor-icons/react/ssr"
 
 import { NavHeader, NavBackButton } from "@/components/layout/nav-header"
 import { TextField } from "@/components/ui/text-field"
@@ -16,7 +17,11 @@ export default function DartPersonalInfoPage() {
 
   return (
     <div className="mx-auto flex min-h-dvh w-full max-w-md flex-col px-6 pt-4">
-      <NavHeader leading={<NavBackButton href="/dart/profile" />} title="Personal Info" />
+      <NavHeader
+        leading={<NavBackButton href="/dart/profile" />}
+        title="Personal Info"
+        trailing={<Bell className="size-6 text-ink" />}
+      />
 
       <div className="mt-6 flex flex-col gap-4">
         <TextField label="First Name" value={firstName} onChange={(e) => setFirstName(e.target.value)} />

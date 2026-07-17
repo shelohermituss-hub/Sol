@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Receipt } from "@phosphor-icons/react/ssr"
+import { PlusCircle, Receipt } from "@phosphor-icons/react/ssr"
 
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
@@ -37,6 +37,7 @@ function CircleCard({ circle, joinHref }: { circle: CircleCardData; joinHref: st
           <span className="rounded-full bg-brand-green px-3 py-1.5 text-[13px] font-bold text-paper">Joined</span>
         ) : (
           <Button size="default" className="h-9 px-4 text-[14px]" nativeButton={false} render={<Link href={joinHref} />}>
+            <PlusCircle className="size-4" />
             Join now
           </Button>
         )}

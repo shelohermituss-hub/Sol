@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { CreditCard, PencilSimple, Plus, Trash, Wallet } from "@phosphor-icons/react/ssr"
+import { CaretRight, CreditCard, FilePlus, PencilSimple, Trash, Wallet } from "@phosphor-icons/react/ssr"
 
 import { NavHeader, NavBackButton } from "@/components/layout/nav-header"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
@@ -56,9 +56,10 @@ export default function SavedCardsPage() {
         href="/dart/payment/settings/saved-cards/add"
         className="mt-3 flex items-center gap-3 border-b border-neutral-200 py-4"
       >
-        <Plus className="size-5 text-ink" />
+        <FilePlus className="size-5 text-ink" />
         <span className="flex-1 text-[15px] font-bold text-ink">Add Card</span>
         <span className="text-[13px] text-neutral-500">Visa, Mastercard, Amex</span>
+        <CaretRight className="size-4 shrink-0 text-ink" />
       </Link>
     </div>
   )

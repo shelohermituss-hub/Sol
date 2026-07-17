@@ -4,7 +4,7 @@ import * as React from "react"
 import { Suspense } from "react"
 import Link from "next/link"
 import { useSearchParams } from "next/navigation"
-import { ClockCountdown, Lightning, PencilSimple, RocketLaunch, TrendUp } from "@phosphor-icons/react/ssr"
+import { ArrowRight, CaretRight, CheckCircle, ClockCountdown, Lightning, PencilSimple, RocketLaunch, TrendUp } from "@phosphor-icons/react/ssr"
 
 import { NavHeader, NavBackButton } from "@/components/layout/nav-header"
 import { StepProgress } from "@/components/ui/step-progress"
@@ -43,13 +43,17 @@ function SlotForm() {
       <StepProgress steps={4} current={3} className="mt-4" />
 
       <div className="mt-6 flex items-center justify-between rounded-card border border-neutral-200 px-5 py-4">
-        <span className="font-heading text-[17px] font-bold text-ink">{amount.toLocaleString("en-US")} MAD</span>
+        <span className="flex items-center gap-2">
+          <CheckCircle className="size-5 shrink-0 text-brand-blue" weight="fill" />
+          <span className="font-heading text-[17px] font-bold text-ink">{amount.toLocaleString("en-US")} MAD</span>
+        </span>
         <Link href={`/dart/join/game-ya?amount=${amount}`} className="flex items-center gap-1 font-bold text-brand-green">
           Edit <PencilSimple className="size-4" />
         </Link>
       </div>
       <div className="mt-2 flex items-center justify-between rounded-card border border-neutral-200 px-5 py-4">
-        <span className="text-[15px] text-ink">
+        <span className="flex items-center gap-2 text-[15px] text-ink">
+          <CheckCircle className="size-5 shrink-0 text-brand-blue" weight="fill" />
           <span className="font-bold">{monthly.toLocaleString("en-US")} MAD</span>
           <span className="text-neutral-500">/Monthly</span> for {months} months
         </span>
@@ -60,34 +64,66 @@ function SlotForm() {
 
       <h1 className="mt-6 font-heading text-[20px] font-bold text-ink">Choose turn</h1>
 
-      <div className="mt-3 flex flex-wrap gap-2">
-        {SLOT_OPTIONS.map((option) => {
-          const Icon = SLOT_ICONS[option.id]
-          const isActive = selectedOption === option.id
-          return (
-            <button
-              key={option.id}
-              type="button"
-              onClick={() => {
-                setSelectedOption(option.id)
-                setSelectedDate(null)
-              }}
-              className={cn(
-                "flex items-center gap-2 rounded-full border px-4 py-2.5 text-[14px] font-semibold",
-                isActive ? "border-ink bg-ink text-paper" : "border-neutral-200 text-ink"
-              )}
-            >
-              <Icon className="size-4" weight={isActive ? "fill" : "regular"} />
-              {option.label}
-            </button>
-          )
-        })}
-      </div>
-
-      {selectedOption && (
-        <p className="mt-2 text-[13px] text-neutral-500">
-          {SLOT_OPTIONS.find((o) => o.id === selectedOption)?.description}
-        </p>
+      {!selectedOption ? (
+        // État initial : liste des 3 créneaux en cartes pleine largeur avec
+        // libellé de droite (frais/remise) + chevron. Cf. app-cible/
+        // Join/Join a Game'ya/Monthly pay-in/Slot.png.
+        <div className="mt-3 flex flex-col gap-3">
+          {SLOT_OPTIONS.map((option) => {
+            const Icon = SLOT_ICONS[option.id]
+            return (
+              <button
+                key={option.id}
+                type="button"
+                onClick={() => setSelectedOption(option.id)}
+                className="rounded-card border border-neutral-200 p-4 text-left"
+              >
+                <div className="flex items-center gap-2">
+                  <Icon className="size-4 shrink-0 text-ink" />
+                  <span className="flex-1 font-bold text-ink">{option.label}</span>
+                  {option.tag && (
+                    <span
+                      className={cn(
+                        "text-[13px] font-semibold",
+                        option.tagVariant === "success" ? "text-brand-green" : "text-neutral-500"
+                      )}
+                    >
+                      {option.tag}
+                    </span>
+                  )}
+                  <CaretRight className="size-4 shrink-0 text-ink" />
+                </div>
+                <p className="mt-1 text-[13px] text-neutral-500">{option.description}</p>
+              </button>
+            )
+          })}
+        </div>
+      ) : (
+        // État sélectionné : rangée de pastilles compactes + grille de
+        // dates. Cf. app-cible/Join/.../Slot/Highest Return.png.
+        <div className="mt-3 flex flex-wrap gap-2">
+          {SLOT_OPTIONS.map((option) => {
+            const Icon = SLOT_ICONS[option.id]
+            const isActive = selectedOption === option.id
+            return (
+              <button
+                key={option.id}
+                type="button"
+                onClick={() => {
+                  setSelectedOption(option.id)
+                  setSelectedDate(null)
+                }}
+                className={cn(
+                  "flex items-center gap-2 rounded-full border px-4 py-2.5 text-[14px] font-semibold",
+                  isActive ? "border-ink bg-ink text-paper" : "border-neutral-200 text-ink"
+                )}
+              >
+                <Icon className="size-4" weight={isActive ? "fill" : "regular"} />
+                {option.label}
+              </button>
+            )
+          })}
+        </div>
       )}
 
       {selectedOption && (
@@ -128,7 +164,9 @@ function SlotForm() {
           <span className="font-bold text-ink">Admin Fees</span> are split equally over your pay-in until your
           payout month.
           <br />
-          <span className="mt-1 inline-block font-bold text-brand-green">Learn More</span>
+          <span className="mt-1 inline-flex items-center gap-1 font-bold text-brand-green">
+            Learn More <ArrowRight className="size-4" />
+          </span>
         </CardDescription>
         <RocketLaunch className="size-10 shrink-0 text-ink" weight="duotone" />
       </Card>

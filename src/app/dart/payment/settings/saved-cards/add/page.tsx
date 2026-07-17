@@ -44,9 +44,12 @@ export default function AddCardPage() {
           onChange={(e) => setCardNumber(e.target.value.replace(/\D/g, "").slice(0, 16))}
         />
         <TextField label="Name on Card" value={name} onChange={(e) => setName(e.target.value)} />
-        <div className="flex gap-4">
-          <TextField className="flex-1" label="Month" inputMode="numeric" value={month} onChange={(e) => setMonth(e.target.value.replace(/\D/g, "").slice(0, 2))} />
-          <TextField className="flex-1" label="Year" inputMode="numeric" value={year} onChange={(e) => setYear(e.target.value.replace(/\D/g, "").slice(0, 2))} />
+        <div>
+          <p className="mb-2 text-[15px] font-bold text-ink">Expiration Date</p>
+          <div className="flex gap-4">
+            <TextField className="flex-1" label="Month" inputMode="numeric" value={month} onChange={(e) => setMonth(e.target.value.replace(/\D/g, "").slice(0, 2))} />
+            <TextField className="flex-1" label="Year" inputMode="numeric" value={year} onChange={(e) => setYear(e.target.value.replace(/\D/g, "").slice(0, 2))} />
+          </div>
         </div>
         <TextField label="Security Code" inputMode="numeric" value={cvc} onChange={(e) => setCvc(e.target.value.replace(/\D/g, "").slice(0, 4))} />
       </div>

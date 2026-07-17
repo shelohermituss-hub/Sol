@@ -5,11 +5,13 @@ import Link from "next/link"
 import {
   CaretRight,
   Fingerprint,
+  Folder,
   LockKey,
   Question,
   SignOut,
   Translate,
   UserCircle,
+  UsersThree,
 } from "@phosphor-icons/react/ssr"
 
 import { DartHeader } from "@/components/layout/dart-header"
@@ -34,7 +36,9 @@ export default function DartProfilePage() {
         <DartHeader />
 
         <div className="mt-6 flex items-center gap-3">
-          <UserCircle className="size-12 text-neutral-500" />
+          <span className="flex size-14 shrink-0 items-center justify-center rounded-full bg-neutral-200/50">
+            <UserCircle className="size-8 text-neutral-500" />
+          </span>
           <div>
             <p className="font-heading text-[17px] font-bold text-ink">Hafiz Hanif</p>
             <p className="text-[15px] text-neutral-500">01080740132</p>
@@ -58,13 +62,13 @@ export default function DartProfilePage() {
             render={<Link href="/dart/profile/personal-info" />}
           />
           <ListRow
-            icon={<UserCircle className="size-6 text-ink" />}
+            icon={<Folder className="size-6 text-ink" />}
             title="My Documents"
             showChevron
             render={<Link href="/dart/profile/documents" />}
           />
           <ListRow
-            icon={<UserCircle className="size-6 text-ink" />}
+            icon={<UsersThree className="size-6 text-ink" />}
             title="Invite Friends"
             showChevron
             render={<Link href="/dart/profile/invite-friends" />}

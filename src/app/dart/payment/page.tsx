@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { CheckSquare, Gear, Question, ReceiptX, Wallet } from "@phosphor-icons/react/ssr"
+import { CheckSquare, CurrencyCircleDollar, Gear, PlusCircle, Question, Receipt, Wallet } from "@phosphor-icons/react/ssr"
 
 import { DartHeader } from "@/components/layout/dart-header"
 import { DartTabBar } from "@/components/layout/dart-tab-bar"
@@ -10,8 +10,8 @@ import { Button } from "@/components/ui/button"
 const OTHERS = [
   { label: "Payout Eligibility", href: "/dart/payment/eligibility", icon: CheckSquare },
   { label: "Payment Settings", href: "/dart/payment/settings", icon: Gear },
-  { label: "Payment History", href: "/dart/payment/history", icon: ReceiptX },
-  { label: "Payment Policy", href: undefined, icon: ReceiptX },
+  { label: "Payment History", href: "/dart/payment/history", icon: CurrencyCircleDollar },
+  { label: "Payment Policy", href: undefined, icon: Receipt },
   { label: "Help", href: undefined, icon: Question },
 ] as const
 
@@ -35,6 +35,7 @@ export default function DartPaymentPage() {
             Your due payment and your balance will appear here after you join a circle.
           </p>
           <Button className="mt-4" nativeButton={false} render={<Link href="/dart/join" />}>
+            <PlusCircle className="size-5" />
             Join New Circle
           </Button>
         </div>

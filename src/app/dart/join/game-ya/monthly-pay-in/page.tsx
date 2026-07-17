@@ -4,7 +4,7 @@ import * as React from "react"
 import { Suspense } from "react"
 import Link from "next/link"
 import { useRouter, useSearchParams } from "next/navigation"
-import { CaretRight, PencilSimple, RocketLaunch } from "@phosphor-icons/react/ssr"
+import { CaretRight, CheckCircle, PencilSimple, RocketLaunch } from "@phosphor-icons/react/ssr"
 
 import { NavHeader, NavBackButton } from "@/components/layout/nav-header"
 import { StepProgress } from "@/components/ui/step-progress"
@@ -25,7 +25,10 @@ function MonthlyPayInForm() {
       <StepProgress steps={4} current={2} className="mt-4" />
 
       <div className="mt-6 flex items-center justify-between rounded-card border border-neutral-200 px-5 py-4">
-        <span className="font-heading text-[17px] font-bold text-ink">{amount.toLocaleString("en-US")} MAD</span>
+        <span className="flex items-center gap-2">
+          <CheckCircle className="size-5 shrink-0 text-brand-blue" weight="fill" />
+          <span className="font-heading text-[17px] font-bold text-ink">{amount.toLocaleString("en-US")} MAD</span>
+        </span>
         <Link href={`/dart/join/game-ya?amount=${amount}`} className="flex items-center gap-1 font-bold text-brand-green">
           Edit <PencilSimple className="size-4" />
         </Link>

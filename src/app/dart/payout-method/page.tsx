@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { useRouter } from "next/navigation"
-import { Bank, Globe, Info, UserCircle, Wallet } from "@phosphor-icons/react/ssr"
+import { Bank, Bell, CreditCard, Globe, Info, Wallet } from "@phosphor-icons/react/ssr"
 
 import { NavHeader, NavBackButton } from "@/components/layout/nav-header"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
@@ -12,7 +12,7 @@ import { PAYOUT_METHODS } from "@/lib/dart-data"
 
 const METHOD_ICONS = {
   "digital-wallet": Wallet,
-  "prepaid-card": UserCircle,
+  "prepaid-card": CreditCard,
   "bank-transfer": Bank,
   fawry: Globe,
 } as const
@@ -25,7 +25,11 @@ export default function PayoutMethodPage() {
 
   return (
     <div className="mx-auto flex min-h-dvh w-full max-w-md flex-col px-6 pt-4">
-      <NavHeader leading={<NavBackButton href="/dart/home" />} title="Payout Method" />
+      <NavHeader
+        leading={<NavBackButton href="/dart/home" />}
+        title="Payout Method"
+        trailing={<Bell className="size-6 text-ink" />}
+      />
 
       <p className="mt-6 text-[15px] text-neutral-500">Choose your preferred payout method for the next circles.</p>
 

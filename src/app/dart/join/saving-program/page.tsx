@@ -10,6 +10,17 @@ import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { SAVING_DURATIONS, SAVING_TIERS, type SavingTier } from "@/lib/dart-data"
 
+const START_MONTH = 10 // Novembre 2024 (index 0 = janvier), cf. "STARTS ON" de la capture
+const START_YEAR = 2024
+const MONTH_LABELS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+
+function payoutDateLabel(months: number) {
+  const total = START_MONTH + months
+  const year = START_YEAR + Math.floor(total / 12)
+  const month = MONTH_LABELS[total % 12]
+  return `${month} ${year}`
+}
+
 // Choix d'un palier d'épargne prédéfini. Cf. app-cible/
 // Join/Saving Program.png. "Choose Duration" (bottom sheet) réutilise
 // Sheet — cf. app-cible/Join/Saving Program/Choose Duration.png.
@@ -76,7 +87,7 @@ export default function SavingProgramPage() {
               </div>
               <div>
                 <p className="text-neutral-500">PAYOUT DATE</p>
-                <p className="mt-1 font-bold text-ink">{selectedDuration.months === 6 ? "Apr 2025" : "Later"}</p>
+                <p className="mt-1 font-bold text-ink">{payoutDateLabel(selectedDuration.months)}</p>
               </div>
               <div>
                 <p className="text-neutral-500">TOTAL PAYOUT</p>

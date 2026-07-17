@@ -4,7 +4,7 @@ import * as React from "react"
 import { Suspense } from "react"
 import Link from "next/link"
 import { useSearchParams } from "next/navigation"
-import { RocketLaunch } from "@phosphor-icons/react/ssr"
+import { ArrowRight, RocketLaunch } from "@phosphor-icons/react/ssr"
 
 import { NavHeader, NavBackButton } from "@/components/layout/nav-header"
 import { StepProgress } from "@/components/ui/step-progress"
@@ -49,7 +49,9 @@ function PayoutAmountForm() {
           <CardTitle className="text-[15px]">
             Payout Amount <span className="font-normal text-neutral-500">Your monthly pay-in is automatically deducted from your circle amount.</span>
           </CardTitle>
-          <CardDescription className="mt-2 font-bold text-brand-green">Learn More</CardDescription>
+          <CardDescription className="mt-2 flex items-center gap-1 font-bold text-brand-green">
+            Learn More <ArrowRight className="size-4" />
+          </CardDescription>
         </div>
         <RocketLaunch className="size-10 shrink-0 text-ink" weight="duotone" />
       </Card>

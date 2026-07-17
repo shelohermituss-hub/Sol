@@ -88,6 +88,11 @@ export interface SlotDate {
   zeroFees?: boolean
 }
 
+// Seules les dates de l'onglet "highest-return" sont issues d'une capture
+// (Slot/Highest Return.png). Les dates "fastest" et "lowest-fees" ne sont
+// visibles dans aucun screenshot de app-cible/ : elles suivent la même
+// plage de mois annoncée par SLOT_OPTIONS[].description (nov-déc,
+// jan-fév) avec des montants extrapolés, faute de capture source.
 export const SLOT_DATES: Record<SlotOption["id"], SlotDate[]> = {
   fastest: [
     { id: "nov", month: "November", year: 2025, day: "3rd", fees: 3600 },
@@ -159,13 +164,15 @@ export interface DocumentItem {
   id: string
   label: string
   description: string
+  /** Ligne d'accroche additionnelle en vert, sous la description (cf. app-cible/Profile/My Documents.png). */
+  hint?: string
   isNew?: boolean
   href?: string
 }
 
 export const DOCUMENT_ITEMS: DocumentItem[] = [
-  { id: "national-id", label: "National ID", description: "Upload a photo of your National ID.", href: "/dart/profile/documents/scan-id" },
-  { id: "proof-of-income", label: "Proof of Income", description: "Upload an HR letter or a business bank statement.", href: "/dart/profile/documents/proof-of-income" },
+  { id: "national-id", label: "National ID", description: "Upload a photo of your National ID.", hint: "Required to verify your identity", href: "/dart/profile/documents/scan-id" },
+  { id: "proof-of-income", label: "Proof of Income", description: "Upload an HR letter or a business bank statement.", hint: "Required to to increase limit", href: "/dart/profile/documents/proof-of-income" },
   { id: "utility-bill", label: "Utility Bill", description: "Upload a copy of a utility bill under your name or a first-degree relatively.", isNew: true },
   { id: "car-license", label: "Car License", description: "Upload a photo of your car's license." },
   { id: "club-id", label: "Club ID", description: "Upload a photo of your club membership card." },

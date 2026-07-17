@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { Copy, Envelope, Gift, Percent } from "@phosphor-icons/react/ssr"
+import { ArrowRight, Bell, Copy, Envelope, Gift, Percent } from "@phosphor-icons/react/ssr"
 
 import { NavHeader, NavBackButton } from "@/components/layout/nav-header"
 import { Button } from "@/components/ui/button"
@@ -21,11 +21,19 @@ export default function InviteFriendsPage() {
 
   return (
     <div className="mx-auto flex min-h-dvh w-full max-w-md flex-col px-6 pt-4">
-      <NavHeader leading={<NavBackButton href="/dart/profile" />} title="Refer a friend" />
+      <NavHeader
+        leading={<NavBackButton href="/dart/profile" />}
+        title="Refer a friend"
+        trailing={<Bell className="size-6 text-ink" />}
+      />
 
       <h1 className="mt-4 font-heading text-[24px] font-bold text-ink">Spread the word &amp; Get 150 MAD OFF!</h1>
-      <button type="button" onClick={() => setTrackOpen(true)} className="mt-2 text-left font-bold text-brand-green">
-        Track your invitations →
+      <button
+        type="button"
+        onClick={() => setTrackOpen(true)}
+        className="mt-2 flex items-center gap-1 text-left font-bold text-brand-green"
+      >
+        Track your invitations <ArrowRight className="size-4" />
       </button>
 
       <div className="mt-6 flex flex-col gap-5">
@@ -47,7 +55,10 @@ export default function InviteFriendsPage() {
       <div className="mt-auto pb-6">
         <button
           type="button"
-          onClick={() => setCopied(true)}
+          onClick={() => {
+            navigator.clipboard?.writeText("pogvhsuh")
+            setCopied(true)
+          }}
           className="mx-auto mb-4 flex items-center gap-2 font-bold text-brand-green"
         >
           {copied ? "Copied!" : "Copy code: pogvhsuh"} <Copy className="size-4" />

@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import Link from "next/link"
-import { CaretRight, CreditCard, FilePlus, Scissors } from "@phosphor-icons/react/ssr"
+import { Bell, CaretRight, CreditCard, FilePlus, Scissors } from "@phosphor-icons/react/ssr"
 
 import { NavHeader, NavBackButton } from "@/components/layout/nav-header"
 import { Switch } from "@/components/ui/switch"
@@ -13,7 +13,11 @@ export default function PaymentSettingsPage() {
 
   return (
     <div className="mx-auto flex min-h-dvh w-full max-w-md flex-col px-6 pt-4">
-      <NavHeader leading={<NavBackButton href="/dart/payment" />} title="Payment Settings" />
+      <NavHeader
+        leading={<NavBackButton href="/dart/payment" />}
+        title="Payment Settings"
+        trailing={<Bell className="size-6 text-ink" />}
+      />
 
       <h1 className="mt-4 font-heading text-[20px] font-bold text-ink">Make sure to correct the following:</h1>
 

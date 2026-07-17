@@ -318,9 +318,30 @@ Cards", changer la langue persiste dans la sheet.
   "Visuels à générer") — actuellement remplacées par des icônes Phosphor
   en badge circulaire, mêmes tokens que l'app 1. Validation des prompts à
   soumettre avant génération.
-- Vérification fine de chaque icône Phosphor listée à l'Étape 2 (certaines
-  ont pu être remplacées par un équivalent proche en cours de construction
-  si le nom exact n'existait pas — ex. `WalletX` → `Wallet`).
-- Revue croisée écran par écran contre `app-cible/` pour repérer d'éventuels
-  détails fonctionnels manqués (l'exercice a été fait à la volée, une passe
-  dédiée reste utile).
+
+### Statut : ✅ revue exhaustive écran par écran effectuée (28/28 pages)
+
+Chaque page sous `/dart` a été comparée à sa capture `app-cible/` source
+selon 4 critères (structure, hiérarchie de l'info, éléments manquants,
+cohérence avec le design system app 1). 22 écarts réels ont été trouvés et
+corrigés (icône bell manquante sur 7 écrans, icônes dupliquées/incorrectes,
+éléments d'info manquants, une vraie donnée factice `"Later"` remplacée par
+un calcul réel, redesign de l'écran Slot pour retrouver son état "liste"
+initial). Détail complet dans le rapport livré au chat à l'issue de cette
+passe. `npm run build` et `npm run lint` restent clean après corrections,
+vérification visuelle Playwright refaite sur les écrans modifiés (zéro
+erreur console).
+
+Écarts identifiés mais **non corrigés intentionnellement** (limites déjà
+actées, pas d'invention de contenu absent de app-cible/) :
+- `SLOT_DATES` : seules les dates de l'onglet "highest-return" sont
+  sourcées d'une capture ; "fastest"/"lowest-fees" restent extrapolées
+  (commentaire ajouté dans `dart-data.ts` pour tracer cette limite).
+- Personal Info : sélecteur indicatif pays (drapeau + "+01") de la capture
+  non reproduit, aucun composant équivalent existant dans l'app 1.
+- Proof of Income : le choix "Bank Statement" retourne à My Documents
+  faute d'écran suivant capturé dans app-cible/ (seul "HR Letter" a un
+  parcours complet capturé).
+- Scan National ID : vignettes d'exemple "Don't" simplifiées en texte
+  (illustrations non reproduites, cohérent avec le traitement des visuels
+  en attente de génération Higgsfield ailleurs dans l'app).

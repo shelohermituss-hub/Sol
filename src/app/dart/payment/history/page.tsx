@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import Link from "next/link"
-import { ArrowDown, ArrowUp, ClockCounterClockwise } from "@phosphor-icons/react/ssr"
+import { ArrowDown, ArrowRight, ArrowUp, Bell, ClockCounterClockwise } from "@phosphor-icons/react/ssr"
 
 import { NavHeader, NavBackButton } from "@/components/layout/nav-header"
 import { SegmentedControl, SegmentedControlList, SegmentedControlTab } from "@/components/ui/segmented-control"
@@ -16,7 +16,11 @@ export default function PaymentHistoryPage() {
 
   return (
     <div className="mx-auto flex min-h-dvh w-full max-w-md flex-col px-6 pt-4">
-      <NavHeader leading={<NavBackButton href="/dart/payment" />} title="Payment History" />
+      <NavHeader
+        leading={<NavBackButton href="/dart/payment" />}
+        title="Payment History"
+        trailing={<Bell className="size-6 text-ink" />}
+      />
 
       <SegmentedControl value={tab} onValueChange={(v) => setTab(v as "payment" | "payout")} className="mt-6">
         <SegmentedControlList>
@@ -63,8 +67,8 @@ export default function PaymentHistoryPage() {
           <p className="mt-1 text-[15px] text-neutral-500">
             Transactions will appear here whenever you pay an installment or received payout.
           </p>
-          <Link href="/dart/circles" className="mt-4 font-bold text-brand-green">
-            Explore Circles →
+          <Link href="/dart/circles" className="mt-4 flex items-center gap-1 font-bold text-brand-green">
+            Explore Circles <ArrowRight className="size-4" />
           </Link>
         </div>
       )}
