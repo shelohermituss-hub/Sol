@@ -9,6 +9,7 @@ import { PromoCarousel } from "@/components/sections/promo-carousel"
 import { CircleCard } from "@/components/sections/circle-card"
 import { CategoryCard } from "@/components/sections/category-card"
 import { formatCurrency } from "@/lib/currency"
+import { useDart } from "@/lib/dart-context"
 import { INVITED_CIRCLES } from "@/lib/dart-data"
 
 // Onglet Home du reskin Sòlid. Cf. app-cible/Home.png (= Join.png, même
@@ -19,6 +20,9 @@ import { INVITED_CIRCLES } from "@/lib/dart-data"
 // remplacé par "Back to School" (cf. CLAUDE.md, modèle de confiance —
 // choix documenté dans le résumé de la tâche, 2 autres options proposées).
 export default function DartHomePage() {
+  const { declinedInvitationIds } = useDart()
+  const invitedCircles = INVITED_CIRCLES.filter((circle) => !declinedInvitationIds.includes(circle.id))
+
   return (
     <div className="mx-auto flex min-h-dvh w-full max-w-md flex-col">
       <div className="flex-1 px-6 pt-4">
@@ -51,8 +55,8 @@ export default function DartHomePage() {
 
         <h2 className="mt-8 font-heading text-[20px] font-bold text-ink">Invited to you</h2>
         <div className="mt-3 flex flex-col gap-3">
-          {INVITED_CIRCLES.map((circle) => (
-            <CircleCard key={circle.id} circle={circle} joinHref={`/dart/join/game-ya?amount=${circle.amount}`} />
+          {invitedCircles.map((circle) => (
+            <CircleCard key={circle.id} circle={circle} joinHref={`/dart/invitations/${circle.id}`} />
           ))}
         </div>
 

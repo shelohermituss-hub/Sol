@@ -12,6 +12,9 @@ type DartContextValue = {
   addSavedCard: (card: SavedCard) => void
   removeSavedCard: (id: string) => void
   setDefaultCard: (id: string) => void
+  /** Invitations refusées (cf. écran /dart/invitations/[id]) : pas de table dédiée côté schéma réel — refuser une invitation ne touche jamais memberships/contributions, uniquement cet état front. */
+  declinedInvitationIds: string[]
+  declineInvitation: (id: string) => void
 }
 
 const DartContext = React.createContext<DartContextValue | null>(null)
@@ -22,6 +25,7 @@ const DartContext = React.createContext<DartContextValue | null>(null)
 function DartProvider({ children }: { children: React.ReactNode }) {
   const [joinedCircles, setJoinedCircles] = React.useState<CircleCardData[]>(INITIAL_JOINED_CIRCLES)
   const [savedCards, setSavedCards] = React.useState<SavedCard[]>(INITIAL_SAVED_CARDS)
+  const [declinedInvitationIds, setDeclinedInvitationIds] = React.useState<string[]>([])
 
   const addJoinedCircle = React.useCallback((circle: CircleCardData) => {
     setJoinedCircles((prev) => [...prev, { ...circle, joined: true }])
@@ -39,9 +43,22 @@ function DartProvider({ children }: { children: React.ReactNode }) {
     setSavedCards((prev) => prev.map((c) => ({ ...c, isDefault: c.id === id })))
   }, [])
 
+  const declineInvitation = React.useCallback((id: string) => {
+    setDeclinedInvitationIds((prev) => (prev.includes(id) ? prev : [...prev, id]))
+  }, [])
+
   const value = React.useMemo(
-    () => ({ joinedCircles, addJoinedCircle, savedCards, addSavedCard, removeSavedCard, setDefaultCard }),
-    [joinedCircles, addJoinedCircle, savedCards, addSavedCard, removeSavedCard, setDefaultCard]
+    () => ({
+      joinedCircles,
+      addJoinedCircle,
+      savedCards,
+      addSavedCard,
+      removeSavedCard,
+      setDefaultCard,
+      declinedInvitationIds,
+      declineInvitation,
+    }),
+    [joinedCircles, addJoinedCircle, savedCards, addSavedCard, removeSavedCard, setDefaultCard, declinedInvitationIds, declineInvitation]
   )
 
   return <DartContext.Provider value={value}>{children}</DartContext.Provider>

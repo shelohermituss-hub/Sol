@@ -1,5 +1,7 @@
 import type { CircleCardData } from "@/components/sections/circle-card"
 
+export type { GroupState } from "@/components/sections/circle-card"
+
 // Données de démonstration pour le reskin Dart. Cf. app-cible/ (captures
 // source) — structure/fonctionnalités reprises, aucune valeur visuelle
 // (couleur, style) empruntée à l'app 2.
@@ -23,9 +25,16 @@ export const CURRENT_USER = {
 // requête "cercles où je suis invité ou que j'organise" — jamais une
 // découverte publique de cercles auxquels n'importe qui pourrait
 // rejoindre. Affichée sur Home et Circles ("Invited to you").
+// `groupState` reflète l'état réel du groupe (group_state, cf.
+// supabase/migrations). Le cercle invité est délibérément "forming" :
+// une invitation reçue pendant que l'organisatrice recrute encore ses
+// membres est le cas le plus courant (cf. Règle 2 du skill moncash-flow —
+// aucune cotisation ne peut être due avant forming -> active).
 export const INVITED_CIRCLES: CircleCardData[] = [
   {
     id: "circle-24000",
+    name: "Sòl Fanmi Joseph",
+    organizerName: "Guerline Joseph",
     amount: 24000,
     monthly: 2000,
     totalMonths: 12,
@@ -33,12 +42,15 @@ export const INVITED_CIRCLES: CircleCardData[] = [
     startLabel: "Nov, 2024",
     endLabel: "Oct, 2025",
     adminFees: 2880,
+    groupState: "forming",
   },
 ]
 
 export const INITIAL_JOINED_CIRCLES: CircleCardData[] = [
   {
     id: "circle-14000",
+    name: "Sòl Vwazinaj",
+    organizerName: "Wideline Pierre",
     amount: 14000,
     monthly: 1400,
     totalMonths: 12,
@@ -47,8 +59,18 @@ export const INITIAL_JOINED_CIRCLES: CircleCardData[] = [
     endLabel: "Oct, 2025",
     adminFees: 2880,
     joined: true,
+    groupState: "active",
   },
 ]
+
+// Cf. supabase/migrations : une invitation reçue n'a pas de table dédiée
+// dans le schéma réel — elle correspond à "invité mais pas encore membre"
+// (aucune ligne memberships). Refuser une invitation est donc traité ici
+// au niveau front (DartProvider), pas en base : aucune écriture
+// financière n'est engagée tant que l'utilisateur n'a pas accepté.
+export function findInvitedCircleById(id: string): CircleCardData | undefined {
+  return INVITED_CIRCLES.find((circle) => circle.id === id)
+}
 
 export interface SavingTier {
   id: string
@@ -161,6 +183,14 @@ export const PAYOUT_METHODS = [
   { id: "bank-transfer", label: "Bank Transfer", description: "Direct your payout to your bank account.", available: false },
 ] as const
 
+// Simplification d'affichage des états réels du schéma (contributions:
+// due/pending/paid/late/defaulted ; payouts: pending/verified/sent/
+// confirmed/failed) en 3 statuts visuels distincts pour l'historique :
+// paid/confirmed -> success (déjà en place), pending/verified/sent ->
+// pending, late/defaulted/failed -> failed. Jamais de rouge (cf.
+// list-row.tsx, même convention) : "failed" reste en encre, pas en rouge.
+export type PaymentTransactionStatus = "success" | "pending" | "failed"
+
 export interface PaymentTransaction {
   id: string
   amount: number
@@ -168,20 +198,27 @@ export interface PaymentTransaction {
   time: string
   month: string
   kind: "payment" | "payout"
+  /** Absent = "success" (comportement historique, toutes les entrées existantes étaient déjà confirmées). */
+  status?: PaymentTransactionStatus
 }
 
 // Régénéré en HTG, aligné sur la mensualité du cercle déjà rejoint dans
 // la démo (INITIAL_JOINED_CIRCLES : 14 000 HTG, 1 400 HTG/mois) plutôt
 // que les anciens montants MAD arbitraires (3 000-4 500). Dates
 // avancées à 2026 pour rester cohérentes avec la date de démarrage du
-// Saving Program (cf. START_MONTH/START_YEAR).
+// Saving Program (cf. START_MONTH/START_YEAR). p5/p6 et o3 ajoutés pour
+// exercer les états pending/failed (cf. CLAUDE.md audit — jusqu'ici
+// seuls des statuts "success" existaient dans la démo).
 export const PAYMENT_TRANSACTIONS: PaymentTransaction[] = [
   { id: "p1", amount: 1400, date: "29-03-26", time: "12:00 PM", month: "March", kind: "payment" },
   { id: "p2", amount: 1400, date: "29-04-26", time: "12:00 PM", month: "April", kind: "payment" },
   { id: "p3", amount: 1400, date: "29-05-26", time: "12:00 PM", month: "May", kind: "payment" },
   { id: "p4", amount: 1400, date: "29-06-26", time: "12:00 PM", month: "June", kind: "payment" },
+  { id: "p5", amount: 1400, date: "17-07-26", time: "09:00 AM", month: "July", kind: "payment", status: "pending" },
+  { id: "p6", amount: 1400, date: "05-07-26", time: "08:15 AM", month: "July", kind: "payment", status: "failed" },
   { id: "o1", amount: 14000, date: "29-03-26", time: "12:00 PM", month: "March", kind: "payout" },
   { id: "o2", amount: 4750, date: "29-05-26", time: "12:00 PM", month: "May", kind: "payout" },
+  { id: "o3", amount: 4750, date: "17-07-26", time: "10:30 AM", month: "July", kind: "payout", status: "pending" },
 ]
 
 export interface EligibilityItem {

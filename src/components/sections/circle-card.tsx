@@ -1,12 +1,23 @@
 import Link from "next/link"
 import { PlusCircle, Receipt } from "@phosphor-icons/react/ssr"
 
+import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { formatCurrency } from "@/lib/currency"
 import { cn } from "@/lib/utils"
 
+// États réels du groupe côté Supabase (cf. supabase/migrations,
+// group_state enum). "next_month" est transitoire côté base (avance seul
+// vers "collecting") : non exposé ici, un groupe affiché est donc
+// toujours dans l'un de ces 6 états stables.
+export type GroupState = "forming" | "active" | "collecting" | "pot_ready" | "pot_sent" | "completed"
+
 export interface CircleCardData {
   id: string
+  /** Nom du groupe (groups.name côté schéma réel). Non affiché par CircleCard, utilisé par l'écran d'invitation. */
+  name?: string
+  /** Nom de l'organisatrice (groups.organizer_id -> users.full_name). Non affiché par CircleCard, utilisé par l'écran d'invitation. */
+  organizerName?: string
   amount: number
   monthly: number
   totalMonths: number
@@ -15,6 +26,8 @@ export interface CircleCardData {
   endLabel: string
   adminFees: number
   joined?: boolean
+  /** État réel du groupe (group_state). Absent = supposé "active" (comportement historique). */
+  groupState?: GroupState
 }
 
 // Carte "cercle" (circle de tontine) : montant, mensualité, frise de
@@ -23,15 +36,17 @@ export interface CircleCardData {
 // 2 "Home"/"Circles") — mêmes tokens que Card/Button/badge "On" existants,
 // aucune couleur ou style hors design system app 1.
 function CircleCard({ circle, joinHref }: { circle: CircleCardData; joinHref: string }) {
-  const { amount, monthly, totalMonths, yourTurnIndex, startLabel, endLabel, adminFees, joined } = circle
+  const { amount, monthly, totalMonths, yourTurnIndex, startLabel, endLabel, adminFees, joined, groupState } = circle
+  const isForming = groupState === "forming"
 
   return (
     <div className="w-full shrink-0 rounded-card border border-neutral-200 bg-paper p-5">
       <div className="flex items-center justify-between">
         <div>
           <p className="font-heading text-[20px] font-bold text-ink">{formatCurrency(amount)}</p>
-          <p className="mt-0.5 text-[15px] text-neutral-500">
+          <p className="mt-0.5 flex items-center gap-2 text-[15px] text-neutral-500">
             {formatCurrency(monthly)}<span className="text-neutral-500">/Monthly</span>
+            {isForming && <Badge variant="neutral">Gwoup ap fòme</Badge>}
           </p>
         </div>
         {joined ? (
