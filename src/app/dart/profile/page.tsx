@@ -22,14 +22,17 @@ import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { formatCurrency } from "@/lib/currency"
+import { CURRENT_USER } from "@/lib/dart-data"
 
 // Onglet Profile (hub). Cf. app-cible/Profile.png. Suit quasi 1:1 la mise
 // en page du /profile de l'app 1 (sections de lignes de réglages).
+// Langue : Kreyòl par défaut, Français en option (cf. CLAUDE.md — retire
+// toute référence anglais/arabe du sélecteur).
 export default function DartProfilePage() {
   const [biometrics, setBiometrics] = React.useState(false)
   const [languageSheetOpen, setLanguageSheetOpen] = React.useState(false)
-  const [language, setLanguage] = React.useState<"en" | "ar">("en")
-  const [pendingLanguage, setPendingLanguage] = React.useState<"en" | "ar">("en")
+  const [language, setLanguage] = React.useState<"ht" | "fr">("ht")
+  const [pendingLanguage, setPendingLanguage] = React.useState<"ht" | "fr">("ht")
 
   return (
     <div className="mx-auto flex min-h-dvh w-full max-w-md flex-col">
@@ -41,8 +44,12 @@ export default function DartProfilePage() {
             <UserCircle className="size-8 text-neutral-500" />
           </span>
           <div>
-            <p className="font-heading text-[17px] font-bold text-ink">Hafiz Hanif</p>
-            <p className="text-[15px] text-neutral-500">01080740132</p>
+            <p className="font-heading text-[17px] font-bold text-ink">
+              {CURRENT_USER.firstName} {CURRENT_USER.lastName}
+            </p>
+            <p className="text-[15px] text-neutral-500">
+              +509 {CURRENT_USER.phone.slice(0, 4)} {CURRENT_USER.phone.slice(4)}
+            </p>
           </div>
         </div>
 
@@ -99,7 +106,7 @@ export default function DartProfilePage() {
             <ListRow
               icon={<Translate className="size-6 text-ink" />}
               title="Language"
-              subtitle={language === "en" ? "English" : "Arabic"}
+              subtitle={language === "ht" ? "Kreyòl" : "Français"}
               showChevron
             />
           </button>
@@ -119,14 +126,14 @@ export default function DartProfilePage() {
       <Sheet open={languageSheetOpen} onOpenChange={setLanguageSheetOpen}>
         <SheetContent>
           <SheetTitle>Change Language</SheetTitle>
-          <RadioGroup value={pendingLanguage} onValueChange={(v) => setPendingLanguage(v as "en" | "ar")} className="gap-4">
+          <RadioGroup value={pendingLanguage} onValueChange={(v) => setPendingLanguage(v as "ht" | "fr")} className="gap-4">
             <label className="flex items-center gap-3">
-              <RadioGroupItem value="en" />
-              <span className="text-[17px] text-ink">English</span>
+              <RadioGroupItem value="ht" />
+              <span className="text-[17px] text-ink">Kreyòl</span>
             </label>
             <label className="flex items-center gap-3">
-              <RadioGroupItem value="ar" />
-              <span className="text-[17px] text-ink">Arabic</span>
+              <RadioGroupItem value="fr" />
+              <span className="text-[17px] text-ink">Français</span>
             </label>
           </RadioGroup>
           <Button

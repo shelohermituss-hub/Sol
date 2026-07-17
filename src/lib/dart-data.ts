@@ -4,6 +4,20 @@ import type { CircleCardData } from "@/components/sections/circle-card"
 // source) — structure/fonctionnalités reprises, aucune valeur visuelle
 // (couleur, style) empruntée à l'app 2.
 
+// Identité factice unique, partagée entre /dart/profile et
+// /dart/profile/personal-info — corrige l'incohérence documentée où ces
+// deux écrans affichaient chacun un nom/téléphone différent, en dur et
+// non synchronisés. `phone` reste au format numérique brut (8 chiffres,
+// comme un vrai numéro mobile haïtien) pour rester compatible avec le
+// champ éditable de Personal Info ; le préfixe +509 est ajouté à
+// l'affichage sur le hub Profile.
+export const CURRENT_USER = {
+  firstName: "Fabiola",
+  lastName: "Joseph",
+  phone: "37124589",
+  email: "fabiola.joseph@gmail.com",
+}
+
 // Modèle de confiance (cf. CLAUDE.md) : groupes fermés sur invitation,
 // jamais un marketplace ouvert. Cette liste représente le résultat d'une
 // requête "cercles où je suis invité ou que j'organise" — jamais une
@@ -212,11 +226,12 @@ export interface DocumentItem {
   href?: string
 }
 
+// "Car License"/"Club ID"/"Syndicate ID" retirés : types de documents
+// hérités tels quels de la capture source (app 2), sans pertinence
+// confirmée pour un produit financier haïtien — cf. CLAUDE.md. À
+// réintroduire seulement si une exigence réelle est confirmée.
 export const DOCUMENT_ITEMS: DocumentItem[] = [
-  { id: "national-id", label: "National ID", description: "Upload a photo of your National ID.", hint: "Required to verify your identity", href: "/dart/profile/documents/scan-id" },
+  { id: "national-id", label: "CIN (National ID)", description: "Upload a photo of your CIN (National ID).", hint: "Required to verify your identity", href: "/dart/profile/documents/scan-id" },
   { id: "proof-of-income", label: "Proof of Income", description: "Upload an HR letter or a business bank statement.", hint: "Required to to increase limit", href: "/dart/profile/documents/proof-of-income" },
   { id: "utility-bill", label: "Utility Bill", description: "Upload a copy of a utility bill under your name or a first-degree relatively.", isNew: true },
-  { id: "car-license", label: "Car License", description: "Upload a photo of your car's license." },
-  { id: "club-id", label: "Club ID", description: "Upload a photo of your club membership card." },
-  { id: "syndicate-id", label: "Syndicate ID", description: "Upload a photo of your syndicate's card." },
 ]

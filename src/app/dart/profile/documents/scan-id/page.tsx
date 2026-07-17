@@ -11,19 +11,22 @@ import { Button } from "@/components/ui/button"
 // My Documents/Scan National ID.png. Vignettes "Don't" simplifiées en
 // texte (illustrations d'exemple non reproduites, pas d'équivalent
 // composant existant justifiant un nouveau composant pour 2 usages).
+// "Central Bank" → BRH (Banque de la République d'Haïti), marqué
+// [A VALIDER] cf. CLAUDE.md, "Réglementaire" — l'exigence réelle reste à
+// confirmer avant mise en production.
 export default function ScanNationalIdPage() {
   const router = useRouter()
 
   return (
     <div className="mx-auto flex min-h-dvh w-full max-w-md flex-col px-6 pt-4">
-      <NavHeader leading={<NavBackButton href="/dart/profile/documents" />} title="Scan National Id" />
+      <NavHeader leading={<NavBackButton href="/dart/profile/documents" />} title="Scan CIN" />
 
       <div className="mt-8 flex justify-center">
         <IdentificationCard className="size-16 text-ink" weight="duotone" />
       </div>
 
       <h1 className="mt-6 font-heading text-[20px] font-bold text-ink">
-        When scanning your ID, make sure that both sides of your National ID:
+        When scanning your ID, make sure that both sides of your CIN:
       </h1>
 
       <div className="mt-4 grid grid-cols-2 gap-3">
@@ -39,15 +42,15 @@ export default function ScanNationalIdPage() {
 
       <Card className="mt-6">
         <CardDescription>
-          As required by Central Bank, users must upload their (valid) National ID before joining a Game&apos;ya to
-          guarantee everyone&apos;s rights.
+          As required by the BRH [A VALIDER], users must upload their valid CIN before joining a Sòl to guarantee
+          everyone&apos;s rights.
         </CardDescription>
       </Card>
 
       <div className="mt-auto pb-6">
         <Button className="w-full" onClick={() => router.push("/dart/profile/documents")}>
           <Camera className="size-5" />
-          Scan National ID
+          Scan CIN
         </Button>
       </div>
     </div>

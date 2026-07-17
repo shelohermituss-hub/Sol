@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { Bell, Car, FileText, Globe, IdentificationBadge, IdentificationCard, ShieldCheck } from "@phosphor-icons/react/ssr"
+import { Bell, FileText, IdentificationCard, ShieldCheck } from "@phosphor-icons/react/ssr"
 
 import { NavHeader, NavBackButton } from "@/components/layout/nav-header"
 import { ListRow } from "@/components/ui/list-row"
@@ -12,9 +12,6 @@ const DOCUMENT_ICONS: Record<string, typeof FileText> = {
   "national-id": IdentificationCard,
   "proof-of-income": FileText,
   "utility-bill": ShieldCheck,
-  "car-license": Car,
-  "club-id": Globe,
-  "syndicate-id": IdentificationBadge,
 }
 
 // Liste des documents à fournir. Cf. app-cible/Profile/My Documents.png.
