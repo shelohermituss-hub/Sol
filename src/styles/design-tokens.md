@@ -15,20 +15,32 @@
 ### Neutres
 | Token | Valeur | Usage observé |
 |---|---|---|
-| `--color-ink` | `#000000` | Titres, texte principal, boutons primaires, icônes actives, tab bar actif |
+| `--color-ink` | `#333333` | Titres, texte principal, boutons primaires, icônes actives, tab bar actif. Mesuré par échantillonnage sur ~8 captures Cash App réelles (convergence forte, `#333333`/`#343434` selon les frames) — cf. CLAUDE.md, exception #4. Cash App n'utilise jamais de noir pur (`#000000`), valeur d'origine de ce projet. |
 | `--color-paper` | `#ffffff` | Fond des cartes (`Card`, `CircleCard`, ListRow sur fond sombre, etc.) et texte blanc sur fond ink |
-| `--color-canvas` | `#f2f2f2` | Fond de `<body>`/de toutes les pages — cf. CLAUDE.md, exception #2 (décision produit, design global façon Cash App). `--color-paper` n'est plus le fond de page depuis ce changement. |
+| `--color-canvas` | `#f5f5f5` | Fond de `<body>`/de toutes les pages — cf. CLAUDE.md, exceptions #2 et #4. Mesuré `#f5f5f5` de façon très constante sur toutes les captures Cash App (valeur d'estimation précédente : `#f2f2f2`, écart mineur). `--color-paper` n'est plus le fond de page. |
 | `--color-neutral-200` | `#e5e5e5` | Bordures d'input, séparateurs de liste, contour des icônes circulaires, fond des boutons désactivés |
-| `--color-neutral-500` | `#6b6b6b` | Texte secondaire, placeholder, sous-titres gris (mesuré ~#555-#5a5a5a en cœur de glyphe, arrondi à une valeur standard) |
+| `--color-neutral-500` | `#666666` | Texte secondaire, placeholder, sous-titres gris. Mesuré `#666666` (convergence forte, ~14k+ pixels sur une seule capture) — cf. CLAUDE.md, exception #4. Valeur précédente : `#6b6b6b`, écart mineur. |
 
 ### Marque
 | Token | Valeur | Usage observé |
 |---|---|---|
-| `--color-brand-green` | `#0FA968` | Liens ("Cancel", "Change", "Resend", mentions légales), case à cocher cochée, icône succès transfert. Réaligné sur la famille du vert signature Cash App, teinte volontairement atténuée par rapport à leur `#00D632` exact — cf. CLAUDE.md, exception #3. Valeur d'origine (mesurée sur les captures source) : `#0b9b3c`. |
+| `--color-brand-green` | `#00d651` | Liens ("Cancel", "Change", "Resend", mentions légales), case à cocher cochée, icône succès transfert, boutons primaires positifs. Valeur exacte mesurée par échantillonnage programmatique sur 8 captures Cash App indépendantes (remarquablement constante, `#01d651` ±2 sur tous les canaux) — cf. CLAUDE.md, exception #4, qui remplace la teinte volontairement atténuée de l'exception #3 (`#0FA968`). Valeur d'origine de ce projet (mesurée sur les captures source Oportun) : `#0b9b3c`. |
 | `--color-brand-blue` | `#009adc` | Badge "NEW", icône "i" du bandeau d'information abonnement |
 | `--color-brand-blue-tint` | `#e6f5fb` | Fond du bandeau info ("Your monthly plan will start…"), fond de la carte upsell annuelle |
 | `--color-accent-peach` | `#ffc6ac` | Fond de l'icône de marque Set & Save (fleur-pièce) |
 | `--color-accent-mint` | `#e7f9ec` | Fond des badges d'icônes de fonctionnalités (paywall Set & Save) |
+
+### Accents secondaires Cash App (mesurés, exception #4 — disponibles, pas de remplacement de token existant)
+Mesurés par échantillonnage sur les écrans "Verify identity"/onboarding
+(boutons secondaires, badges) et sur les graphiques Bitcoin/Stocks de
+Home. Usage décoratif/ponctuel (badges, graphiques, éléments non-marque),
+jamais pour remplacer `--color-brand-green` sur une action primaire.
+| Token | Valeur | Usage observé sur Cash App |
+|---|---|---|
+| `--color-accent-blue-vivid` | `#3478f5` | Boutons secondaires, liens ponctuels (mesuré sur 4 captures, très constant) |
+| `--color-accent-cyan` | `#00d4ff` | Graphique Bitcoin/crypto (courbe) |
+| `--color-accent-purple` | `#8420f4` | Graphique Stocks (courbe) |
+| `--color-accent-orange-vivid` | `#ee9d44` | Fond plein écran promo/reward (1 capture, moins constant que les autres) |
 
 ### Palette d'illustration (usage décoratif uniquement, jamais en UI/texte)
 Mesurée sur l'illustration héro "Reach for your goals effortlessly" :

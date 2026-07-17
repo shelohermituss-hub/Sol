@@ -43,6 +43,34 @@ marque. Nouvelle valeur : `#0FA968` (au lieu de `#0b9b3c`). Aucun autre
 token de couleur ne change ; usages inchangés (liens, coche cochée,
 badges succès, pills "Joined"/actions positives).
 
+**Exception explicite #4 (décision produit — audit complet du système de
+couleurs Cash App, remplace la teinte atténuée de l'exception #3) :**
+sur demande explicite ("reprends celle de Cash App"), les couleurs
+mesurées directement par échantillonnage programmatique (Python/Pillow,
+même méthode que le reste de `design-tokens.md`) sur ~15 captures
+Cash App réelles remplacent les tokens suivants — valeurs exactes, plus
+d'atténuation :
+- `--color-ink` : `#333333` (au lieu de `#000000` — Cash App n'utilise
+  jamais un noir pur, cf. mesure convergente sur 8+ captures).
+- `--color-canvas` : `#f5f5f5` (au lieu de `#f2f2f2` — écart mineur).
+- `--color-neutral-500` : `#666666` (au lieu de `#6b6b6b` — écart mineur).
+- `--color-brand-green` : `#00d651` (au lieu de `#0fa968` de
+  l'exception #3 — valeur exacte mesurée, remarquablement constante sur
+  8 captures indépendantes).
+- Nouveaux tokens ajoutés (accents secondaires mesurés, pas de
+  remplacement, disponibles pour badges/graphiques/éléments décoratifs) :
+  `--color-accent-blue-vivid: #3478f5`, `--color-accent-cyan: #00d4ff`,
+  `--color-accent-purple: #8420f4`, `--color-accent-orange-vivid: #ee9d44`.
+- Rouge : quasi absent des captures (une seule occurrence mineure,
+  petit badge, jamais structurel) — confirme et ne contredit pas la
+  règle déjà en place (aucune couleur destructive rouge).
+- Rayon de carte : mesuré ~12-14px sur les captures, déjà proche de
+  `--radius-card: 16px` existant — aucun changement nécessaire.
+`--color-paper` (blanc) et `--color-accent-peach`/`--color-accent-mint`
+(tokens décoratifs existants, non mesurés sur Cash App) restent
+inchangés — seuls les tokens listés ci-dessus sont concernés. Travail
+effectué sur la branche dédiée `redesign/cashapp-total`.
+
 ## Devise
 HTG uniquement, via `formatCurrency()` (Lot 0). Jamais de devise en dur.
 
