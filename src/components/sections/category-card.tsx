@@ -23,7 +23,7 @@ function CategoryCard({
   return (
     <Link
       href={href}
-      className="flex h-48 flex-col rounded-card bg-paper p-4 shadow-[0_1px_3px_rgba(0,0,0,0.06),0_1px_2px_rgba(0,0,0,0.04)]"
+      className="flex h-48 flex-col rounded-card bg-paper p-4 shadow-[0_1px_2px_rgba(0,0,0,0.05)]"
     >
       <div className="flex items-center justify-between gap-2">
         <p className="font-heading text-[15px] font-bold text-ink">{title}</p>

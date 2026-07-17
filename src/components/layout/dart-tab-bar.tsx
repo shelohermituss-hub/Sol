@@ -42,10 +42,14 @@ function DartTabBar({ active }: { active: (typeof TABS)[number]["href"] }) {
         <DartTab key={tab.href} tab={tab} isActive={tab.href === active} />
       ))}
 
+      {/* Ombre allégée (Lot D1) : Cash App n'a pas de FAB équivalent à
+          comparer, mais l'échelle d'élévation générale de l'app (quasi
+          plate, cf. Card) appelle une ombre plus discrète que le
+          shadow-lg par défaut. */}
       <Link
         href="/dart/join"
         aria-label="Join a circle"
-        className="absolute left-1/2 -top-6 flex size-14 -translate-x-1/2 items-center justify-center rounded-full bg-ink text-paper shadow-lg transition-transform duration-150 active:scale-90"
+        className="absolute left-1/2 -top-6 flex size-14 -translate-x-1/2 items-center justify-center rounded-full bg-ink text-paper shadow-[0_4px_10px_rgba(0,0,0,0.14)] transition-transform duration-150 active:scale-90"
       >
         <Plus className="size-6" weight="fill" />
       </Link>

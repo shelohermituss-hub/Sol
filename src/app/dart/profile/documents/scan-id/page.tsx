@@ -29,7 +29,7 @@ export default function ScanNationalIdPage() {
         When scanning your ID, make sure that both sides of your CIN:
       </h1>
 
-      <div className="mt-4 grid grid-cols-2 gap-3">
+      <div className="mt-4 grid grid-cols-2 gap-4">
         <div className="rounded-card border border-ink/20 p-4 text-center">
           <p className="text-[13px] font-bold text-ink">Don&apos;t</p>
           <p className="mt-2 text-[13px] text-neutral-500">Blurry or angled photo</p>

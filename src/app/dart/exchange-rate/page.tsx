@@ -20,7 +20,11 @@ export default function ExchangeRatePage() {
       </p>
       <p className="mt-1 text-[13px] text-neutral-500">Updated {EXCHANGE_RATE.updatedAt}</p>
 
-      <Sparkline data={EXCHANGE_RATE.history} color="#7fc1e1" className="mt-6 h-32 w-full" />
+      {/* Accent bleu mesuré sur Cash App (graphiques financiers) — cf.
+          CLAUDE.md, exception #4, Lot D5 — remplace le bleu ciel
+          d'illustration utilisé initialement, hors de son usage prévu
+          (décoratif uniquement, jamais un graphique de données). */}
+      <Sparkline data={EXCHANGE_RATE.history} color="var(--color-accent-blue-vivid)" className="mt-6 h-32 w-full" />
 
       <Card className="mt-8">
         <CardDescription>

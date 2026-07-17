@@ -15,20 +15,58 @@
 ### Neutres
 | Token | Valeur | Usage observé |
 |---|---|---|
-| `--color-ink` | `#000000` | Titres, texte principal, boutons primaires, icônes actives, tab bar actif |
+| `--color-ink` | `#333333` | Titres, texte principal, boutons primaires, icônes actives, tab bar actif. Mesuré par échantillonnage sur ~8 captures Cash App réelles (convergence forte, `#333333`/`#343434` selon les frames) — cf. CLAUDE.md, exception #4. Cash App n'utilise jamais de noir pur (`#000000`), valeur d'origine de ce projet. |
 | `--color-paper` | `#ffffff` | Fond des cartes (`Card`, `CircleCard`, ListRow sur fond sombre, etc.) et texte blanc sur fond ink |
-| `--color-canvas` | `#f2f2f2` | Fond de `<body>`/de toutes les pages — cf. CLAUDE.md, exception #2 (décision produit, design global façon Cash App). `--color-paper` n'est plus le fond de page depuis ce changement. |
+| `--color-canvas` | `#f5f5f5` | Fond de `<body>`/de toutes les pages — cf. CLAUDE.md, exceptions #2 et #4. Mesuré `#f5f5f5` de façon très constante sur toutes les captures Cash App (valeur d'estimation précédente : `#f2f2f2`, écart mineur). `--color-paper` n'est plus le fond de page. |
 | `--color-neutral-200` | `#e5e5e5` | Bordures d'input, séparateurs de liste, contour des icônes circulaires, fond des boutons désactivés |
-| `--color-neutral-500` | `#6b6b6b` | Texte secondaire, placeholder, sous-titres gris (mesuré ~#555-#5a5a5a en cœur de glyphe, arrondi à une valeur standard) |
+| `--color-neutral-500` | `#666666` | Texte secondaire, placeholder, sous-titres gris. Mesuré `#666666` (convergence forte, ~14k+ pixels sur une seule capture) — cf. CLAUDE.md, exception #4. Valeur précédente : `#6b6b6b`, écart mineur. |
 
 ### Marque
 | Token | Valeur | Usage observé |
 |---|---|---|
-| `--color-brand-green` | `#0FA968` | Liens ("Cancel", "Change", "Resend", mentions légales), case à cocher cochée, icône succès transfert. Réaligné sur la famille du vert signature Cash App, teinte volontairement atténuée par rapport à leur `#00D632` exact — cf. CLAUDE.md, exception #3. Valeur d'origine (mesurée sur les captures source) : `#0b9b3c`. |
+| `--color-brand-green` | `#00d651` | Liens ("Cancel", "Change", "Resend", mentions légales), case à cocher cochée, icône succès transfert, boutons primaires positifs. Valeur exacte mesurée par échantillonnage programmatique sur 8 captures Cash App indépendantes (remarquablement constante, `#01d651` ±2 sur tous les canaux) — cf. CLAUDE.md, exception #4, qui remplace la teinte volontairement atténuée de l'exception #3 (`#0FA968`). Valeur d'origine de ce projet (mesurée sur les captures source Oportun) : `#0b9b3c`. |
 | `--color-brand-blue` | `#009adc` | Badge "NEW", icône "i" du bandeau d'information abonnement |
 | `--color-brand-blue-tint` | `#e6f5fb` | Fond du bandeau info ("Your monthly plan will start…"), fond de la carte upsell annuelle |
 | `--color-accent-peach` | `#ffc6ac` | Fond de l'icône de marque Set & Save (fleur-pièce) |
 | `--color-accent-mint` | `#e7f9ec` | Fond des badges d'icônes de fonctionnalités (paywall Set & Save) |
+
+### Accents secondaires Cash App (mesurés, exception #4 — disponibles, pas de remplacement de token existant)
+Mesurés par échantillonnage sur les écrans "Verify identity"/onboarding
+(boutons secondaires, badges) et sur les graphiques Bitcoin/Stocks de
+Home. Usage décoratif/ponctuel (badges, graphiques, éléments non-marque),
+jamais pour remplacer `--color-brand-green` sur une action primaire.
+| Token | Valeur | Usage observé sur Cash App |
+|---|---|---|
+| `--color-accent-blue-vivid` | `#3478f5` | Boutons secondaires, liens ponctuels (mesuré sur 4 captures, très constant) |
+| `--color-accent-cyan` | `#00d4ff` | Graphique Bitcoin/crypto (courbe) |
+| `--color-accent-purple` | `#8420f4` | Graphique Stocks (courbe) |
+| `--color-accent-orange-vivid` | `#ee9d44` | Fond plein écran promo/reward (1 capture, moins constant que les autres) |
+
+### Application des accents mesurés (Lot D5)
+`--color-accent-blue-vivid` appliqué au `Sparkline` d'Exchange Rate
+(`src/app/dart/exchange-rate/page.tsx`), qui utilisait jusqu'ici
+`#7fc1e1` — une couleur de la palette d'illustration décorative (ci-
+dessous), détournée de son usage prévu pour un graphique de données.
+Analogue au traitement des graphiques Bitcoin/Stocks sur Cash App
+(courbes en couleur vive dédiée). Pas d'autre usage de `Sparkline`
+ailleurs dans l'app (vérifié) ; `--color-accent-cyan`/`--color-accent-
+purple`/`--color-accent-orange-vivid` restent disponibles mais inutilisés
+en l'absence d'autre graphique/badge dans l'app actuelle.
+
+### Cohérence illustrations vs palette UI (Lot D7)
+Vérification (`grep rgb(...)`) des 9 SVG/PNG d'illustration
+(`dart-*-empty.svg`, `hero-reach-your-goals.svg`,
+`invite-friends-hero.svg`, `dart-welcome-hero.svg`,
+`educational-transition.svg`, `referral-bonus.svg`, couvertures Home) :
+toutes réutilisent exclusivement la palette d'illustration ci-dessous
+(corail, lavande, vert menthe, bleu ciel, violet, tons de peau) — aucune
+n'utilise `--color-brand-green` (#00d651) ni `--color-ink` (#333333) en
+tant que tels. C'est cohérent et attendu : ce sont des scènes
+décoratives (personnages, plantes, objets), pas des éléments de coquille
+UI, et leur palette reste volontairement distincte de la palette de
+marque (même approche que Cash App, dont les illustrations de but/
+récompense utilisent des teintes pastel variées plutôt que de réutiliser
+littéralement leur vert de marque). **Aucune régénération nécessaire.**
 
 ### Palette d'illustration (usage décoratif uniquement, jamais en UI/texte)
 Mesurée sur l'illustration héro "Reach for your goals effortlessly" :
@@ -73,6 +111,55 @@ appliquée.
 | Labels / eyebrow ("Step 1 of 2", labels de champ) | 13–14px | Regular (400) |
 | Boutons | 17px | Semibold/Bold (600–700) |
 
+## Ombres et élévation
+
+**Audit qualitatif (Lot D1)** — comparaison visuelle sur les captures Cash
+App réelles (`Home.png`, `Frame 27.png`/liste "Account & Settings",
+`Pay amount.png`, `Frame 41.png`/clavier ZIP code) : aucune ombre portée
+n'est perceptible nulle part dans l'app, y compris sur les cartes qui
+flottent sur le fond gris, les boutons pill pleins, et les inputs. La
+profondeur vient uniquement du contraste de couleur (blanc sur
+`--color-canvas` gris), jamais d'un flou/dégradé d'ombre — écran plat.
+Ombres jamais mesurables au pixel près comme les couleurs (trop diffuses/
+faible opacité) : audit qualitatif, pas d'échantillonnage programmatique.
+
+Conséquence : `Card`/`CategoryCard` (`shadow-[0_1px_3px_rgba(0,0,0,0.06),
+0_1px_2px_rgba(0,0,0,0.04)]`, estimation initiale de l'exception #2) sont
+allégées à une ombre unique quasi imperceptible
+`shadow-[0_1px_2px_rgba(0,0,0,0.05)]`, plus fidèle à la platitude
+observée. Le FAB de `DartTabBar` (bouton "Join", sans équivalent Cash
+App — leur tab bar n'a pas de bouton central) garde une ombre plus
+marquée que les cartes par nécessité fonctionnelle (affordance de bouton
+flottant au-dessus du contenu et de la tab bar), mais allégée du
+`shadow-lg` Tailwind par défaut à `shadow-[0_4px_10px_rgba(0,0,0,0.14)]`
+pour rester dans le même esprit sobre. `Sheet` (bottom sheet) n'a jamais
+eu d'ombre (seulement `border-t`) et n'a pas été modifié : cohérent avec
+l'absence d'ombre observée sur les modales Cash App.
+
+### Audit typographie fine (Lot D3)
+Comparaison visuelle des graisses sur les captures ("Money"/"Account &
+Settings" en titre, "$10" en montant héros, boutons "Add Cash"/"Next") :
+les titres et montants héros Cash App sont visuellement très appuyés,
+cohérent avec `font-bold` (700) déjà utilisé pour ces éléments ; les
+boutons pill affichent une graisse intermédiaire, cohérente avec
+`font-semibold` (600) déjà utilisé sur `Button`. Aucune dérive de
+graisse identifiée par rapport à l'échelle déjà documentée plus haut
+(section Typographie). L'interlignage/tracking des titres et montants
+apparaît serré sur les captures, ce qui correspond déjà au comportement
+par défaut du navigateur pour `text-[Npx]` (Tailwind ne fixe pas de
+`line-height` séparé pour les tailles arbitraires) — aucun token de
+`line-height`/`tracking` explicite n'est donc nécessaire. **Aucun
+changement de code** pour ce Lot.
+
+**Constat hors-périmètre (pas appliqué ce Lot)** : le variant `secondary`
+de `Button` (`border border-ink bg-paper`, fond blanc + bordure) diffère
+du remplissage gris plein (sans bordure visible) des boutons secondaires
+observés sur Cash App (ex. "Add Cash"/"Cash Out"). C'est un changement
+d'habillage colorimétrique d'un composant `ui/` protégé par la Règle
+absolue : à traiter, si retenu, dans le même lot que D4 (nécessite une
+exception CLAUDE.md explicite avant application), pas dans ce Lot
+typographie.
+
 ## Espacements & rayons
 
 Échelle 4/8px standard (Tailwind par défaut), confirmée par les marges
@@ -87,6 +174,82 @@ de ligne de liste ≈ 40–56px).
 | `--radius-full` | `9999px` | Boutons pill (primaire/secondaire), badges |
 
 Hauteur de bouton pill : ~56px (rayon = moitié de la hauteur → pill complet).
+
+### Audit espacement/rythme (Lot D2)
+Mesures programmatiques (transitions de couleur blanc/gris) sur
+`Home.png` (393×852, 1:1 avec les px CSS) et `Frame 27.png` (1755×3795,
+÷4.46 pour ramener en px logiques) :
+- **Marge de page** : 20px mesuré (page margin gauche/droite du Cash
+  Balance card, constant sur plusieurs lignes). Token actuel `px-6`
+  (24px) — écart 20%, pile au seuil de tolérance retenu (>20%) : **non
+  modifié**, considéré comme déjà correct.
+- **Écart de grille 2 colonnes** (cartes catégorie Home) : ~15-16px
+  mesuré (constant sur 6 lignes de mesure indépendantes). Token
+  précédent `gap-3` (12px), écart 25-33% > seuil : **corrigé en
+  `gap-4`** (16px) sur les 4 grilles `grid-cols-2` du même type visuel
+  (tuiles cliquables) : Home (catégories), scan-id (recto/verso),
+  slot (créneaux), payment (Others).
+- **Rythme vertical inter-sections** (bas de carte → section suivante) :
+  ~32px mesuré, identique au token `mt-8` (32px) déjà utilisé : **déjà
+  correct**, aucun changement.
+- **Hauteur de ligne de liste** (`Frame 27.png`, séparateurs) : ~65px
+  mesuré, contre ~88px pour `ListRow` avec icône circulaire (`py-4` +
+  icône `size-14`). Écart non attribuable au padding (`py-4` seul
+  correspond à l'espacement déjà validé) mais à la taille d'icône
+  circulaire (56px), un choix de contenu/structure de `ListRow`
+  protégé par la Règle absolue de CLAUDE.md, hors du périmètre "token
+  d'espacement" de ce Lot : **non modifié**.
+
+### Audit résiduel + contraste (Lot D6, lecture seule)
+- **Grep hex codés en dur** : `grep -rn '#[0-9a-fA-F]{3,6}' src/` ne
+  retourne plus aucun résultat en dehors de `globals.css` (source de
+  vérité des tokens) et de ce fichier de documentation — confirmé après
+  la correction du Lot D5 (dernier hex isolé, `#7fc1e1` du Sparkline).
+  Aucun `style={{ color: ... }}`/`style={{ background: ... }}` codé en
+  dur trouvé non plus. Le système de tokens reste la seule source de
+  vérité colorimétrique de l'app.
+- **Contraste texte/fond** (calcul WCAG, luminance relative sRGB) :
+  - `--color-ink` (#333333) sur `--color-paper`/`--color-canvas` :
+    ratios ≈12.6:1 / ≈11.6:1 — largement conformes AAA.
+  - `--color-neutral-500` (#666666) sur paper/canvas : ratios ≈5.75:1 /
+    ≈5.27:1 — conformes AA texte normal.
+  - `--color-brand-blue` (#009adc) en icône (`size-5`, seuil UI 3:1) :
+    ≈3.15:1 — conforme.
+  - **Constat, non corrigé** : `--color-brand-green` (#00d651) utilisé
+    comme couleur de texte (liens "Terms of Use", montants cashback/
+    discount, CTA "authorize"...) sur fond blanc/gris ne ratio
+    qu'≈1.96:1, sous le seuil AA texte (4.5:1) même pour la plupart des
+    usages en gras (13-17px, sous le seuil "grand texte" 18.66px bold).
+    **Ce n'est pas une régression introduite par ce Lot** : c'est la
+    couleur exacte mesurée sur les liens verts réels de Cash App
+    (exception #4, captures réelles) — une reproduction fidèle d'un
+    choix de design Cash App qui n'est lui-même pas conforme WCAG AA
+    sur ce point précis. Non modifié, conformément à la décision produit
+    explicite ("reprends celle de Cash App") ; signalé ici pour
+    traçabilité plutôt que corrigé silencieusement.
+- **Revisite écran par écran** : pas de régression visuelle repérée sur
+  les ~30 écrans au-delà du point de contraste ci-dessus (déjà connu
+  depuis l'application de l'exception #4, pas nouveau à ce Lot).
+
+### Audit icônes secondaires/badges/formulaires (Lot D4)
+Cf. CLAUDE.md, exception #5 (composants `ui/` protégés, validation
+explicite requise et obtenue avant application) :
+- `Badge` variant `new` : `#009adc`/blanc/majuscule → `bg-accent-mint`/
+  `text-brand-green`/casse normale, d'après le badge "New" réel observé
+  sur Cash App (`Frame 30.png`) — vert, pas bleu.
+- `Button` variant `secondary`, boutons "Add Cash"/"Cash Out" de la
+  carte Cash Balance (Home) uniquement : remplissage `#f5f5f5` mesuré au
+  pixel sur `Home.png` (identique à `--color-canvas`), sans bordure —
+  appliqué via `className` scopé à cet emplacement précis, pas au
+  variant global (les autres usages de `secondary` sont sur fond canvas
+  direct, où ce remplissage serait invisible).
+- `RadioGroupItem`/`Switch` : déjà corrects (utilisent `--color-brand-
+  green` depuis les exceptions précédentes), vérifiés cohérents avec
+  Cash App, aucun changement.
+- `TextField`/`SegmentedControl` : aucune capture Cash App directement
+  comparable (contextes plein-écran différents de nos patterns de
+  formulaire) — non modifiés, à réévaluer si de meilleures références
+  deviennent disponibles.
 
 ## Composants récurrents
 

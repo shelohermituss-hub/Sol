@@ -41,7 +41,7 @@ export default function DartPaymentPage() {
         </div>
 
         <h2 className="mt-10 font-heading text-[20px] font-bold text-ink">Others</h2>
-        <div className="mt-3 grid grid-cols-2 gap-3">
+        <div className="mt-3 grid grid-cols-2 gap-4">
           {OTHERS.map(({ label, href, icon: Icon }) =>
             href ? (
               <Link key={label} href={href} className="flex flex-col gap-3 rounded-card border border-neutral-200 p-4">
