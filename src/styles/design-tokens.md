@@ -16,7 +16,8 @@
 | Token | Valeur | Usage observé |
 |---|---|---|
 | `--color-ink` | `#000000` | Titres, texte principal, boutons primaires, icônes actives, tab bar actif |
-| `--color-paper` | `#ffffff` | Fond de toutes les pages |
+| `--color-paper` | `#ffffff` | Fond des cartes (`Card`, `CircleCard`, ListRow sur fond sombre, etc.) et texte blanc sur fond ink |
+| `--color-canvas` | `#f2f2f2` | Fond de `<body>`/de toutes les pages — cf. CLAUDE.md, exception #2 (décision produit, design global façon Cash App). `--color-paper` n'est plus le fond de page depuis ce changement. |
 | `--color-neutral-200` | `#e5e5e5` | Bordures d'input, séparateurs de liste, contour des icônes circulaires, fond des boutons désactivés |
 | `--color-neutral-500` | `#6b6b6b` | Texte secondaire, placeholder, sous-titres gris (mesuré ~#555-#5a5a5a en cœur de glyphe, arrondi à une valeur standard) |
 
@@ -44,15 +45,22 @@ qu'aucun écran ne le montre.
 
 ## Typographie
 
-**Diagnostic visuel** (aucun fichier de police fourni) :
+**⚠️ Écart assumé au diagnostic visuel d'origine** (cf. CLAUDE.md,
+exception #2, décision produit) : `--font-heading` est réaligné sur
+**Inter** (au lieu de Poppins ci-dessous), pour un rendu plus proche de
+Cash Sans (police propriétaire Cash App, non disponible publiquement) et
+moins "gros" en graisse bold. Poppins est retiré du projet
+(`src/app/layout.tsx` ne charge plus que Inter). Le diagnostic original
+reste documenté ci-dessous pour traçabilité, mais n'est plus la valeur
+appliquée.
+
+**Diagnostic visuel d'origine** (aucun fichier de police fourni) :
 - **Titres (bold/semibold)** : sans-serif géométrique à empattements arrondis,
   "o" parfaitement circulaires, "g" bas-de-casse à boucle ouverte simple
   (visible sur "goals"), très proche de **Poppins**. Le wordmark du logo
   splash de l'app source est composé dans cette même famille.
 - **Corps de texte / labels** : sans-serif plus neutre/humaniste, proportions
   moins géométriques que les titres — proche de **Inter**.
-- Chargées via `next/font/google` (Poppins pour les titres, Inter pour le
-  corps), voir `src/app/layout.tsx`.
 - ⚠️ Si un brand book officiel est fourni par la suite, comparer et
   remplacer si la police exacte diffère.
 

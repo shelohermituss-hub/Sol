@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import Image from "next/image"
-import { CaretRight, PiggyBank } from "@phosphor-icons/react/ssr"
+import { CaretRight } from "@phosphor-icons/react/ssr"
 
 import { DartHeader } from "@/components/layout/dart-header"
 import { DartTabBar } from "@/components/layout/dart-tab-bar"
@@ -10,7 +10,6 @@ import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { CircleCard } from "@/components/sections/circle-card"
 import { CategoryCard } from "@/components/sections/category-card"
-import { Sparkline } from "@/components/sections/sparkline"
 import { formatCurrency } from "@/lib/currency"
 import { useDart } from "@/lib/dart-context"
 import { EXCHANGE_RATE, INVITED_CIRCLES } from "@/lib/dart-data"
@@ -60,45 +59,25 @@ export default function DartHomePage() {
             href="/dart/join/saving-program"
             title="Savings"
             subtitle="Up to 25% cashback"
-            graphic={
-              <span className="flex size-16 items-center justify-center rounded-full bg-accent-mint">
-                <PiggyBank className="size-8 text-brand-green" weight="fill" />
-              </span>
-            }
+            graphic={<Image src="/images/illustrations/dart-savings-cover.png" alt="" width={200} height={200} className="size-20" />}
           />
           <CategoryCard
             href="/dart/exchange-rate"
             title="Exchange Rate"
             subtitle={`1 USD = ${EXCHANGE_RATE.rate} HTG`}
-            graphic={<Sparkline data={EXCHANGE_RATE.history} color="#7fc1e1" className="h-14 w-full" />}
+            graphic={<Image src="/images/illustrations/dart-exchange-rate-cover.png" alt="" width={200} height={200} className="size-20" />}
           />
           <CategoryCard
             href="/dart/payment/settings/saved-cards"
             title="MonCash Card"
             subtitle="Manage your cards"
-            graphic={
-              <Image
-                src="/images/illustrations/dart-debit-card-cover.svg"
-                alt=""
-                width={200}
-                height={200}
-                className="size-20"
-              />
-            }
+            graphic={<Image src="/images/illustrations/dart-debit-card-cover.png" alt="" width={200} height={200} className="size-20" />}
           />
           <CategoryCard
             href="/dart/fees"
             title="Fees"
             subtitle="From 0.5%"
-            graphic={
-              <Image
-                src="/images/illustrations/dart-fees-cover.svg"
-                alt=""
-                width={200}
-                height={200}
-                className="size-20"
-              />
-            }
+            graphic={<Image src="/images/illustrations/dart-fees-cover.png" alt="" width={200} height={200} className="size-20" />}
           />
         </div>
       </div>

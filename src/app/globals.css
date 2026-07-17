@@ -6,6 +6,9 @@
   /* Neutres */
   --color-ink: #000000;
   --color-paper: #ffffff;
+  /* Fond de page (Cash App) — cf. CLAUDE.md, exception #2. --color-paper
+     reste blanc et sert désormais au fond des cartes uniquement. */
+  --color-canvas: #f2f2f2;
   --color-neutral-200: #e5e5e5;
   --color-neutral-500: #6b6b6b;
 
@@ -29,7 +32,7 @@
    * attendant qu'un écran d'erreur réel en montre un.
    */
   --radius: 1rem;
-  --background: var(--color-paper);
+  --background: var(--color-canvas);
   --foreground: var(--color-ink);
   --card: var(--color-paper);
   --card-foreground: var(--color-ink);
@@ -55,6 +58,7 @@
 
   --color-ink: var(--color-ink);
   --color-paper: var(--color-paper);
+  --color-canvas: var(--color-canvas);
   --color-neutral-200: var(--color-neutral-200);
   --color-neutral-500: var(--color-neutral-500);
   --color-brand-green: var(--color-brand-green);
@@ -68,7 +72,9 @@
   --radius-sheet: var(--radius-sheet);
 
   --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
-  --font-heading: var(--font-poppins), var(--font-inter), system-ui, sans-serif;
+  /* Réaligné sur Inter (au lieu de Poppins) — cf. CLAUDE.md, exception #2 :
+     rendu plus proche de Cash Sans, moins "gros" en graisse bold. */
+  --font-heading: var(--font-inter), system-ui, sans-serif;
 
   --color-ring: var(--ring);
   --color-input: var(--input);
