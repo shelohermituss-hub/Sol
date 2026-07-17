@@ -54,7 +54,7 @@ export default function DartHomePage() {
           ))}
         </div>
 
-        <div className="mt-8 grid grid-cols-2 gap-3">
+        <div className="mt-8 grid grid-cols-2 gap-4">
           <CategoryCard
             href="/dart/join/saving-program"
             title="Savings"

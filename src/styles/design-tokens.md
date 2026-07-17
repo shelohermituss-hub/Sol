@@ -125,6 +125,31 @@ de ligne de liste ≈ 40–56px).
 
 Hauteur de bouton pill : ~56px (rayon = moitié de la hauteur → pill complet).
 
+### Audit espacement/rythme (Lot D2)
+Mesures programmatiques (transitions de couleur blanc/gris) sur
+`Home.png` (393×852, 1:1 avec les px CSS) et `Frame 27.png` (1755×3795,
+÷4.46 pour ramener en px logiques) :
+- **Marge de page** : 20px mesuré (page margin gauche/droite du Cash
+  Balance card, constant sur plusieurs lignes). Token actuel `px-6`
+  (24px) — écart 20%, pile au seuil de tolérance retenu (>20%) : **non
+  modifié**, considéré comme déjà correct.
+- **Écart de grille 2 colonnes** (cartes catégorie Home) : ~15-16px
+  mesuré (constant sur 6 lignes de mesure indépendantes). Token
+  précédent `gap-3` (12px), écart 25-33% > seuil : **corrigé en
+  `gap-4`** (16px) sur les 4 grilles `grid-cols-2` du même type visuel
+  (tuiles cliquables) : Home (catégories), scan-id (recto/verso),
+  slot (créneaux), payment (Others).
+- **Rythme vertical inter-sections** (bas de carte → section suivante) :
+  ~32px mesuré, identique au token `mt-8` (32px) déjà utilisé : **déjà
+  correct**, aucun changement.
+- **Hauteur de ligne de liste** (`Frame 27.png`, séparateurs) : ~65px
+  mesuré, contre ~88px pour `ListRow` avec icône circulaire (`py-4` +
+  icône `size-14`). Écart non attribuable au padding (`py-4` seul
+  correspond à l'espacement déjà validé) mais à la taille d'icône
+  circulaire (56px), un choix de contenu/structure de `ListRow`
+  protégé par la Règle absolue de CLAUDE.md, hors du périmètre "token
+  d'espacement" de ce Lot : **non modifié**.
+
 ## Composants récurrents
 
 Voir `INVENTAIRE.md` section 2 pour la liste complète (bouton primaire/
