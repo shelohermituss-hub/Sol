@@ -7,6 +7,15 @@ import type { ReactNode } from "react"
 // navigation plutôt qu'une seule fois au premier chargement — c'est le
 // mécanisme prévu par Next.js pour ce cas d'usage, appliqué ici une seule
 // fois plutôt que sur chacun des ~30 écrans individuellement.
+//
+// `animate-dart-fade-in` (keyframe opacity pure, cf. globals.css) plutôt
+// que l'utilitaire `animate-in fade-in` de tw-animate-css : ce dernier
+// s'appuie sur un unique keyframe partagé `enter` qui anime aussi
+// `transform` (translate3d/scale3d), même figé à sa valeur identité
+// quand seul `fade-in` est demandé. Un `transform` animé sur un ancêtre
+// — même sans mouvement visible — crée un nouveau containing block et
+// casse `position: sticky`/`fixed` sur tous ses descendants, ce qui
+// désactivait le header et la tab bar fixés à chaque navigation.
 export default function DartTemplate({ children }: { children: ReactNode }) {
-  return <div className="animate-in fade-in duration-300">{children}</div>
+  return <div className="animate-dart-fade-in">{children}</div>
 }

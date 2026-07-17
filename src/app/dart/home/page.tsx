@@ -12,7 +12,7 @@ import { CircleCard } from "@/components/sections/circle-card"
 import { CategoryCard } from "@/components/sections/category-card"
 import { formatCurrency } from "@/lib/currency"
 import { useDart } from "@/lib/dart-context"
-import { EXCHANGE_RATE, INVITED_CIRCLES } from "@/lib/dart-data"
+import { INVITED_CIRCLES } from "@/lib/dart-data"
 
 // Onglet Home, restylé façon Cash App (style visuel demandé
 // explicitement par l'utilisateur — cf. la carte Cash Balance ci-dessous
@@ -58,26 +58,22 @@ export default function DartHomePage() {
           <CategoryCard
             href="/dart/join/saving-program"
             title="Savings"
-            subtitle="Up to 25% cashback"
-            graphic={<Image src="/images/illustrations/dart-savings-cover.png" alt="" width={200} height={200} className="size-20" />}
+            graphic={<Image src="/images/illustrations/dart-savings-cover.png" alt="" width={200} height={200} className="size-28" />}
           />
           <CategoryCard
             href="/dart/exchange-rate"
             title="Exchange Rate"
-            subtitle={`1 USD = ${EXCHANGE_RATE.rate} HTG`}
-            graphic={<Image src="/images/illustrations/dart-exchange-rate-cover.png" alt="" width={200} height={200} className="size-20" />}
+            graphic={<Image src="/images/illustrations/dart-exchange-rate-cover.png" alt="" width={200} height={200} className="size-28" />}
           />
           <CategoryCard
             href="/dart/payment/settings/saved-cards"
             title="MonCash Card"
-            subtitle="Manage your cards"
-            graphic={<Image src="/images/illustrations/dart-debit-card-cover.png" alt="" width={200} height={200} className="size-20" />}
+            graphic={<Image src="/images/illustrations/dart-debit-card-cover.png" alt="" width={200} height={200} className="size-28" />}
           />
           <CategoryCard
             href="/dart/fees"
             title="Fees"
-            subtitle="From 0.5%"
-            graphic={<Image src="/images/illustrations/dart-fees-cover.png" alt="" width={200} height={200} className="size-20" />}
+            graphic={<Image src="/images/illustrations/dart-fees-cover.png" alt="" width={200} height={200} className="size-28" />}
           />
         </div>
       </div>

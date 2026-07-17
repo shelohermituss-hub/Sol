@@ -106,6 +106,23 @@ body {
   font-family: var(--font-sans);
 }
 
+/* Fondu de page (src/app/dart/template.tsx) — opacity pure, jamais de
+   transform. Un ancêtre avec un transform animé (même à l'identité, ex.
+   translate3d(0,0,0)) crée un nouveau containing block et casse
+   position: sticky/fixed sur les descendants (header, tab bar). */
+@keyframes dart-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-dart-fade-in {
+  animation: dart-fade-in 300ms ease;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
