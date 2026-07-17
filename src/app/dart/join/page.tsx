@@ -28,9 +28,9 @@ export default function DartJoinPage() {
           <HandCoins className="size-6 text-ink" weight="fill" />
         </span>
         <div className="flex-1">
-          <p className="font-heading text-[17px] font-bold text-ink">Join a Game&apos;ya</p>
+          <p className="font-heading text-[17px] font-bold text-ink">Join a Sòl</p>
           <p className="mt-1 text-[15px] text-neutral-500">
-            Select your preferred slot and choose any payout amount to {formatCurrency(120000)} per Game&apos;ya.
+            Select your preferred slot and choose any payout amount to {formatCurrency(120000)} per Sòl.
           </p>
         </div>
         <CaretRight className="size-5 shrink-0 text-ink" />

@@ -5,7 +5,12 @@ import { formatCurrency } from "@/lib/currency"
 // source) — structure/fonctionnalités reprises, aucune valeur visuelle
 // (couleur, style) empruntée à l'app 2.
 
-export const RECOMMENDED_CIRCLES: CircleCardData[] = [
+// Modèle de confiance (cf. CLAUDE.md) : groupes fermés sur invitation,
+// jamais un marketplace ouvert. Cette liste représente le résultat d'une
+// requête "cercles où je suis invité ou que j'organise" — jamais une
+// découverte publique de cercles auxquels n'importe qui pourrait
+// rejoindre. Affichée sur Home et Circles ("Invited to you").
+export const INVITED_CIRCLES: CircleCardData[] = [
   {
     id: "circle-24000",
     amount: 24000,

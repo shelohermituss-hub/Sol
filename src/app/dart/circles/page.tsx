@@ -8,7 +8,7 @@ import { DartTabBar } from "@/components/layout/dart-tab-bar"
 import { SegmentedControl, SegmentedControlList, SegmentedControlTab } from "@/components/ui/segmented-control"
 import { CircleCard } from "@/components/sections/circle-card"
 import { useDart } from "@/lib/dart-context"
-import { RECOMMENDED_CIRCLES } from "@/lib/dart-data"
+import { INVITED_CIRCLES } from "@/lib/dart-data"
 
 // Onglet Circles. Cf. app-cible/Circles.png (vide) et
 // Circles (Joined).png (rempli). État vide : illustration générée par
@@ -51,9 +51,9 @@ export default function DartCirclesPage() {
           </div>
         )}
 
-        <h2 className="mt-8 font-heading text-[20px] font-bold text-ink">Recommended for you</h2>
+        <h2 className="mt-8 font-heading text-[20px] font-bold text-ink">Invited to you</h2>
         <div className="mt-3 flex flex-col gap-3">
-          {RECOMMENDED_CIRCLES.map((circle) => (
+          {INVITED_CIRCLES.map((circle) => (
             <CircleCard key={circle.id} circle={circle} joinHref={`/dart/join/game-ya?amount=${circle.amount}`} />
           ))}
         </div>
