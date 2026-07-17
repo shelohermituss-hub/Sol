@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import Image from "next/image"
 import { ArrowRight, Bell, Copy, Envelope, Gift, Percent } from "@phosphor-icons/react/ssr"
 
 import { NavHeader, NavBackButton } from "@/components/layout/nav-header"
@@ -93,8 +94,9 @@ export default function InviteFriendsPage() {
           </p>
 
           <h2 className="font-heading text-[17px] font-bold text-ink">Invitees</h2>
-          <div className="rounded-card border border-neutral-200 p-6 text-center">
-            <p className="text-[15px] font-bold text-ink">Invites friends</p>
+          <div className="flex flex-col items-center rounded-card border border-neutral-200 p-6 text-center">
+            <Image src="/images/illustrations/dart-circles-empty.svg" alt="" width={320} height={320} className="w-24" />
+            <p className="mt-3 text-[15px] font-bold text-ink">Invites friends</p>
             <p className="mt-1 text-[13px] text-neutral-500">
               You haven&apos;t invited any friends or your friends haven&apos;t signed up yet.
             </p>

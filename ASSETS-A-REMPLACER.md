@@ -48,9 +48,9 @@ génération Higgsfield — cf. `FONCTIONNEL.md`, Étape 2.
 | `Onboarding.png` (héro "Welcome to Dart", main + pièces) | `public/images/illustrations/dart-welcome-hero.svg` sur `/dart/welcome` | ✅ généré, intégré |
 | `Circles.png` (personnage tirelire, état vide "Your active circles") | `public/images/illustrations/dart-circles-empty.svg` sur `/dart/circles` | ✅ généré, intégré |
 | `Payment.png` (personnage poches vides, état vide) | `public/images/illustrations/dart-payment-empty.svg` sur `/dart/payment` | ✅ généré, intégré |
-| `Payment History(Empty).png` | `ClockCounterClockwise` en badge neutre | ⬜ hors scope des 3 prompts validés, reste en icône |
-| `Payment/Payment Settings/Saved Cards(Empty).png` | `Wallet` en badge neutre | ⬜ hors scope des 3 prompts validés, reste en icône |
-| `Profile/Invite Friends/Track Invitiations.png` (illustration invitees vide) | Carte texte seule | ⬜ hors scope des 3 prompts validés, reste en texte |
+| `Payment History(Empty).png` (reçu + horloge, état vide) | `public/images/illustrations/dart-payment-history-empty.svg` sur `/dart/payment/history` | ✅ généré, intégré |
+| `Payment/Payment Settings/Saved Cards(Empty).png` (deux cartes empilées) | `public/images/illustrations/dart-saved-cards-empty.svg` sur `/dart/payment/settings/saved-cards` | ✅ généré, intégré |
+| `Profile/Invite Friends/Track Invitiations.png` (illustration invitees vide) | Réutilise `dart-circles-empty.svg` sur la sheet "My Referrals" de `/dart/profile/invite-friends` | ✅ intégré (l'app 2 réutilise elle-même exactement le même visuel personnage-tirelire sur ces deux écrans — pas de nouvelle génération, cohérent avec le pattern déjà en place côté app 1 où `referral-bonus.svg` est réutilisé sur `/home` et `/set-and-save`) |
 
 Prompts proposés (mêmes contraintes que les 4 visuels Oportun déjà validés :
 style plat vectoriel, palette strictement limitée aux tokens de
@@ -83,6 +83,24 @@ de l'app pour les illustrations à personnage.
 Fichiers : `public/images/illustrations/dart-welcome-hero.svg`,
 `dart-circles-empty.svg`, `dart-payment-empty.svg`.
 
-Les 3 autres lignes du tableau ci-dessus restent en carte texte/icône
-simple — hors scope de cette validation, cohérent avec le pattern déjà en
-place côté app 1 pour les états vides sans visuel dédié.
+**✅ 3 illustrations restantes générées le 17/07** (Payment History vide,
+Saved Cards vide) — mêmes contraintes de palette, model_type `vector`,
+sans contour (illustrations d'objets, pas de personnage, cohérent avec
+`hero-reach-your-goals.svg`). Prompts :
+
+4. **État vide "Payment History"** : "Flat vector illustration, a paper
+   receipt with a round clock icon attached at the corner, symbolizing
+   waiting for the first transaction, no outlines, soft geometric shapes,
+   minimal background"
+5. **État vide "Saved Cards"** : "Flat vector illustration, two generic
+   blank payment cards stacked and overlapping diagonally, no brand logos
+   or text on the cards, simple minimal geometric style, no outlines,
+   minimal background"
+6. **État vide "Track Invitations"** : pas de génération — réutilise
+   `dart-circles-empty.svg` (cf. tableau ci-dessus).
+
+Fichiers additionnels : `dart-payment-history-empty.svg`,
+`dart-saved-cards-empty.svg`.
+
+Les 6 illustrations identifiées à l'Étape 2 de `FONCTIONNEL.md` sont
+maintenant toutes intégrées.

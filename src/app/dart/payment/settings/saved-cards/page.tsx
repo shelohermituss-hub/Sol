@@ -1,7 +1,8 @@
 "use client"
 
+import Image from "next/image"
 import Link from "next/link"
-import { CaretRight, CreditCard, FilePlus, PencilSimple, Trash, Wallet } from "@phosphor-icons/react/ssr"
+import { CaretRight, CreditCard, FilePlus, PencilSimple, Trash } from "@phosphor-icons/react/ssr"
 
 import { NavHeader, NavBackButton } from "@/components/layout/nav-header"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
@@ -41,9 +42,7 @@ export default function SavedCardsPage() {
         </>
       ) : (
         <div className="mt-16 flex flex-col items-center text-center">
-          <span className="flex size-20 items-center justify-center rounded-full bg-neutral-200/50">
-            <Wallet className="size-10 text-ink" />
-          </span>
+          <Image src="/images/illustrations/dart-saved-cards-empty.svg" alt="" width={320} height={320} className="w-28" />
           <p className="mt-4 font-heading text-[17px] font-bold text-ink">There are no saved cards</p>
           <p className="mt-1 text-[15px] text-neutral-500">
             You can add new cards now or save your card information for future payments.

@@ -1,8 +1,9 @@
 "use client"
 
 import * as React from "react"
+import Image from "next/image"
 import Link from "next/link"
-import { ArrowDown, ArrowRight, ArrowUp, Bell, ClockCounterClockwise } from "@phosphor-icons/react/ssr"
+import { ArrowDown, ArrowRight, ArrowUp, Bell } from "@phosphor-icons/react/ssr"
 
 import { NavHeader, NavBackButton } from "@/components/layout/nav-header"
 import { SegmentedControl, SegmentedControlList, SegmentedControlTab } from "@/components/ui/segmented-control"
@@ -58,9 +59,7 @@ export default function PaymentHistoryPage() {
         </div>
       ) : (
         <div className="mt-16 flex flex-col items-center text-center">
-          <span className="flex size-20 items-center justify-center rounded-full bg-neutral-200/50">
-            <ClockCounterClockwise className="size-10 text-ink" />
-          </span>
+          <Image src="/images/illustrations/dart-payment-history-empty.svg" alt="" width={320} height={320} className="w-28" />
           <p className="mt-4 font-heading text-[17px] font-bold text-ink">
             You don&apos;t have any payment history yet.
           </p>
