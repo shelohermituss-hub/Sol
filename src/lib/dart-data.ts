@@ -244,16 +244,78 @@ export const ELIGIBILITY_ITEMS: EligibilityItem[] = [
   { id: "contract", label: "Contract", description: "You will need to sign the contract first.", status: "warning" },
 ]
 
+// Cf. CLAUDE.md, "Paiement" : jamais de cartes bancaires. Ancien champ
+// `brand: "visa" | "mastercard"` retiré — un seul produit existe dans ce
+// modèle (la carte MonCash), pas une multi-marque à choisir. Corrige un
+// reliquat non nettoyé (formulaire d'ajout demandait encore un CVC et
+// une date d'expiration façon carte bancaire).
 export interface SavedCard {
   id: string
-  brand: "visa" | "mastercard"
   last4: string
   isDefault: boolean
 }
 
 export const INITIAL_SAVED_CARDS: SavedCard[] = [
-  { id: "card-1", brand: "visa", last4: "0215", isDefault: true },
-  { id: "card-2", brand: "mastercard", last4: "9834", isDefault: false },
+  { id: "card-1", last4: "0215", isDefault: true },
+  { id: "card-2", last4: "9834", isDefault: false },
+]
+
+// Portefeuille en HTG, alimenté via MonCash (Add Cash) ou vidé vers
+// MonCash (Cash Out) — cf. /dart/wallet/[action]. Solde de démo distinct
+// des cotisations/versements de PAYMENT_TRANSACTIONS (pas recalculé
+// depuis l'historique, simple valeur de départ comme le reste des
+// données de démo de ce fichier).
+export const INITIAL_WALLET_BALANCE = 3250
+
+// Taux indicatif USD -> HTG pour la carte "Exchange Rate" de l'accueil.
+// Valeur de démo, pas un flux temps réel réel — cf. [A VALIDER - BRH] sur
+// l'écran détail (toute donnée de marché affichée comme "temps réel"
+// dans une app financière doit être vérifiable, jamais une valeur
+// inventée présentée comme officielle).
+export const EXCHANGE_RATE = {
+  base: "USD",
+  quote: "HTG",
+  rate: 131.5,
+  updatedAt: "Jul 17, 2026 · 9:00 AM",
+  /** 7 derniers points, pour le mini-graphique de la carte et le détail. */
+  history: [128.2, 129.0, 129.8, 130.4, 130.9, 131.1, 131.5],
+}
+
+export interface CollectionFeeTier {
+  id: string
+  label: string
+  rate: string
+}
+
+// Miroir exact de .claude/skills/moncash-flow/SKILL.md §6.1 — jamais un
+// pourcentage deviné ailleurs dans le code.
+export const COLLECTION_FEE_TIERS: CollectionFeeTier[] = [
+  { id: "bronze", label: "Bronze", rate: "0.5%" },
+  { id: "silver", label: "Silver", rate: "2%" },
+  { id: "gold", label: "Gold", rate: "2%" },
+]
+
+export interface TransferFeeTier {
+  range: string
+  fee: number
+}
+
+// Miroir exact de .claude/skills/moncash-flow/SKILL.md §6.2 (paliers
+// fixes, pas un pourcentage). Le barème s'arrête à 100 000 HTG — cf.
+// disclaimer [TARIF A CONFIRMER AUPRES DE MONCASH] sur /dart/fees.
+export const TRANSFER_FEE_TIERS: TransferFeeTier[] = [
+  { range: "20 – 249 HTG", fee: 0 },
+  { range: "250 – 499 HTG", fee: 5 },
+  { range: "500 – 999 HTG", fee: 10 },
+  { range: "1,000 – 1,999 HTG", fee: 25 },
+  { range: "2,000 – 3,999 HTG", fee: 35 },
+  { range: "4,000 – 7,999 HTG", fee: 50 },
+  { range: "8,000 – 11,999 HTG", fee: 60 },
+  { range: "12,000 – 19,999 HTG", fee: 70 },
+  { range: "20,000 – 39,999 HTG", fee: 75 },
+  { range: "40,000 – 59,999 HTG", fee: 100 },
+  { range: "60,000 – 75,000 HTG", fee: 120 },
+  { range: "75,000 – 100,000 HTG", fee: 130 },
 ]
 
 export interface DocumentItem {

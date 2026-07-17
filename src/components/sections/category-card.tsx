@@ -1,32 +1,33 @@
 import * as React from "react"
+import Link from "next/link"
+import { CaretRight } from "@phosphor-icons/react/ssr"
 
-// Vignette catégorie (app 2 "Popular Goals", Home). Nouveau composant,
-// fond uni tiré de la palette d'illustration déjà définie dans
-// design-tokens.md (jamais une nouvelle couleur), titre blanc en overlay.
+// Vignette catégorie cliquable (app 2 "Popular Goals" -> grille façon
+// Cash App, Home). Carte blanche + chevron + zone "couverture" (icône,
+// illustration ou graphique) plutôt que le précédent bloc plein-couleur
+// non cliquable — chaque carte ouvre désormais un écran détail dédié.
 function CategoryCard({
+  href,
   title,
   subtitle,
-  bgColor,
-  icon,
+  graphic,
 }: {
+  href: string
   title: string
-  subtitle: string
-  bgColor: string
-  icon?: React.ReactNode
+  subtitle?: string
+  graphic: React.ReactNode
 }) {
   return (
-    <div
-      className="flex h-28 w-40 shrink-0 flex-col justify-between rounded-card p-4"
-      style={{ backgroundColor: bgColor }}
-    >
-      <div className="flex items-start justify-between">
+    <Link href={href} className="flex h-40 flex-col justify-between rounded-card border border-neutral-200 bg-paper p-4">
+      <div className="flex items-start justify-between gap-2">
         <div>
-          <p className="font-heading text-[17px] font-bold text-paper">{title}</p>
-          <p className="mt-1 text-[13px] text-paper/80">{subtitle}</p>
+          <p className="font-heading text-[15px] font-bold text-ink">{title}</p>
+          {subtitle && <p className="mt-0.5 text-[13px] text-neutral-500">{subtitle}</p>}
         </div>
-        {icon && <span className="text-paper">{icon}</span>}
+        <CaretRight className="size-4 shrink-0 text-ink" />
       </div>
-    </div>
+      <div className="flex flex-1 items-end justify-center overflow-hidden">{graphic}</div>
+    </Link>
   )
 }
 

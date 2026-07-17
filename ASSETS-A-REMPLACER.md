@@ -104,3 +104,22 @@ Fichiers additionnels : `dart-payment-history-empty.svg`,
 
 Les 6 illustrations identifiées à l'Étape 2 de `FONCTIONNEL.md` sont
 maintenant toutes intégrées.
+
+## Home restylée façon Cash App — 2 couvertures de carte générées
+
+Accueil remodelé (bloc Cash Balance + grille 4 cartes cliquables,
+demande explicite de l'utilisateur). 2 des 4 cartes réutilisent des
+éléments déjà en place (Savings : icône PiggyBank existante ; Exchange
+Rate : mini-graphique construit en SVG inline, pas une illustration IA,
+même logique que la frise de progression de CircleCard). Les 2 autres
+ont nécessité une génération, mêmes contraintes que ci-dessus (Higgsfield
+Recraft V4.1, model_type `vector`, palette restreinte aux tokens
+`#ff8f75` / `#c7baee` / `#b3dfbc` / `#7fc1e1` / `#8c81ff`, fond blanc,
+sans contour) :
+
+| Carte accueil | Visuel généré | Prompt |
+|---|---|---|
+| MonCash Card | `public/images/illustrations/dart-debit-card-cover.svg` | "Flat vector illustration, a single generic prepaid payment card shown at a slight angle, no brand logos or text on the card, simple minimal geometric style, no outlines, minimal white background" |
+| Fees | `public/images/illustrations/dart-fees-cover.svg` | "Flat vector illustration, a paper receipt with a percent symbol on it, symbolizing transaction fees, no outlines, soft geometric shapes, minimal white background" |
+
+**✅ Générées et intégrées le 17/07.**
