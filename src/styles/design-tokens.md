@@ -110,6 +110,30 @@ pour rester dans le même esprit sobre. `Sheet` (bottom sheet) n'a jamais
 eu d'ombre (seulement `border-t`) et n'a pas été modifié : cohérent avec
 l'absence d'ombre observée sur les modales Cash App.
 
+### Audit typographie fine (Lot D3)
+Comparaison visuelle des graisses sur les captures ("Money"/"Account &
+Settings" en titre, "$10" en montant héros, boutons "Add Cash"/"Next") :
+les titres et montants héros Cash App sont visuellement très appuyés,
+cohérent avec `font-bold` (700) déjà utilisé pour ces éléments ; les
+boutons pill affichent une graisse intermédiaire, cohérente avec
+`font-semibold` (600) déjà utilisé sur `Button`. Aucune dérive de
+graisse identifiée par rapport à l'échelle déjà documentée plus haut
+(section Typographie). L'interlignage/tracking des titres et montants
+apparaît serré sur les captures, ce qui correspond déjà au comportement
+par défaut du navigateur pour `text-[Npx]` (Tailwind ne fixe pas de
+`line-height` séparé pour les tailles arbitraires) — aucun token de
+`line-height`/`tracking` explicite n'est donc nécessaire. **Aucun
+changement de code** pour ce Lot.
+
+**Constat hors-périmètre (pas appliqué ce Lot)** : le variant `secondary`
+de `Button` (`border border-ink bg-paper`, fond blanc + bordure) diffère
+du remplissage gris plein (sans bordure visible) des boutons secondaires
+observés sur Cash App (ex. "Add Cash"/"Cash Out"). C'est un changement
+d'habillage colorimétrique d'un composant `ui/` protégé par la Règle
+absolue : à traiter, si retenu, dans le même lot que D4 (nécessite une
+exception CLAUDE.md explicite avant application), pas dans ce Lot
+typographie.
+
 ## Espacements & rayons
 
 Échelle 4/8px standard (Tailwind par défaut), confirmée par les marges
