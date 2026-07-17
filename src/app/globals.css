@@ -13,7 +13,9 @@
   --color-neutral-500: #6b6b6b;
 
   /* Marque */
-  --color-brand-green: #0b9b3c;
+  /* Vert signature Cash App, teinte atténuée par rapport à leur #00D632
+     exact — cf. CLAUDE.md, exception #3. Valeur d'origine : #0b9b3c. */
+  --color-brand-green: #0fa968;
   --color-brand-blue: #009adc;
   --color-brand-blue-tint: #e6f5fb;
   --color-accent-peach: #ffc6ac;

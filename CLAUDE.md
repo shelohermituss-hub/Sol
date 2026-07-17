@@ -34,6 +34,15 @@ inchangée — seule leur habillage colorimétrique/typographique change,
 globalement, via les design tokens. Cf. `src/styles/design-tokens.md`
 pour le détail.
 
+**Exception explicite #3 (décision produit — couleur de marque façon
+Cash App) :** `--color-brand-green` est réaligné sur la famille du vert
+signature de Cash App (vif, saturé), dans une teinte volontairement
+atténuée par rapport à leur `#00D632` exact — décision explicite pour
+rester dans le même esprit sans reprendre littéralement leur nuance de
+marque. Nouvelle valeur : `#0FA968` (au lieu de `#0b9b3c`). Aucun autre
+token de couleur ne change ; usages inchangés (liens, coche cochée,
+badges succès, pills "Joined"/actions positives).
+
 ## Devise
 HTG uniquement, via `formatCurrency()` (Lot 0). Jamais de devise en dur.
 

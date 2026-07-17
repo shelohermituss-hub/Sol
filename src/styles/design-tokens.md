@@ -24,7 +24,7 @@
 ### Marque
 | Token | Valeur | Usage observé |
 |---|---|---|
-| `--color-brand-green` | `#0b9b3c` | Liens ("Cancel", "Change", "Resend", mentions légales), case à cocher cochée, icône succès transfert |
+| `--color-brand-green` | `#0FA968` | Liens ("Cancel", "Change", "Resend", mentions légales), case à cocher cochée, icône succès transfert. Réaligné sur la famille du vert signature Cash App, teinte volontairement atténuée par rapport à leur `#00D632` exact — cf. CLAUDE.md, exception #3. Valeur d'origine (mesurée sur les captures source) : `#0b9b3c`. |
 | `--color-brand-blue` | `#009adc` | Badge "NEW", icône "i" du bandeau d'information abonnement |
 | `--color-brand-blue-tint` | `#e6f5fb` | Fond du bandeau info ("Your monthly plan will start…"), fond de la carte upsell annuelle |
 | `--color-accent-peach` | `#ffc6ac` | Fond de l'icône de marque Set & Save (fleur-pièce) |
