@@ -185,6 +185,37 @@ Mesures programmatiques (transitions de couleur blanc/gris) sur
   protégé par la Règle absolue de CLAUDE.md, hors du périmètre "token
   d'espacement" de ce Lot : **non modifié**.
 
+### Audit résiduel + contraste (Lot D6, lecture seule)
+- **Grep hex codés en dur** : `grep -rn '#[0-9a-fA-F]{3,6}' src/` ne
+  retourne plus aucun résultat en dehors de `globals.css` (source de
+  vérité des tokens) et de ce fichier de documentation — confirmé après
+  la correction du Lot D5 (dernier hex isolé, `#7fc1e1` du Sparkline).
+  Aucun `style={{ color: ... }}`/`style={{ background: ... }}` codé en
+  dur trouvé non plus. Le système de tokens reste la seule source de
+  vérité colorimétrique de l'app.
+- **Contraste texte/fond** (calcul WCAG, luminance relative sRGB) :
+  - `--color-ink` (#333333) sur `--color-paper`/`--color-canvas` :
+    ratios ≈12.6:1 / ≈11.6:1 — largement conformes AAA.
+  - `--color-neutral-500` (#666666) sur paper/canvas : ratios ≈5.75:1 /
+    ≈5.27:1 — conformes AA texte normal.
+  - `--color-brand-blue` (#009adc) en icône (`size-5`, seuil UI 3:1) :
+    ≈3.15:1 — conforme.
+  - **Constat, non corrigé** : `--color-brand-green` (#00d651) utilisé
+    comme couleur de texte (liens "Terms of Use", montants cashback/
+    discount, CTA "authorize"...) sur fond blanc/gris ne ratio
+    qu'≈1.96:1, sous le seuil AA texte (4.5:1) même pour la plupart des
+    usages en gras (13-17px, sous le seuil "grand texte" 18.66px bold).
+    **Ce n'est pas une régression introduite par ce Lot** : c'est la
+    couleur exacte mesurée sur les liens verts réels de Cash App
+    (exception #4, captures réelles) — une reproduction fidèle d'un
+    choix de design Cash App qui n'est lui-même pas conforme WCAG AA
+    sur ce point précis. Non modifié, conformément à la décision produit
+    explicite ("reprends celle de Cash App") ; signalé ici pour
+    traçabilité plutôt que corrigé silencieusement.
+- **Revisite écran par écran** : pas de régression visuelle repérée sur
+  les ~30 écrans au-delà du point de contraste ci-dessus (déjà connu
+  depuis l'application de l'exception #4, pas nouveau à ce Lot).
+
 ## Composants récurrents
 
 Voir `INVENTAIRE.md` section 2 pour la liste complète (bouton primaire/
