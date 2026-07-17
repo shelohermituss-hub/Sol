@@ -137,7 +137,7 @@ function PositionForm() {
         })}
       </div>
 
-      <div className="mt-4 grid grid-cols-2 gap-3">
+      <div className="mt-4 grid grid-cols-2 gap-4">
         {dates.map((date) => (
           <button
             key={date.id}

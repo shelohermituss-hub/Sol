@@ -1,65 +1,86 @@
 "use client"
 
 import Link from "next/link"
-import { Backpack, Envelope, PiggyBank, Sparkle } from "@phosphor-icons/react/ssr"
+import Image from "next/image"
+import { CaretRight } from "@phosphor-icons/react/ssr"
 
 import { DartHeader } from "@/components/layout/dart-header"
 import { DartTabBar } from "@/components/layout/dart-tab-bar"
-import { PromoCarousel } from "@/components/sections/promo-carousel"
+import { Card } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
 import { CircleCard } from "@/components/sections/circle-card"
 import { CategoryCard } from "@/components/sections/category-card"
 import { formatCurrency } from "@/lib/currency"
+import { useDart } from "@/lib/dart-context"
 import { INVITED_CIRCLES } from "@/lib/dart-data"
 
-// Onglet Home du reskin Sòlid. Cf. app-cible/Home.png (= Join.png, même
-// écran). Bannière "Latest Offers" en carte pleine largeur (illustration
-// en attente de génération Higgsfield, cf. ASSETS-A-REMPLACER.md — texte +
-// fond marque en attendant). Catégorie "Popular Goals" #3 illisible sur la
-// capture source, non reproduite (règle "ne pas inventer"). "Ramadan"
-// remplacé par "Back to School" (cf. CLAUDE.md, modèle de confiance —
-// choix documenté dans le résumé de la tâche, 2 autres options proposées).
+// Onglet Home, restylé façon Cash App (style visuel demandé
+// explicitement par l'utilisateur — cf. la carte Cash Balance ci-dessous
+// et la grille 4 cartes, à la place du carrousel "Latest Offers" + de la
+// bannière "Send an invitation" et des 2 cartes "Popular Goals"
+// d'origine). "Invited to you" reste juste après le solde, inchangé sur
+// le fond (source de données/contenu) — seul repositionné.
 export default function DartHomePage() {
+  const { declinedInvitationIds, walletBalance } = useDart()
+  const invitedCircles = INVITED_CIRCLES.filter((circle) => !declinedInvitationIds.includes(circle.id))
+
   return (
     <div className="mx-auto flex min-h-dvh w-full max-w-md flex-col">
       <div className="flex-1 px-6 pt-4">
         <DartHeader />
 
-        <div className="mt-6">
-          <PromoCarousel>
-            {[
-              <div key="offers" className="flex h-28 items-center justify-between rounded-card bg-accent-peach px-5">
-                <div>
-                  <p className="text-[13px] text-ink">Check Out Our</p>
-                  <p className="font-heading text-[20px] font-bold text-ink">LATEST OFFERS</p>
-                </div>
-                <Sparkle className="size-10 text-ink" weight="fill" />
-              </div>,
-            ]}
-          </PromoCarousel>
-        </div>
-
-        <Link
-          href="/dart/profile/invite-friends"
-          className="mt-4 flex items-center gap-3 rounded-card bg-brand-blue-tint px-4 py-4"
-        >
-          <Envelope className="size-6 shrink-0 text-ink" />
-          <p className="flex-1 text-[15px] text-ink">
-            Send an invitation to your friends and you&apos;ll both get a{" "}
-            <span className="font-bold">{formatCurrency(150)}</span> discount.
-          </p>
-        </Link>
+        <Card className="mt-6">
+          <div className="flex items-center justify-between">
+            <p className="text-[15px] text-neutral-500">Cash Balance</p>
+            <Link href="/dart/profile/personal-info" className="flex items-center gap-1 text-[13px] text-neutral-500">
+              MonCash Number <CaretRight className="size-3" />
+            </Link>
+          </div>
+          <p className="font-heading text-[32px] font-bold text-ink">{formatCurrency(walletBalance)}</p>
+          {/* Remplissage gris canvas sans bordure (Lot D4, CLAUDE.md
+              exception #5) : couleur mesurée au pixel des boutons
+              secondaires sur la carte Cash Balance de Cash App
+              (Home.png), identique au fond de page (#f5f5f5) — scopé à
+              ce contexte précis, le variant "secondary" global reste
+              bordé pour ses usages sur fond canvas direct. */}
+          <div className="flex gap-3">
+            <Button variant="secondary" className="flex-1 border-none bg-canvas" nativeButton={false} render={<Link href="/dart/wallet/add-cash" />}>
+              Add Cash
+            </Button>
+            <Button variant="secondary" className="flex-1 border-none bg-canvas" nativeButton={false} render={<Link href="/dart/wallet/cash-out" />}>
+              Cash Out
+            </Button>
+          </div>
+        </Card>
 
         <h2 className="mt-8 font-heading text-[20px] font-bold text-ink">Invited to you</h2>
         <div className="mt-3 flex flex-col gap-3">
-          {INVITED_CIRCLES.map((circle) => (
-            <CircleCard key={circle.id} circle={circle} joinHref={`/dart/join/game-ya?amount=${circle.amount}`} />
+          {invitedCircles.map((circle) => (
+            <CircleCard key={circle.id} circle={circle} joinHref={`/dart/invitations/${circle.id}`} />
           ))}
         </div>
 
-        <h2 className="mt-8 font-heading text-[20px] font-bold text-ink">Popular Goals</h2>
-        <div className="mt-3 flex gap-3 overflow-x-auto pb-2">
-          <CategoryCard title="Savings" subtitle="20% Cashback" bgColor="#7fc1e1" icon={<PiggyBank className="size-6" weight="fill" />} />
-          <CategoryCard title="Back to School" subtitle="Upto 25% Discount" bgColor="#ff8f75" icon={<Backpack className="size-6" weight="fill" />} />
+        <div className="mt-8 grid grid-cols-2 gap-4">
+          <CategoryCard
+            href="/dart/join/saving-program"
+            title="Savings"
+            graphic={<Image src="/images/illustrations/dart-savings-cover.png" alt="" width={200} height={200} className="size-28" />}
+          />
+          <CategoryCard
+            href="/dart/exchange-rate"
+            title="Exchange Rate"
+            graphic={<Image src="/images/illustrations/dart-exchange-rate-cover.png" alt="" width={200} height={200} className="size-28" />}
+          />
+          <CategoryCard
+            href="/dart/payment/settings/saved-cards"
+            title="MonCash Card"
+            graphic={<Image src="/images/illustrations/dart-debit-card-cover.png" alt="" width={200} height={200} className="size-28" />}
+          />
+          <CategoryCard
+            href="/dart/fees"
+            title="Fees"
+            graphic={<Image src="/images/illustrations/dart-fees-cover.png" alt="" width={200} height={200} className="size-28" />}
+          />
         </div>
       </div>
 

@@ -3,12 +3,25 @@
 import * as React from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { ArrowDown, ArrowRight, ArrowUp, Bell } from "@phosphor-icons/react/ssr"
+import { ArrowDown, ArrowRight, ArrowUp, Bell, Clock, WarningCircle } from "@phosphor-icons/react/ssr"
 
 import { NavHeader, NavBackButton } from "@/components/layout/nav-header"
+import { Badge } from "@/components/ui/badge"
 import { SegmentedControl, SegmentedControlList, SegmentedControlTab } from "@/components/ui/segmented-control"
 import { formatCurrency } from "@/lib/currency"
 import { PAYMENT_TRANSACTIONS } from "@/lib/dart-data"
+
+// Copie associée à chaque statut, distincte de la ligne "You have paid
+// for/received for..." déjà en place pour les transactions confirmées
+// (status absent/"success"). Jamais de rouge (cf. list-row.tsx, même
+// convention déjà actée) : "failed" reste en encre (icône WarningCircle),
+// pas une couleur destructive.
+const STATUS_COPY = {
+  pending: (kind: "payment" | "payout") =>
+    kind === "payment" ? "Your payment is pending confirmation for" : "Your payout is pending confirmation for",
+  failed: (kind: "payment" | "payout") =>
+    kind === "payment" ? "Your payment failed for the month of" : "Your payout failed for the month of",
+} as const
 
 // Historique des paiements. Cf. app-cible/Payment/Payment History/
 // Payments.png, Payout.png et Payment History(Empty).png.
@@ -34,11 +47,12 @@ export default function PaymentHistoryPage() {
       {transactions.length > 0 ? (
         <div className="mt-4 flex flex-col gap-3">
           {transactions.map((t) => {
-            const Icon = t.kind === "payment" ? ArrowUp : ArrowDown
+            const status = t.status ?? "success"
+            const Icon = status === "pending" ? Clock : status === "failed" ? WarningCircle : t.kind === "payment" ? ArrowUp : ArrowDown
             return (
               <div key={t.id} className="flex items-center gap-3 rounded-card border border-neutral-200 p-4">
                 <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-neutral-200/50">
-                  <Icon className="size-4 text-ink" />
+                  <Icon className="size-4 text-ink" weight={status === "failed" ? "fill" : "regular"} />
                 </span>
                 <div className="min-w-0 flex-1">
                   <p className="flex items-baseline gap-2">
@@ -48,11 +62,22 @@ export default function PaymentHistoryPage() {
                     <span className="text-[13px] text-neutral-500">
                       {t.time}, {t.date}
                     </span>
+                    {status !== "success" && (
+                      <Badge variant="neutral" className="capitalize">
+                        {status}
+                      </Badge>
+                    )}
                   </p>
-                  <p className="mt-1 text-[13px] text-neutral-500">
-                    You have {t.kind === "payment" ? "paid for" : "received for"} circle for the month of{" "}
-                    <span className="font-bold text-brand-green">{t.month}</span>.
-                  </p>
+                  {status === "success" ? (
+                    <p className="mt-1 text-[13px] text-neutral-500">
+                      You have {t.kind === "payment" ? "paid for" : "received for"} circle for the month of{" "}
+                      <span className="font-bold text-brand-green">{t.month}</span>.
+                    </p>
+                  ) : (
+                    <p className="mt-1 text-[13px] text-neutral-500">
+                      {STATUS_COPY[status](t.kind)} <span className="font-bold text-ink">{t.month}</span>.
+                    </p>
+                  )}
                 </div>
               </div>
             )

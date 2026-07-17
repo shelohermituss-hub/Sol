@@ -104,3 +104,30 @@ Fichiers additionnels : `dart-payment-history-empty.svg`,
 
 Les 6 illustrations identifiées à l'Étape 2 de `FONCTIONNEL.md` sont
 maintenant toutes intégrées.
+
+## Home restylée façon Cash App — 4 couvertures de carte en rendu 3D
+
+Accueil remodelé (bloc Cash Balance + grille 4 cartes cliquables,
+demande explicite de l'utilisateur). Première passe : Savings/Exchange
+Rate réutilisaient une icône existante / un mini-graphique SVG inline,
+MonCash Card/Fees en vecteur plat (Higgsfield Recraft V4.1,
+model_type `vector`). **Remplacé sur demande explicite** ("vrai
+illustrations 3D exceptionnelle et magnifique, pas juste des images
+2D") : les 4 cartes utilisent désormais un rendu 3D glossy généré
+(Higgsfield Recraft V4.1, model_type `standard`, résolution 2k puis
+réduites à 800×800/PNG optimisé pour le poids du repo, même palette
+`#ff8f75` / `#c7baee` / `#b3dfbc` / `#7fc1e1` / `#8c81ff`, fond blanc
+isolé). Le mini-graphique SVG (`Sparkline`) n'a pas disparu : il reste
+utilisé sur l'écran détail `/dart/exchange-rate` (donnée réelle, pas une
+illustration), seule la vignette de la carte d'accueil est en 3D.
+
+| Carte accueil | Visuel généré | Prompt |
+|---|---|---|
+| Savings | `public/images/illustrations/dart-savings-cover.png` | "Exceptional beautiful 3D rendered icon illustration of a glossy piggy bank, soft dimensional studio lighting, smooth clay-like material, floating isolated on a plain white background, professional 3D render, vibrant coral pink and mint green colors, high quality, no text" |
+| Exchange Rate | `public/images/illustrations/dart-exchange-rate-cover.png` | "Exceptional beautiful 3D rendered icon illustration of two glossy currency coins with circular exchange arrows around them, soft dimensional studio lighting, smooth clay-like material, floating isolated on a plain white background, professional 3D render, vibrant sky blue and violet colors, high quality, no text" |
+| MonCash Card | `public/images/illustrations/dart-debit-card-cover.png` | "Exceptional beautiful 3D rendered icon illustration of a single glossy generic prepaid payment card floating at a slight angle, no text or logos on the card, soft dimensional studio lighting, smooth clay-like material, isolated on a plain white background, professional 3D render, vibrant violet and coral colors, high quality" |
+| Fees | `public/images/illustrations/dart-fees-cover.png` | "Exceptional beautiful 3D rendered icon illustration of a folded paper receipt with a glossy percent symbol on it, soft dimensional studio lighting, smooth clay-like material, floating isolated on a plain white background, professional 3D render, vibrant lavender and mint colors, high quality, no other text" |
+
+**✅ Générées et intégrées le 17/07 (v2, rendu 3D).**
+
+**✅ Générées et intégrées le 17/07.**

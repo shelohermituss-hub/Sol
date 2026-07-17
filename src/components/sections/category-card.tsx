@@ -1,32 +1,36 @@
 import * as React from "react"
+import Link from "next/link"
+import { CaretRight } from "@phosphor-icons/react/ssr"
 
-// Vignette catégorie (app 2 "Popular Goals", Home). Nouveau composant,
-// fond uni tiré de la palette d'illustration déjà définie dans
-// design-tokens.md (jamais une nouvelle couleur), titre blanc en overlay.
+// Vignette catégorie cliquable (app 2 "Popular Goals" -> grille façon
+// Cash App, Home). Carte blanche + chevron + zone "couverture" (icône,
+// illustration ou graphique) plutôt que le précédent bloc plein-couleur
+// non cliquable — chaque carte ouvre désormais un écran détail dédié.
+// Titre seul (pas de sous-titre) et zone illustration agrandie sans
+// overflow-hidden — corrige un rognage de l'illustration signalé par
+// l'utilisateur (le sous-titre + une zone graphique trop petite/coupée
+// laissaient à peine dépasser l'illustration). Bordure remplacée par une
+// ombre, cohérent avec Card (ui/card.tsx) depuis le passage au fond gris.
 function CategoryCard({
+  href,
   title,
-  subtitle,
-  bgColor,
-  icon,
+  graphic,
 }: {
+  href: string
   title: string
-  subtitle: string
-  bgColor: string
-  icon?: React.ReactNode
+  graphic: React.ReactNode
 }) {
   return (
-    <div
-      className="flex h-28 w-40 shrink-0 flex-col justify-between rounded-card p-4"
-      style={{ backgroundColor: bgColor }}
+    <Link
+      href={href}
+      className="flex h-48 flex-col rounded-card bg-paper p-4 shadow-[0_1px_2px_rgba(0,0,0,0.05)]"
     >
-      <div className="flex items-start justify-between">
-        <div>
-          <p className="font-heading text-[17px] font-bold text-paper">{title}</p>
-          <p className="mt-1 text-[13px] text-paper/80">{subtitle}</p>
-        </div>
-        {icon && <span className="text-paper">{icon}</span>}
+      <div className="flex items-center justify-between gap-2">
+        <p className="font-heading text-[15px] font-bold text-ink">{title}</p>
+        <CaretRight className="size-4 shrink-0 text-ink" />
       </div>
-    </div>
+      <div className="flex flex-1 items-center justify-center">{graphic}</div>
+    </Link>
   )
 }
 

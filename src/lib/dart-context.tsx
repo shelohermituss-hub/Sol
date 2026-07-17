@@ -3,7 +3,7 @@
 import * as React from "react"
 
 import type { CircleCardData } from "@/components/sections/circle-card"
-import { INITIAL_JOINED_CIRCLES, INITIAL_SAVED_CARDS, type SavedCard } from "@/lib/dart-data"
+import { INITIAL_JOINED_CIRCLES, INITIAL_SAVED_CARDS, INITIAL_WALLET_BALANCE, type SavedCard } from "@/lib/dart-data"
 
 type DartContextValue = {
   joinedCircles: CircleCardData[]
@@ -12,6 +12,13 @@ type DartContextValue = {
   addSavedCard: (card: SavedCard) => void
   removeSavedCard: (id: string) => void
   setDefaultCard: (id: string) => void
+  /** Invitations refusées (cf. écran /dart/invitations/[id]) : pas de table dédiée côté schéma réel — refuser une invitation ne touche jamais memberships/contributions, uniquement cet état front. */
+  declinedInvitationIds: string[]
+  declineInvitation: (id: string) => void
+  /** Portefeuille MonCash (cf. /dart/wallet/[action]). */
+  walletBalance: number
+  addCash: (amount: number) => void
+  cashOut: (amount: number) => void
 }
 
 const DartContext = React.createContext<DartContextValue | null>(null)
@@ -22,6 +29,8 @@ const DartContext = React.createContext<DartContextValue | null>(null)
 function DartProvider({ children }: { children: React.ReactNode }) {
   const [joinedCircles, setJoinedCircles] = React.useState<CircleCardData[]>(INITIAL_JOINED_CIRCLES)
   const [savedCards, setSavedCards] = React.useState<SavedCard[]>(INITIAL_SAVED_CARDS)
+  const [declinedInvitationIds, setDeclinedInvitationIds] = React.useState<string[]>([])
+  const [walletBalance, setWalletBalance] = React.useState<number>(INITIAL_WALLET_BALANCE)
 
   const addJoinedCircle = React.useCallback((circle: CircleCardData) => {
     setJoinedCircles((prev) => [...prev, { ...circle, joined: true }])
@@ -39,9 +48,45 @@ function DartProvider({ children }: { children: React.ReactNode }) {
     setSavedCards((prev) => prev.map((c) => ({ ...c, isDefault: c.id === id })))
   }, [])
 
+  const declineInvitation = React.useCallback((id: string) => {
+    setDeclinedInvitationIds((prev) => (prev.includes(id) ? prev : [...prev, id]))
+  }, [])
+
+  const addCash = React.useCallback((amount: number) => {
+    setWalletBalance((prev) => prev + amount)
+  }, [])
+
+  const cashOut = React.useCallback((amount: number) => {
+    setWalletBalance((prev) => Math.max(0, prev - amount))
+  }, [])
+
   const value = React.useMemo(
-    () => ({ joinedCircles, addJoinedCircle, savedCards, addSavedCard, removeSavedCard, setDefaultCard }),
-    [joinedCircles, addJoinedCircle, savedCards, addSavedCard, removeSavedCard, setDefaultCard]
+    () => ({
+      joinedCircles,
+      addJoinedCircle,
+      savedCards,
+      addSavedCard,
+      removeSavedCard,
+      setDefaultCard,
+      declinedInvitationIds,
+      declineInvitation,
+      walletBalance,
+      addCash,
+      cashOut,
+    }),
+    [
+      joinedCircles,
+      addJoinedCircle,
+      savedCards,
+      addSavedCard,
+      removeSavedCard,
+      setDefaultCard,
+      declinedInvitationIds,
+      declineInvitation,
+      walletBalance,
+      addCash,
+      cashOut,
+    ]
   )
 
   return <DartContext.Provider value={value}>{children}</DartContext.Provider>

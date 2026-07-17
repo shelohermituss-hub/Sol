@@ -3,18 +3,31 @@
 @import "shadcn/tailwind.css";
 
 :root {
-  /* Neutres */
-  --color-ink: #000000;
+  /* Neutres — cf. CLAUDE.md, exception #4 : valeurs mesurées par
+     échantillonnage programmatique sur ~15 captures Cash App réelles
+     (Python/Pillow), pas des estimations. */
+  --color-ink: #333333;
   --color-paper: #ffffff;
+  /* Fond de page. --color-paper reste blanc, fond des cartes uniquement. */
+  --color-canvas: #f5f5f5;
   --color-neutral-200: #e5e5e5;
-  --color-neutral-500: #6b6b6b;
+  --color-neutral-500: #666666;
 
   /* Marque */
-  --color-brand-green: #0b9b3c;
+  /* Vert signature Cash App — valeur exacte mesurée (remplace la teinte
+     atténuée #0fa968 de l'exception #3). Valeur d'origine du projet
+     (captures Oportun) : #0b9b3c. Cf. CLAUDE.md, exception #4. */
+  --color-brand-green: #00d651;
   --color-brand-blue: #009adc;
   --color-brand-blue-tint: #e6f5fb;
   --color-accent-peach: #ffc6ac;
   --color-accent-mint: #e7f9ec;
+  /* Accents secondaires mesurés sur Cash App — décoratifs/ponctuels
+     uniquement (badges, graphiques), jamais pour une action primaire. */
+  --color-accent-blue-vivid: #3478f5;
+  --color-accent-cyan: #00d4ff;
+  --color-accent-purple: #8420f4;
+  --color-accent-orange-vivid: #ee9d44;
 
   /* Rayons */
   --radius-input: 14px;
@@ -29,7 +42,7 @@
    * attendant qu'un écran d'erreur réel en montre un.
    */
   --radius: 1rem;
-  --background: var(--color-paper);
+  --background: var(--color-canvas);
   --foreground: var(--color-ink);
   --card: var(--color-paper);
   --card-foreground: var(--color-ink);
@@ -55,11 +68,16 @@
 
   --color-ink: var(--color-ink);
   --color-paper: var(--color-paper);
+  --color-canvas: var(--color-canvas);
   --color-neutral-200: var(--color-neutral-200);
   --color-neutral-500: var(--color-neutral-500);
   --color-brand-green: var(--color-brand-green);
   --color-brand-blue: var(--color-brand-blue);
   --color-brand-blue-tint: var(--color-brand-blue-tint);
+  --color-accent-blue-vivid: var(--color-accent-blue-vivid);
+  --color-accent-cyan: var(--color-accent-cyan);
+  --color-accent-purple: var(--color-accent-purple);
+  --color-accent-orange-vivid: var(--color-accent-orange-vivid);
   --color-accent-peach: var(--color-accent-peach);
   --color-accent-mint: var(--color-accent-mint);
 
@@ -68,7 +86,9 @@
   --radius-sheet: var(--radius-sheet);
 
   --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
-  --font-heading: var(--font-poppins), var(--font-inter), system-ui, sans-serif;
+  /* Réaligné sur Inter (au lieu de Poppins) — cf. CLAUDE.md, exception #2 :
+     rendu plus proche de Cash Sans, moins "gros" en graisse bold. */
+  --font-heading: var(--font-inter), system-ui, sans-serif;
 
   --color-ring: var(--ring);
   --color-input: var(--input);
@@ -100,6 +120,23 @@ body {
   font-family: var(--font-sans);
 }
 
+/* Fondu de page (src/app/dart/template.tsx) — opacity pure, jamais de
+   transform. Un ancêtre avec un transform animé (même à l'identité, ex.
+   translate3d(0,0,0)) crée un nouveau containing block et casse
+   position: sticky/fixed sur les descendants (header, tab bar). */
+@keyframes dart-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-dart-fade-in {
+  animation: dart-fade-in 300ms ease;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -108,6 +145,6 @@ body {
     @apply bg-background text-foreground;
   }
   html {
-    @apply font-sans;
+    @apply font-sans scroll-smooth;
   }
 }
