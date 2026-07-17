@@ -16,7 +16,8 @@ import { INVITED_CIRCLES } from "@/lib/dart-data"
 // ASSETS-A-REMPLACER.md.
 export default function DartCirclesPage() {
   const [tab, setTab] = React.useState<"active" | "finished">("active")
-  const { joinedCircles } = useDart()
+  const { joinedCircles, declinedInvitationIds } = useDart()
+  const invitedCircles = INVITED_CIRCLES.filter((circle) => !declinedInvitationIds.includes(circle.id))
 
   return (
     <div className="mx-auto flex min-h-dvh w-full max-w-md flex-col">
@@ -53,8 +54,8 @@ export default function DartCirclesPage() {
 
         <h2 className="mt-8 font-heading text-[20px] font-bold text-ink">Invited to you</h2>
         <div className="mt-3 flex flex-col gap-3">
-          {INVITED_CIRCLES.map((circle) => (
-            <CircleCard key={circle.id} circle={circle} joinHref={`/dart/join/game-ya?amount=${circle.amount}`} />
+          {invitedCircles.map((circle) => (
+            <CircleCard key={circle.id} circle={circle} joinHref={`/dart/invitations/${circle.id}`} />
           ))}
         </div>
       </div>

@@ -1,20 +1,13 @@
 import type { Metadata } from "next";
-import { Inter, Poppins } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { DartProvider } from "@/lib/dart-context";
 
-// Police : diagnostic visuel à partir des screenshots (pas de fichier de
-// police fourni) — Poppins pour les titres, Inter pour le corps de texte.
-// Voir src/styles/design-tokens.md, section Typographie, pour le détail du
-// diagnostic et les instructions de remplacement si un brand book officiel
-// devient disponible.
-const poppins = Poppins({
-  subsets: ["latin"],
-  weight: ["500", "600", "700"],
-  variable: "--font-poppins",
-});
-
+// Police unifiée sur Inter (titres et corps) — cf. CLAUDE.md, exception #2
+// et src/styles/design-tokens.md, section Typographie : Poppins retiré,
+// rendu plus proche de Cash Sans (police Cash App, non disponible
+// publiquement) et moins "gros" en graisse bold.
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
@@ -31,7 +24,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={cn("h-full antialiased", poppins.variable, inter.variable)}>
+    <html lang="en" className={cn("h-full antialiased", inter.variable)}>
       <body className="min-h-full flex flex-col">
         <DartProvider>{children}</DartProvider>
       </body>
