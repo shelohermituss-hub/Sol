@@ -1,12 +1,18 @@
 import Link from "next/link"
-import { CirclesThree, House, Plus, UserCircle, Wallet } from "@phosphor-icons/react/ssr"
+import { CirclesThree, CurrencyCircleDollar, House, Plus, UserCircle } from "@phosphor-icons/react/ssr"
 
 import { cn } from "@/lib/utils"
 
+// Icônes en trait "bold" façon Cash App (cf. CLAUDE.md, exception à la
+// Règle absolue) : Home garde sa glyphe (House), Payment troque Wallet
+// pour CurrencyCircleDollar (même esprit que le bouton $ de Cash App),
+// Circles/Profile gardent leur glyphe existante — pas d'équivalent
+// littéral côté Cash App — mais passent en poids "bold"/"fill" au lieu
+// de "regular" pour le même rendu plus épais.
 const TABS = [
   { href: "/dart/home", label: "Home", icon: House },
   { href: "/dart/circles", label: "Circles", icon: CirclesThree },
-  { href: "/dart/payment", label: "Payment", icon: Wallet },
+  { href: "/dart/payment", label: "Payment", icon: CurrencyCircleDollar },
   { href: "/dart/profile", label: "Profile", icon: UserCircle },
 ] as const
 
@@ -30,7 +36,7 @@ function DartTabBar({ active }: { active: (typeof TABS)[number]["href"] }) {
         aria-label="Join a circle"
         className="absolute left-1/2 -top-6 flex size-14 -translate-x-1/2 items-center justify-center rounded-full bg-ink text-paper shadow-lg"
       >
-        <Plus className="size-6" />
+        <Plus className="size-6" weight="bold" />
       </Link>
 
       {rightTabs.map((tab) => (
@@ -47,7 +53,7 @@ function DartTab({ tab, isActive }: { tab: (typeof TABS)[number]; isActive: bool
       href={tab.href}
       className={cn("flex flex-col items-center gap-1 px-6 py-1", isActive ? "text-ink" : "text-neutral-500")}
     >
-      <Icon className="size-6" weight={isActive ? "fill" : "regular"} />
+      <Icon className="size-6" weight={isActive ? "fill" : "bold"} />
       <span className={cn("text-xs", isActive && "font-bold")}>{tab.label}</span>
     </Link>
   )

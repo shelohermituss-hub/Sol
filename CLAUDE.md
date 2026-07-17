@@ -6,6 +6,14 @@ La coquille visuelle (composants `ui/`, layout, `StepProgress`, `Slider`,
 page) ne change JAMAIS. Seul le contenu fonctionnel tontine est
 modifiable.
 
+**Exception explicite (décision produit) :** les icônes de la tab bar
+(`DartTabBar`/`DartTab`, `src/components/layout/dart-tab-bar.tsx`) sont
+exclues de cette règle et peuvent être remplacées pour adopter un style
+d'icônes bold façon Cash App. Seules les icônes (glyphes) changent — le
+nombre d'onglets, leur ordre, le FAB central "Join" et la structure/mise
+en page de la barre restent inchangés. Toute autre partie de la coquille
+reste couverte par la Règle absolue ci-dessus.
+
 ## Devise
 HTG uniquement, via `formatCurrency()` (Lot 0). Jamais de devise en dur.
 
