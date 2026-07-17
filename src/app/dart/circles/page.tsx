@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import Image from "next/image"
 
 import { DartHeader } from "@/components/layout/dart-header"
 import { DartTabBar } from "@/components/layout/dart-tab-bar"
@@ -10,9 +11,9 @@ import { useDart } from "@/lib/dart-context"
 import { RECOMMENDED_CIRCLES } from "@/lib/dart-data"
 
 // Onglet Circles. Cf. app-cible/Circles.png (vide) et
-// Circles (Joined).png (rempli). État vide : carte bordée texte seul,
-// même pattern que "No auto saves initiated today" de l'app 1 (pas
-// d'illustration nécessaire, cohérent avec le design system existant).
+// Circles (Joined).png (rempli). État vide : illustration générée par
+// Higgsfield (Recraft V4.1, vector) + carte bordée — cf.
+// ASSETS-A-REMPLACER.md.
 export default function DartCirclesPage() {
   const [tab, setTab] = React.useState<"active" | "finished">("active")
   const { joinedCircles } = useDart()
@@ -39,8 +40,9 @@ export default function DartCirclesPage() {
               ))}
             </div>
           ) : (
-            <div className="mt-3 rounded-card border border-neutral-200 p-5">
-              <p className="text-[15px] text-neutral-500">Your active circles will appear here!</p>
+            <div className="mt-3 flex flex-col items-center rounded-card border border-neutral-200 p-5 text-center">
+              <Image src="/images/illustrations/dart-circles-empty.svg" alt="" width={320} height={320} className="w-28" />
+              <p className="mt-3 text-[15px] text-neutral-500">Your active circles will appear here!</p>
             </div>
           )
         ) : (

@@ -45,12 +45,12 @@ génération Higgsfield — cf. `FONCTIONNEL.md`, Étape 2.
 
 | Écran source (capture app-cible/) | Remplace | Statut |
 |---|---|---|
-| `Onboarding.png` (héro "Welcome to Dart", main + pièces) | `HandCoins` en badge pêche sur `/dart/welcome` | ⬜ en attente de validation des prompts |
-| `Circles.png` (personnage tirelire, état vide "Your active circles") | Carte texte seule (pas d'illustration, pattern "No auto saves" déjà en place côté app 1) | ⬜ à confirmer si une illustration est vraiment souhaitée ici |
-| `Payment.png` (personnage poches vides, état vide) | `Wallet` en badge neutre sur `/dart/payment` | ⬜ en attente |
-| `Payment History(Empty).png` | `ClockCounterClockwise` en badge neutre | ⬜ en attente |
-| `Payment/Payment Settings/Saved Cards(Empty).png` | `Wallet` en badge neutre | ⬜ en attente |
-| `Profile/Invite Friends/Track Invitiations.png` (illustration invitees vide) | Carte texte seule | ⬜ à confirmer |
+| `Onboarding.png` (héro "Welcome to Dart", main + pièces) | `public/images/illustrations/dart-welcome-hero.svg` sur `/dart/welcome` | ✅ généré, intégré |
+| `Circles.png` (personnage tirelire, état vide "Your active circles") | `public/images/illustrations/dart-circles-empty.svg` sur `/dart/circles` | ✅ généré, intégré |
+| `Payment.png` (personnage poches vides, état vide) | `public/images/illustrations/dart-payment-empty.svg` sur `/dart/payment` | ✅ généré, intégré |
+| `Payment History(Empty).png` | `ClockCounterClockwise` en badge neutre | ⬜ hors scope des 3 prompts validés, reste en icône |
+| `Payment/Payment Settings/Saved Cards(Empty).png` | `Wallet` en badge neutre | ⬜ hors scope des 3 prompts validés, reste en icône |
+| `Profile/Invite Friends/Track Invitiations.png` (illustration invitees vide) | Carte texte seule | ⬜ hors scope des 3 prompts validés, reste en texte |
 
 Prompts proposés (mêmes contraintes que les 4 visuels Oportun déjà validés :
 style plat vectoriel, palette strictement limitée aux tokens de
@@ -68,7 +68,21 @@ jamais le bleu marque de l'app 2) :
 3. **État vide "Payment"** : "Flat vector illustration, a person with empty
    pockets shown turned out, lighthearted mood, [palette tokens app 1]"
 
-**En attente de ta validation de ces 3 prompts avant génération** (les 3
-autres lignes du tableau ci-dessus resteront en carte texte simple, pas
-d'illustration nécessaire — cohérent avec le pattern déjà en place côté
-app 1 pour les états vides sans visuel).
+**✅ Prompts validés et générés le 17/07.** Modèle Higgsfield Recraft V4.1
+(model_type `vector`), palette restreinte aux tokens `#ff8f75` / `#c7baee`
+/ `#b3dfbc` / `#7fc1e1` / `#8c81ff` / `#ffc6ac`, fond blanc. Le prompt
+"Welcome to Dart" est passé tel quel (résultat sans contour, cohérent avec
+`hero-reach-your-goals.svg`). Les prompts "Circles" et "Payment" ont été
+regénérés une fois avec une formulation renforcée après un premier essai
+peu lisible — le résultat final conserve un fin contour noir sur les
+personnages, ce qui est en fait cohérent avec le style déjà validé de
+`invite-friends-hero.svg` (personnages avec contour), donc conservé tel
+quel plutôt que forcé vers un style "sans contour" qui n'est pas la norme
+de l'app pour les illustrations à personnage.
+
+Fichiers : `public/images/illustrations/dart-welcome-hero.svg`,
+`dart-circles-empty.svg`, `dart-payment-empty.svg`.
+
+Les 3 autres lignes du tableau ci-dessus restent en carte texte/icône
+simple — hors scope de cette validation, cohérent avec le pattern déjà en
+place côté app 1 pour les états vides sans visuel dédié.

@@ -1,7 +1,8 @@
 "use client"
 
+import Image from "next/image"
 import Link from "next/link"
-import { CheckSquare, CurrencyCircleDollar, Gear, PlusCircle, Question, Receipt, Wallet } from "@phosphor-icons/react/ssr"
+import { CheckSquare, CurrencyCircleDollar, Gear, PlusCircle, Question, Receipt } from "@phosphor-icons/react/ssr"
 
 import { DartHeader } from "@/components/layout/dart-header"
 import { DartTabBar } from "@/components/layout/dart-tab-bar"
@@ -16,10 +17,11 @@ const OTHERS = [
 ] as const
 
 // Onglet Payment (hub). Cf. app-cible/Payment.png. État vide toujours
-// affiché dans cette reproduction (état canonique de la capture) —
-// illustration en attente de génération Higgsfield, placeholder icône en
-// attendant. "Payment Policy" et "Help" référencés mais aucun écran
-// fourni, restent décoratifs.
+// affiché dans cette reproduction (état canonique de la capture).
+// Illustration générée par Higgsfield (Recraft V4.1, vector), même
+// palette que les visuels app 1 déjà validés — cf. ASSETS-A-REMPLACER.md.
+// "Payment Policy" et "Help" référencés mais aucun écran fourni, restent
+// décoratifs.
 export default function DartPaymentPage() {
   return (
     <div className="mx-auto flex min-h-dvh w-full max-w-md flex-col">
@@ -27,9 +29,7 @@ export default function DartPaymentPage() {
         <DartHeader />
 
         <div className="mt-10 flex flex-col items-center text-center">
-          <span className="flex size-20 items-center justify-center rounded-full bg-neutral-200/50">
-            <Wallet className="size-10 text-ink" />
-          </span>
+          <Image src="/images/illustrations/dart-payment-empty.svg" alt="" width={320} height={320} className="w-32" />
           <p className="mt-4 font-heading text-[17px] font-bold text-ink">You don&apos;t have any payment due yet</p>
           <p className="mt-1 text-[15px] text-neutral-500">
             Your due payment and your balance will appear here after you join a circle.
