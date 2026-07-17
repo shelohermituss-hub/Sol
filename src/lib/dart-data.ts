@@ -44,25 +44,30 @@ export interface SavingTier {
   cashback: number
 }
 
+// Grille Saving Program, du plus accessible au plus premium (corrige au
+// passage un bug de nommage : l'ancienne grille répétait "SILVER SAVER"
+// sur 3 paliers différents). Taux de cashback progressif — plus le
+// palier est élevé, meilleur le taux, pour récompenser l'engagement sans
+// pénaliser les petits épargnants (Starter reste à 15%, pas 0%).
 export const SAVING_TIERS: SavingTier[] = [
-  { id: "lite", label: "LITE SAVER", amount: 3000, cashback: 600 },
-  { id: "bronze", label: "BRONZE SAVER", amount: 6000, cashback: 1200 },
-  { id: "silver-1", label: "SILVER SAVER", amount: 12000, cashback: 2400 },
-  { id: "gold", label: "GOLD SAVER", amount: 30000, cashback: 6000 },
-  { id: "silver-2", label: "SILVER SAVER", amount: 60000, cashback: 12000 },
-  { id: "silver-3", label: "SILVER SAVER", amount: 100000, cashback: 20000 },
+  { id: "starter", label: "STARTER SAVER", amount: 5000, cashback: 750 }, // 15%
+  { id: "bronze", label: "BRONZE SAVER", amount: 10000, cashback: 1700 }, // 17%
+  { id: "silver", label: "SILVER SAVER", amount: 25000, cashback: 4750 }, // 19%
+  { id: "gold", label: "GOLD SAVER", amount: 50000, cashback: 10500 }, // 21%
+  { id: "platinum", label: "PLATINUM SAVER", amount: 100000, cashback: 23000 }, // 23%
+  { id: "diamond", label: "DIAMOND SAVER", amount: 200000, cashback: 50000 }, // 25%
 ]
 
 export interface SavingDuration {
   months: number
-  monthly: number
 }
 
-export const SAVING_DURATIONS: SavingDuration[] = [
-  { months: 6, monthly: 500 },
-  { months: 12, monthly: 250 },
-  { months: 24, monthly: 125 },
-]
+// Durées proposées pour un palier Saving Program. La mensualité affichée
+// est calculée dynamiquement (montant du palier ÷ durée) sur l'écran
+// Choose Duration — l'ancienne valeur `monthly` fixe par durée (500/250/
+// 125) restait câblée sur le montant du tout premier palier (3 000) et
+// ne suivait pas le palier réellement sélectionné.
+export const SAVING_DURATIONS: SavingDuration[] = [{ months: 6 }, { months: 12 }, { months: 24 }]
 
 // Durées de mensualité proposées pour un Sòl : mêmes paliers que
 // SAVING_DURATIONS (6/12/24 mois, grille Bronze/Silver/Gold déjà

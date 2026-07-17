@@ -14,8 +14,8 @@ import { useDart } from "@/lib/dart-context"
 function ReviewSavingForm() {
   const router = useRouter()
   const params = useSearchParams()
-  const amount = Number(params.get("amount")) || 3000
-  const monthly = Number(params.get("monthly")) || 500
+  const amount = Number(params.get("amount")) || 5000
+  const monthly = Number(params.get("monthly")) || 833
   const months = Number(params.get("months")) || 6
   const cashback = Number(params.get("cashback")) || 0
 

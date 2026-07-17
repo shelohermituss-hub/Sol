@@ -11,9 +11,10 @@ import { formatCurrency } from "@/lib/currency"
 import { cn } from "@/lib/utils"
 import { SAVING_DURATIONS, SAVING_TIERS, type SavingTier } from "@/lib/dart-data"
 
-const START_MONTH = 10 // Novembre 2024 (index 0 = janvier), cf. "STARTS ON" de la capture
-const START_YEAR = 2024
+const START_MONTH = 7 // Août 2026 (index 0 = janvier) — premier mois disponible à la date réelle
+const START_YEAR = 2026
 const MONTH_LABELS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+const START_DATE_LABEL = `${MONTH_LABELS[START_MONTH]} ${START_YEAR}`
 
 function payoutDateLabel(months: number) {
   const total = START_MONTH + months
@@ -75,7 +76,9 @@ export default function SavingProgramPage() {
               >
                 <p className="font-heading text-[22px] font-bold text-ink">{duration.months}</p>
                 <p className="text-[13px] text-neutral-500">Months</p>
-                <p className="mt-2 text-[13px] font-bold text-ink">{formatCurrency(duration.monthly)}/Monthly</p>
+                <p className="mt-2 text-[13px] font-bold text-ink">
+                  {formatCurrency(Math.round((selectedTier?.amount ?? 0) / duration.months))}/Monthly
+                </p>
               </button>
             ))}
           </div>
@@ -84,7 +87,7 @@ export default function SavingProgramPage() {
             <div className="flex items-center justify-between rounded-card bg-neutral-200/40 px-4 py-4 text-[13px]">
               <div>
                 <p className="text-neutral-500">STARTS ON</p>
-                <p className="mt-1 font-bold text-ink">Nov 2024</p>
+                <p className="mt-1 font-bold text-ink">{START_DATE_LABEL}</p>
               </div>
               <div>
                 <p className="text-neutral-500">PAYOUT DATE</p>
@@ -103,8 +106,9 @@ export default function SavingProgramPage() {
             className="w-full"
             onClick={() => {
               if (!selectedTier) return
+              const monthly = Math.round(selectedTier.amount / selectedDuration.months)
               router.push(
-                `/dart/join/saving-program/review?amount=${selectedTier.amount}&monthly=${selectedDuration.monthly}&months=${selectedDuration.months}&cashback=${selectedTier.cashback}`
+                `/dart/join/saving-program/review?amount=${selectedTier.amount}&monthly=${monthly}&months=${selectedDuration.months}&cashback=${selectedTier.cashback}`
               )
             }}
           >
