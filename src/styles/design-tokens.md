@@ -53,6 +53,21 @@ ailleurs dans l'app (vérifié) ; `--color-accent-cyan`/`--color-accent-
 purple`/`--color-accent-orange-vivid` restent disponibles mais inutilisés
 en l'absence d'autre graphique/badge dans l'app actuelle.
 
+### Cohérence illustrations vs palette UI (Lot D7)
+Vérification (`grep rgb(...)`) des 9 SVG/PNG d'illustration
+(`dart-*-empty.svg`, `hero-reach-your-goals.svg`,
+`invite-friends-hero.svg`, `dart-welcome-hero.svg`,
+`educational-transition.svg`, `referral-bonus.svg`, couvertures Home) :
+toutes réutilisent exclusivement la palette d'illustration ci-dessous
+(corail, lavande, vert menthe, bleu ciel, violet, tons de peau) — aucune
+n'utilise `--color-brand-green` (#00d651) ni `--color-ink` (#333333) en
+tant que tels. C'est cohérent et attendu : ce sont des scènes
+décoratives (personnages, plantes, objets), pas des éléments de coquille
+UI, et leur palette reste volontairement distincte de la palette de
+marque (même approche que Cash App, dont les illustrations de but/
+récompense utilisent des teintes pastel variées plutôt que de réutiliser
+littéralement leur vert de marque). **Aucune régénération nécessaire.**
+
 ### Palette d'illustration (usage décoratif uniquement, jamais en UI/texte)
 Mesurée sur l'illustration héro "Reach for your goals effortlessly" :
 `#ff8f75` (corail), `#c7baee` (lavande), `#b3dfbc` (vert menthe clair),
