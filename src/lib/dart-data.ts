@@ -1,5 +1,4 @@
 import type { CircleCardData } from "@/components/sections/circle-card"
-import { formatCurrency } from "@/lib/currency"
 
 // Données de démonstration pour le reskin Dart. Cf. app-cible/ (captures
 // source) — structure/fonctionnalités reprises, aucune valeur visuelle
@@ -137,11 +136,15 @@ export const POSITION_DATES: Record<ReliabilityTier["id"], PositionDate[]> = {
   ],
 }
 
+// Cf. CLAUDE.md, "Paiement" : MonCash uniquement pour le pilote, jamais
+// de cartes bancaires, jamais de Fawry ou équivalent non pertinent pour
+// Haïti. "Prepaid Card" (carte bancaire) retiré entièrement — pas juste
+// indisponible, jamais réintroduit. "Bank Transfer" reste listé à titre
+// de feuille de route (compte bancaire, pas une carte) mais indisponible
+// tant que le pilote ne couvre que MonCash.
 export const PAYOUT_METHODS = [
-  { id: "digital-wallet", label: "Digital Wallets", description: "Receive your payout on any digital wallet.", available: true },
-  { id: "prepaid-card", label: "Prepaid Card", description: `Receive your payout on any Prepaid Card. Card limit is ${formatCurrency(100000)}`, available: true, badge: "No Charge" },
-  { id: "bank-transfer", label: "Bank Transfer", description: "Direct your payout to your bank account.", available: true, badge: "No Charge" },
-  { id: "fawry", label: "Fawry", description: "Receive your payout from any of Fawry Plus stores without bank account.", available: false },
+  { id: "moncash", label: "MonCash", description: "Receive your payout directly to your MonCash mobile wallet.", available: true },
+  { id: "bank-transfer", label: "Bank Transfer", description: "Direct your payout to your bank account.", available: false },
 ] as const
 
 export interface PaymentTransaction {
@@ -153,13 +156,18 @@ export interface PaymentTransaction {
   kind: "payment" | "payout"
 }
 
+// Régénéré en HTG, aligné sur la mensualité du cercle déjà rejoint dans
+// la démo (INITIAL_JOINED_CIRCLES : 14 000 HTG, 1 400 HTG/mois) plutôt
+// que les anciens montants MAD arbitraires (3 000-4 500). Dates
+// avancées à 2026 pour rester cohérentes avec la date de démarrage du
+// Saving Program (cf. START_MONTH/START_YEAR).
 export const PAYMENT_TRANSACTIONS: PaymentTransaction[] = [
-  { id: "p1", amount: 3000, date: "29-08-24", time: "12:00 PM", month: "August", kind: "payment" },
-  { id: "p2", amount: 4000, date: "29-09-24", time: "12:00 PM", month: "September", kind: "payment" },
-  { id: "p3", amount: 3500, date: "29-10-24", time: "12:00 PM", month: "October", kind: "payment" },
-  { id: "p4", amount: 4500, date: "29-11-24", time: "12:00 PM", month: "November", kind: "payment" },
-  { id: "o1", amount: 30000, date: "29-08-24", time: "12:00 PM", month: "August", kind: "payout" },
-  { id: "o2", amount: 4000, date: "29-09-24", time: "12:00 PM", month: "September", kind: "payout" },
+  { id: "p1", amount: 1400, date: "29-03-26", time: "12:00 PM", month: "March", kind: "payment" },
+  { id: "p2", amount: 1400, date: "29-04-26", time: "12:00 PM", month: "April", kind: "payment" },
+  { id: "p3", amount: 1400, date: "29-05-26", time: "12:00 PM", month: "May", kind: "payment" },
+  { id: "p4", amount: 1400, date: "29-06-26", time: "12:00 PM", month: "June", kind: "payment" },
+  { id: "o1", amount: 14000, date: "29-03-26", time: "12:00 PM", month: "March", kind: "payout" },
+  { id: "o2", amount: 4750, date: "29-05-26", time: "12:00 PM", month: "May", kind: "payout" },
 ]
 
 export interface EligibilityItem {
@@ -170,9 +178,14 @@ export interface EligibilityItem {
   chevron?: boolean
 }
 
+// Cf. CLAUDE.md, "Réglementaire" : toute référence légale/bancaire est
+// marquée [A VALIDER - BRH], jamais supprimée ni inventée. "Insurance
+// Note" reste tel quel (le libellé n'est pas remplacé par autre chose)
+// mais porte désormais ce marqueur — l'exigence réelle reste à confirmer
+// avec la Banque de la République d'Haïti avant mise en production.
 export const ELIGIBILITY_ITEMS: EligibilityItem[] = [
-  { id: "national-id", label: "National ID", description: "You will need to upload a valid National ID.", status: "success", chevron: false },
-  { id: "insurance-note", label: "Insurance Note", description: "You will need to sign the Insurance Note first, if you signed it ignore this.", status: "warning", chevron: true },
+  { id: "national-id", label: "CIN (National ID)", description: "You will need to upload a valid CIN (Carte d'Identification Nationale).", status: "success", chevron: false },
+  { id: "insurance-note", label: "Insurance Note [A VALIDER - BRH]", description: "You will need to sign the Insurance Note first, if you signed it ignore this.", status: "warning", chevron: true },
   { id: "payout-method", label: "Payout Method Selected", description: "You will need to select a payout method.", status: "warning", chevron: true },
   { id: "contract", label: "Contract", description: "You will need to sign the contract first.", status: "warning", chevron: true },
 ]

@@ -2,26 +2,24 @@
 
 import * as React from "react"
 import { useRouter } from "next/navigation"
-import { Bank, Bell, CreditCard, Globe, Info, Wallet } from "@phosphor-icons/react/ssr"
+import { Bank, Bell, Info, Wallet } from "@phosphor-icons/react/ssr"
 
 import { NavHeader, NavBackButton } from "@/components/layout/nav-header"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { PAYOUT_METHODS } from "@/lib/dart-data"
 
 const METHOD_ICONS = {
-  "digital-wallet": Wallet,
-  "prepaid-card": CreditCard,
+  moncash: Wallet,
   "bank-transfer": Bank,
-  fawry: Globe,
 } as const
 
 // Choix du mode de réception du gain, affiché après avoir rejoint un
-// circle. Cf. app-cible/Home/Payout Method.png.
+// circle. Cf. app-cible/Home/Payout Method.png. Cf. CLAUDE.md,
+// "Paiement" : MonCash uniquement pour le pilote.
 export default function PayoutMethodPage() {
   const router = useRouter()
-  const [method, setMethod] = React.useState("digital-wallet")
+  const [method, setMethod] = React.useState("moncash")
 
   return (
     <div className="mx-auto flex min-h-dvh w-full max-w-md flex-col px-6 pt-4">
@@ -43,11 +41,6 @@ export default function PayoutMethodPage() {
             >
               <Icon className="size-6 shrink-0 text-ink" />
               <div className="min-w-0 flex-1">
-                {"badge" in option && option.badge && (
-                  <Badge variant="neutral" className="mb-1">
-                    {option.badge}
-                  </Badge>
-                )}
                 <p className="text-[15px] font-bold text-ink">{option.label}</p>
                 <p className="mt-0.5 text-[13px] text-neutral-500">{option.description}</p>
                 {!option.available && (
