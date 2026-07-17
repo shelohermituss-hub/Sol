@@ -37,11 +37,17 @@ export default function DartHomePage() {
             </Link>
           </div>
           <p className="font-heading text-[32px] font-bold text-ink">{formatCurrency(walletBalance)}</p>
+          {/* Remplissage gris canvas sans bordure (Lot D4, CLAUDE.md
+              exception #5) : couleur mesurée au pixel des boutons
+              secondaires sur la carte Cash Balance de Cash App
+              (Home.png), identique au fond de page (#f5f5f5) — scopé à
+              ce contexte précis, le variant "secondary" global reste
+              bordé pour ses usages sur fond canvas direct. */}
           <div className="flex gap-3">
-            <Button variant="secondary" className="flex-1" nativeButton={false} render={<Link href="/dart/wallet/add-cash" />}>
+            <Button variant="secondary" className="flex-1 border-none bg-canvas" nativeButton={false} render={<Link href="/dart/wallet/add-cash" />}>
               Add Cash
             </Button>
-            <Button variant="secondary" className="flex-1" nativeButton={false} render={<Link href="/dart/wallet/cash-out" />}>
+            <Button variant="secondary" className="flex-1 border-none bg-canvas" nativeButton={false} render={<Link href="/dart/wallet/cash-out" />}>
               Cash Out
             </Button>
           </div>

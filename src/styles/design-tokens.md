@@ -231,6 +231,26 @@ Mesures programmatiques (transitions de couleur blanc/gris) sur
   les ~30 écrans au-delà du point de contraste ci-dessus (déjà connu
   depuis l'application de l'exception #4, pas nouveau à ce Lot).
 
+### Audit icônes secondaires/badges/formulaires (Lot D4)
+Cf. CLAUDE.md, exception #5 (composants `ui/` protégés, validation
+explicite requise et obtenue avant application) :
+- `Badge` variant `new` : `#009adc`/blanc/majuscule → `bg-accent-mint`/
+  `text-brand-green`/casse normale, d'après le badge "New" réel observé
+  sur Cash App (`Frame 30.png`) — vert, pas bleu.
+- `Button` variant `secondary`, boutons "Add Cash"/"Cash Out" de la
+  carte Cash Balance (Home) uniquement : remplissage `#f5f5f5` mesuré au
+  pixel sur `Home.png` (identique à `--color-canvas`), sans bordure —
+  appliqué via `className` scopé à cet emplacement précis, pas au
+  variant global (les autres usages de `secondary` sont sur fond canvas
+  direct, où ce remplissage serait invisible).
+- `RadioGroupItem`/`Switch` : déjà corrects (utilisent `--color-brand-
+  green` depuis les exceptions précédentes), vérifiés cohérents avec
+  Cash App, aucun changement.
+- `TextField`/`SegmentedControl` : aucune capture Cash App directement
+  comparable (contextes plein-écran différents de nos patterns de
+  formulaire) — non modifiés, à réévaluer si de meilleures références
+  deviennent disponibles.
+
 ## Composants récurrents
 
 Voir `INVENTAIRE.md` section 2 pour la liste complète (bouton primaire/

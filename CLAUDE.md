@@ -71,6 +71,36 @@ d'atténuation :
 inchangés — seuls les tokens listés ci-dessus sont concernés. Travail
 effectué sur la branche dédiée `redesign/cashapp-total`.
 
+**Exception explicite #5 (décision produit — habillage colorimétrique
+des composants de formulaire/badge façon Cash App, Lot D4, validée
+explicitement par l'utilisateur : "tu as tous les permissions pour
+recrée les composants tous") :** sur la base de captures Cash App
+réelles, l'habillage colorimétrique (jamais la structure/le DOM) des
+composants `ui/` suivants est ajusté :
+- `Badge` (`src/components/ui/badge.tsx`) — variant `new` : recoloré de
+  `bg-brand-blue text-paper uppercase` (bleu plein, texte blanc
+  majuscule) vers `bg-accent-mint text-brand-green` (pastille vert
+  clair, texte vert), et casse normale (retrait de `uppercase`) —
+  reproduit exactement le badge "New" observé sur Cash App
+  (`Frame 30.png`, menu compte), qui est vert et non bleu. `--color-
+  brand-blue` reste inchangé et disponible (icônes de statut).
+- `Button` variant `secondary`, uniquement dans le contexte de la carte
+  Cash Balance de Home (`src/app/dart/home/page.tsx`, boutons "Add
+  Cash"/"Cash Out") — remplacement ponctuel via `className` (pas de
+  changement du variant global, qui reste bordé blanc pour ses autres
+  usages sur fond canvas où un remplissage gris canvas serait invisible)
+  par un remplissage `bg-canvas` sans bordure, reproduisant exactement
+  la couleur mesurée au pixel (`#f5f5f5`, identique au canvas) des
+  boutons secondaires de la carte Cash Balance sur `Home.png`.
+- `RadioGroupItem`/`Switch` : déjà alignés (`--color-brand-green` pour
+  l'état coché) depuis les exceptions précédentes — vérifiés cohérents
+  avec Cash App, aucun changement nécessaire.
+- `TextField`/`SegmentedControl` : aucune référence Cash App fiable et
+  directement comparable trouvée dans les captures disponibles (les
+  champs de saisie Cash App observés appartiennent à un contexte plein
+  écran différent de notre pattern de formulaire à label flottant) —
+  non modifiés.
+
 ## Devise
 HTG uniquement, via `formatCurrency()` (Lot 0). Jamais de devise en dur.
 

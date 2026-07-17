@@ -9,7 +9,9 @@ const badgeVariants = cva(
   {
     variants: {
       variant: {
-        new: "bg-brand-blue text-paper uppercase",
+        // Vert (pas bleu) — cf. CLAUDE.md, exception #5 : reproduit le
+        // badge "New" réel de Cash App (Frame 30.png, menu compte).
+        new: "bg-accent-mint text-brand-green",
         neutral: "bg-neutral-200 text-ink",
         success: "bg-accent-mint text-brand-green",
       },
