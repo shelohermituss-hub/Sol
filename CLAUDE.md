@@ -1,62 +1,32 @@
-# CLAUDE.md — Règles du projet (reproduction Figma pixel-perfect)
+# CLAUDE.md — Règles du projet Sòlid
 
-## Objectif
-Reproduire fidèlement l'application dont le design se trouve dans :
-- Le fichier Figma lié (via MCP Figma)
-- Les screenshots de référence dans `./design-refs/`
+## Règle absolue
+La coquille visuelle (composants `ui/`, layout, `StepProgress`, `Slider`,
+`SegmentedControl`, `ListRow`, `Card`, `CircleCard` — structure et mise en
+page) ne change JAMAIS. Seul le contenu fonctionnel tontine est
+modifiable.
 
-La fidélité visuelle est LA priorité n°1. Chaque écart de couleur, d'espacement
-ou de typographie est un bug.
+## Devise
+HTG uniquement, via `formatCurrency()` (Lot 0). Jamais de devise en dur.
 
-## Stack imposée
-- Next.js 15+ (App Router, `src/` directory)
-- TypeScript strict
-- Tailwind CSS (tokens personnalisés extraits du Figma)
-- Aucune librairie de composants UI externe (pas de MUI/AntD/Chakra)
-- Icônes : `@phosphor-icons/react` (choix validé le 16/07, remplace les SVG
-  faits main utilisés en attendant — cf. AUDIT.md). Si une icône du design ne
-  s'y trouve pas, exporter la vraie icône SVG depuis Figma.
+## Langue
+Kreyòl par défaut, Français en option. Retirer toute référence
+anglais/arabe.
 
-## Structure du projet
-```
-src/
-  app/                  # routes (App Router)
-  components/
-    ui/                 # composants de base réutilisables (Button, Card, Input...)
-    layout/             # Navbar, Footer, Sidebar...
-    sections/           # sections spécifiques aux pages
-  lib/                  # utilitaires
-  styles/
-    design-tokens.md    # documentation des tokens extraits du Figma
-design-refs/            # screenshots de référence (NE PAS MODIFIER)
-INVENTAIRE.md           # inventaire des écrans et composants + avancement
-```
+## Modèle de confiance
+Groupes fermés sur invitation, jamais un marketplace ouvert. Home/Circles
+n'affichent que les groupes où l'utilisateur est invité ou qu'il organise.
 
-## Workflow obligatoire
-1. Toujours extraire les valeurs exactes du Figma (MCP) avant de coder — jamais d'approximation.
-2. Un composant/une page à la fois. Comparer visuellement avec la référence avant de continuer.
-3. Mettre à jour `INVENTAIRE.md` (statut : ⬜ à faire / 🟡 en cours / ✅ validé) après chaque étape.
-4. Commit git après chaque page validée, message clair en français.
-5. `npm run build` doit passer avant tout commit.
+## Score de fiabilité
+Remplace la logique de "slot" à choix libre (Fastest/Lowest/Highest) par
+un système où la position dans le cycle dépend du score de fiabilité du
+membre (nouveaux membres = positions tardives, score élevé = positions
+précoces).
 
-## Règles visuelles
-- Couleurs : uniquement celles définies dans les tokens Tailwind (jamais de hex en dur dans les composants).
-- Espacements : utiliser l'échelle extraite du Figma.
-- Polices : charger via `next/font` les familles exactes du design.
-- Images/assets : télécharger depuis Figma (`download_assets`) dans `public/`, optimiser avec `next/image`.
-- Responsive : mobile-first ; vérifier 375px / 768px / 1440px.
+## Paiement
+MonCash uniquement pour le pilote. Jamais de cartes bancaires, jamais de
+Fawry ou équivalent non pertinent pour Haïti.
 
-## Règles de code
-- Composants fonctionnels, props typées, pas de `any`.
-- Composants serveur par défaut ; `"use client"` seulement si nécessaire (état, événements).
-- Nommage des fichiers : kebab-case ; composants : PascalCase.
-- Pas de logique métier dans les composants UI — présentation uniquement.
-
-## En cas de doute
-- Info manquante dans le Figma → vérifier les screenshots.
-- Manquante dans les deux → POSER LA QUESTION à l'utilisateur, ne pas inventer.
-
-## Note d'exécution (Next.js généré)
-Voir `AGENTS.md` : la version de Next.js installée peut différer de tes données
-d'entraînement. Consulter `node_modules/next/dist/docs/` avant d'écrire du code
-lié aux API/conventions Next.js, et respecter les avis de dépréciation.
+## Réglementaire
+Toute référence légale/bancaire (Insurance Note, banque centrale) est
+marquée [A VALIDER - BRH], jamais supprimée ni inventée.
