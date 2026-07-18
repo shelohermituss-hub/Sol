@@ -10,7 +10,7 @@ function StepProgress({ steps, current, className }: { steps: number; current: n
       {Array.from({ length: steps }, (_, i) => (
         <span
           key={i}
-          className={cn("h-1.5 flex-1 rounded-full", i < current ? "bg-ink" : "bg-neutral-200")}
+          className={cn("h-1.5 flex-1 rounded-full", i < current ? "bg-brand-primary" : "bg-neutral-200")}
         />
       ))}
     </div>

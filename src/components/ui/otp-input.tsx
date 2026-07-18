@@ -65,8 +65,8 @@ function OtpInput({ length = 6, value, onChange, disabled }: OtpInputProps) {
           maxLength={1}
           className={cn(
             "size-12 rounded-input border text-center text-xl font-semibold text-ink outline-none transition-colors",
-            digit ? "border-ink" : "border-neutral-200",
-            "focus:border-ink disabled:opacity-50"
+            digit ? "border-brand-primary" : "border-neutral-200",
+            "focus:border-brand-primary disabled:opacity-50"
           )}
         />
       ))}

@@ -12,8 +12,8 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        primary: "bg-ink text-paper hover:bg-ink/90 disabled:bg-neutral-200 disabled:text-paper aria-disabled:bg-neutral-200 aria-disabled:text-paper",
-        secondary: "border border-ink bg-paper text-ink hover:bg-neutral-200/40 disabled:border-neutral-200 disabled:text-neutral-500 aria-disabled:border-neutral-200 aria-disabled:text-neutral-500",
+        primary: "bg-brand-primary text-paper hover:bg-brand-primary/90 disabled:bg-neutral-200 disabled:text-neutral-500 aria-disabled:bg-neutral-200 aria-disabled:text-neutral-500",
+        secondary: "border border-neutral-200 bg-paper text-ink hover:bg-neutral-200/40 disabled:border-neutral-200 disabled:text-neutral-500 aria-disabled:border-neutral-200 aria-disabled:text-neutral-500",
         ghost: "text-ink hover:bg-neutral-200/40",
       },
       size: {

@@ -1,39 +1,24 @@
 import Link from "next/link"
-import { CirclesThree, House, Plus, UserCircle, Wallet } from "@phosphor-icons/react/ssr"
+import { CirclesThree, House, PlusCircle, UserCircle, Wallet } from "@phosphor-icons/react/ssr"
 
 import { cn } from "@/lib/utils"
 
 const TABS = [
   { href: "/dart/home", label: "Home", icon: House },
   { href: "/dart/circles", label: "Circles", icon: CirclesThree },
+  { href: "/dart/join", label: "Join", icon: PlusCircle },
   { href: "/dart/payment", label: "Payment", icon: Wallet },
   { href: "/dart/profile", label: "Profile", icon: UserCircle },
 ] as const
 
-// Barre d'onglets à 4 entrées + FAB central (flux Join). Même structure
-// que BottomTabBar (app 1), étendue avec un bouton central — l'app 1 n'a
-// que 2 onglets sans FAB, mais l'app 2 a réellement un point d'entrée
-// central pour "Join" : fonctionnalité à conserver, habillée dans le
-// style app 1 (cercle plein ink, icône Plus paper).
+// Barre d'onglets à 5 entrées, icônes plates (pas de FAB surélevé) — pattern
+// design-refs/2023-community/Home.png (tab bar Cash App : 5 icônes à plat,
+// active en ink plein, inactive en neutral-500). "Join" (rejoindre/créer un
+// cercle) devient un onglet normal plutôt qu'un FAB flottant.
 function DartTabBar({ active }: { active: (typeof TABS)[number]["href"] }) {
-  const leftTabs = TABS.slice(0, 2)
-  const rightTabs = TABS.slice(2)
-
   return (
-    <nav className="relative flex items-center justify-around border-t border-neutral-200 bg-paper py-3">
-      {leftTabs.map((tab) => (
-        <DartTab key={tab.href} tab={tab} isActive={tab.href === active} />
-      ))}
-
-      <Link
-        href="/dart/join"
-        aria-label="Join a circle"
-        className="absolute left-1/2 -top-6 flex size-14 -translate-x-1/2 items-center justify-center rounded-full bg-ink text-paper shadow-lg"
-      >
-        <Plus className="size-6" />
-      </Link>
-
-      {rightTabs.map((tab) => (
+    <nav className="flex items-center justify-around border-t border-neutral-200 bg-paper py-3">
+      {TABS.map((tab) => (
         <DartTab key={tab.href} tab={tab} isActive={tab.href === active} />
       ))}
     </nav>

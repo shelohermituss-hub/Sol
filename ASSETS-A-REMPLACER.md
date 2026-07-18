@@ -1,9 +1,20 @@
 # ASSETS-A-REMPLACER.md
 
-Suivi des visuels qui ne sont **pas** des originaux Oportun et qui devront
-être remplacés par les fichiers sources réels avant toute mise en production.
+Suivi des visuels qui ne sont **pas** des originaux et qui devront être
+remplacés par les fichiers sources réels avant toute mise en production.
 
-## Logo
+## Reskin Cash App (2026-07-18)
+
+Contrairement au reskin Oportun ci-dessous (logo recadré depuis une
+capture), le logo Cash App n'a **pas** été recadré ni réutilisé sous
+aucune forme : Cash App est un produit concurrent réel et actif, et son
+logo est une marque déposée. Le wordmark "Sòlid" reste un simple texte
+(`font-heading`), pas une image de logo — décision validée avec
+l'utilisateur (placeholder générique plutôt que recadrage). Voir
+`INVENTAIRE.md` pour le détail des autres éléments Cash App exclus
+(logos tiers, texte de marque, mentions légales FINRA/SIPC).
+
+## Logo (reskin Oportun, phase précédente)
 
 | Asset | Origine | Statut |
 |---|---|---|

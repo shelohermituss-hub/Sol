@@ -4,38 +4,49 @@
 
 :root {
   /* Neutres */
-  --color-ink: #000000;
+  --color-ink: #0a0a0a;
   --color-paper: #ffffff;
+  --color-canvas: #f2f2f2;
   --color-neutral-200: #e5e5e5;
   --color-neutral-500: #6b6b6b;
 
-  /* Marque */
-  --color-brand-green: #0b9b3c;
-  --color-brand-blue: #009adc;
-  --color-brand-blue-tint: #e6f5fb;
-  --color-accent-peach: #ffc6ac;
-  --color-accent-mint: #e7f9ec;
+  /* Marque (palette Sòlid — distincte de Cash App, voir design-tokens.md) */
+  --color-brand-primary: #00209f;
+  --color-brand-primary-tint: #e6ecfb;
+  --color-brand-accent: #d21034;
+  --color-success: #1f9d55;
+
+  /*
+   * Alias transitoires (anciens tokens Oportun) pendant le reskin
+   * page-par-page — chaque page les remplace par les tokens ci-dessus au
+   * moment de son reskin (voir INVENTAIRE.md). À supprimer une fois
+   * toutes les pages migrées.
+   */
+  --color-brand-green: var(--color-success);
+  --color-brand-blue: var(--color-brand-primary);
+  --color-brand-blue-tint: var(--color-brand-primary-tint);
+  --color-accent-peach: color-mix(in srgb, var(--color-brand-accent) 22%, white);
+  --color-accent-mint: color-mix(in srgb, var(--color-success) 14%, white);
 
   /* Rayons */
   --radius-input: 14px;
-  --radius-card: 16px;
+  --radius-card: 20px;
   --radius-sheet: 24px;
 
   /*
-   * Thème shadcn/ui remappé sur les tokens Oportun ci-dessus (jamais le
-   * thème par défaut). Pas de rouge : aucune capture ne montre d'état
-   * destructif en rouge (voir INVENTAIRE.md — "Removing an account" reste
-   * en noir/blanc/gris) ; --destructive reprend donc --color-ink en
-   * attendant qu'un écran d'erreur réel en montre un.
+   * Thème shadcn/ui remappé sur les tokens ci-dessus (jamais le thème par
+   * défaut). Pas de rouge destructif dédié : aucune capture source ne
+   * montre d'état destructif en rouge ; --destructive reprend --color-ink
+   * en attendant qu'un écran d'erreur réel en montre un.
    */
-  --radius: 1rem;
-  --background: var(--color-paper);
+  --radius: 1.1rem;
+  --background: var(--color-canvas);
   --foreground: var(--color-ink);
   --card: var(--color-paper);
   --card-foreground: var(--color-ink);
   --popover: var(--color-paper);
   --popover-foreground: var(--color-ink);
-  --primary: var(--color-ink);
+  --primary: var(--color-brand-primary);
   --primary-foreground: var(--color-paper);
   --secondary: var(--color-paper);
   --secondary-foreground: var(--color-ink);
@@ -46,7 +57,7 @@
   --destructive: var(--color-ink);
   --border: var(--color-neutral-200);
   --input: var(--color-neutral-200);
-  --ring: color-mix(in srgb, var(--color-ink) 50%, transparent);
+  --ring: color-mix(in srgb, var(--color-brand-primary) 50%, transparent);
 }
 
 @theme inline {
@@ -55,8 +66,13 @@
 
   --color-ink: var(--color-ink);
   --color-paper: var(--color-paper);
+  --color-canvas: var(--color-canvas);
   --color-neutral-200: var(--color-neutral-200);
   --color-neutral-500: var(--color-neutral-500);
+  --color-brand-primary: var(--color-brand-primary);
+  --color-brand-primary-tint: var(--color-brand-primary-tint);
+  --color-brand-accent: var(--color-brand-accent);
+  --color-success: var(--color-success);
   --color-brand-green: var(--color-brand-green);
   --color-brand-blue: var(--color-brand-blue);
   --color-brand-blue-tint: var(--color-brand-blue-tint);

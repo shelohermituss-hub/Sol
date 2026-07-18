@@ -1,15 +1,18 @@
-import { Bell, Fire } from "@phosphor-icons/react/ssr"
+import Link from "next/link"
+import { Bell, UserCircle } from "@phosphor-icons/react/ssr"
 
-// En-tête commun aux 4 onglets du reskin Dart. Wordmark "Dart" recomposé
-// dans la typographie de l'app 1 (font-heading/Poppins, encre noire) —
-// jamais le script cursif bleu de l'app 2, cf. RÈGLE D'OR.
+// En-tête commun aux onglets du reskin Sòlid. Wordmark à gauche + cloche de
+// notifications et avatar (placeholder générique, pas de photo inventée) à
+// droite — cf. design-refs/2023-community/Home.png (wordmark + avatar rond).
 function DartHeader() {
   return (
     <div className="flex items-center justify-between">
       <span className="font-heading text-[24px] font-bold text-ink">Sòlid</span>
       <div className="flex items-center gap-4">
-        <Fire className="size-6 text-ink" />
         <Bell className="size-6 text-ink" />
+        <Link href="/dart/profile" aria-label="Profile" className="text-ink">
+          <UserCircle className="size-8" />
+        </Link>
       </div>
     </div>
   )

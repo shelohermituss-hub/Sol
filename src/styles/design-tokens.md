@@ -1,164 +1,94 @@
-# Design Tokens (extraits des screenshots de l'app source, `design-refs/`)
+# Design Tokens — reskin Cash App (`design-refs/`)
 
-> Extraction visuelle (pas de fichier Figma disponible pour ce projet — voir
-> `INVENTAIRE.md`). Les couleurs ci-dessous sont mesurées au pixel exact par
-> échantillonnage programmatique sur les captures (script Python/Pillow), pas
-> estimées à l'œil. La police est un diagnostic visuel (voir section
-> Typographie) : à confirmer si jamais un export Figma/brand book devient
-> disponible.
+> Étape 2 du reskin (voir `INVENTAIRE.md`). Les captures sources sont des
+> écrans réels Cash App (Block, Inc.) — voir l'avertissement en tête de
+> `INVENTAIRE.md`. On reprend le **langage visuel** (structure, échelle,
+> types de composants) mais PAS la palette de marque exacte : le vert
+> Cash App (`#00D632` env.) est la couleur d'identité d'un produit fintech
+> concurrent réel et actif ; le reproduire à l'identique comme couleur de
+> marque principale de Sòlid créerait une confusion de marque évitable.
 >
-> Toutes les captures embarquent un bandeau "curated by Mobbin" (fond
-> `#2f2f2f`) : c'est un habillage de l'outil de capture, exclu de ces tokens.
+> **Décision de palette** : accent inspiré du drapeau haïtien (bleu/rouge)
+> plutôt que du vert Cash App — cohérent avec un produit pensé pour Haïti,
+> visuellement distinct d'un concurrent réel.
 
 ## Couleurs
 
-### Neutres
+### Neutres (structure — reprise du langage Cash App)
 | Token | Valeur | Usage observé |
 |---|---|---|
-| `--color-ink` | `#000000` | Titres, texte principal, boutons primaires, icônes actives, tab bar actif |
-| `--color-paper` | `#ffffff` | Fond de toutes les pages |
-| `--color-neutral-200` | `#e5e5e5` | Bordures d'input, séparateurs de liste, contour des icônes circulaires, fond des boutons désactivés |
-| `--color-neutral-500` | `#6b6b6b` | Texte secondaire, placeholder, sous-titres gris (mesuré ~#555-#5a5a5a en cœur de glyphe, arrondi à une valeur standard) |
+| `--color-ink` | `#0a0a0a` | Titres, texte principal, icônes actives |
+| `--color-paper` | `#ffffff` | Fond des cards, bottom sheets |
+| `--color-canvas` | `#f2f2f2` | Fond de page (le Home Cash App n'est pas blanc pur mais gris très clair) |
+| `--color-neutral-200` | `#e5e5e5` | Bordures, séparateurs de liste |
+| `--color-neutral-500` | `#6b6b6b` | Texte secondaire, placeholder |
 
-### Marque
-| Token | Valeur | Usage observé |
+### Marque (palette Sòlid, distincte de Cash App)
+| Token | Valeur | Usage |
 |---|---|---|
-| `--color-brand-green` | `#0b9b3c` | Liens ("Cancel", "Change", "Resend", mentions légales), case à cocher cochée, icône succès transfert |
-| `--color-brand-blue` | `#009adc` | Badge "NEW", icône "i" du bandeau d'information abonnement |
-| `--color-brand-blue-tint` | `#e6f5fb` | Fond du bandeau info ("Your monthly plan will start…"), fond de la carte upsell annuelle |
-| `--color-accent-peach` | `#ffc6ac` | Fond de l'icône de marque Set & Save (fleur-pièce) |
-| `--color-accent-mint` | `#e7f9ec` | Fond des badges d'icônes de fonctionnalités (paywall Set & Save) |
+| `--color-brand-primary` | `#00209f` | CTA principal, tab actif, liens, montant héros sur fond coloré |
+| `--color-brand-primary-tint` | `#e6ecfb` | Fond des bandeaux d'info (ex. invitation) |
+| `--color-brand-accent` | `#d21034` | Accent secondaire (promo, badges, alertes non destructives) |
+| `--color-success` | `#1f9d55` | Confirmation, coché, écran succès (vert volontairement différent du vert Cash App) |
 
-### Palette d'illustration (usage décoratif uniquement, jamais en UI/texte)
-Mesurée sur l'illustration héro "Reach for your goals effortlessly" :
-`#ff8f75` (corail), `#c7baee` (lavande), `#b3dfbc` (vert menthe clair),
-`#a6d2e5` / `#7fc1e1` (bleu ciel), `#8c81ff` (violet), `#c28a76` / `#9c704b`
-(tons de peau). À utiliser uniquement pour les illustrations générées, jamais
-comme token de composant UI.
+Ces deux couleurs reprennent les teintes du drapeau haïtien — signal
+d'identité locale pertinent pour Sòlid, sans copier la marque d'un
+concurrent.
 
-### Constat important
-Le flow "Removing an account" (suppression de compte) n'utilise **aucun
-rouge** : la modale de confirmation et le bouton "Remove" reprennent le noir
-standard (`--color-ink`). Ne pas introduire de token destructif rouge tant
-qu'aucun écran ne le montre.
+### Constat
+Aucun rouge destructif observé dans les captures sources ; `--color-brand-accent`
+sert aux accents non destructifs (promo, highlight). Pas de token
+`--destructive` distinct tant qu'aucun écran d'erreur réel n'en montre un
+(reprend `--color-ink`, comme avant le reskin).
 
 ## Typographie
 
-**Diagnostic visuel** (aucun fichier de police fourni) :
-- **Titres (bold/semibold)** : sans-serif géométrique à empattements arrondis,
-  "o" parfaitement circulaires, "g" bas-de-casse à boucle ouverte simple
-  (visible sur "goals"), très proche de **Poppins**. Le wordmark du logo
-  splash de l'app source est composé dans cette même famille.
-- **Corps de texte / labels** : sans-serif plus neutre/humaniste, proportions
-  moins géométriques que les titres — proche de **Inter**.
-- Chargées via `next/font/google` (Poppins pour les titres, Inter pour le
-  corps), voir `src/app/layout.tsx`.
-- ⚠️ Si un brand book officiel est fourni par la suite, comparer et
-  remplacer si la police exacte diffère.
+Inchangé par rapport à l'implémentation précédente (pas de rapport avec
+la marque Cash App — Cash App utilise une police propriétaire "Cash Sans"
+non reproduite) :
+- **Titres** : Poppins (500/600/700)
+- **Corps/labels** : Inter
+- Chargées via `next/font/google`, voir `src/app/layout.tsx`.
 
 ### Échelle
 | Usage | Taille | Graisse |
 |---|---|---|
 | Titre de page (H1) | 28–32px | Bold (700) |
-| Montant héros (écran saisie de montant) | 48–56px | Bold (700) |
+| Montant héros (clavier plein écran) | 48–56px | Bold (700) |
 | Corps / body | 16–17px | Regular (400) |
-| Labels / eyebrow ("Step 1 of 2", labels de champ) | 13–14px | Regular (400) |
+| Labels / eyebrow | 13–14px | Regular (400) |
 | Boutons | 17px | Semibold/Bold (600–700) |
 
 ## Espacements & rayons
 
-Échelle 4/8px standard (Tailwind par défaut), confirmée par les marges
-observées (marge de page ≈ 16px, espacement entre champs ≈ 24–32px, hauteur
-de ligne de liste ≈ 40–56px).
+Échelle 4/8px standard, cohérente avec les captures (marge de page ≈ 16–24px).
 
 | Token | Valeur | Usage |
 |---|---|---|
 | `--radius-input` | `14px` | Champs de saisie |
-| `--radius-card` | `16px` | Cards (résumé, info, promo) |
+| `--radius-card` | `20px` | Cards (plus arrondi que la version Oportun — pattern Cash App) |
 | `--radius-sheet` | `24px` | Coins hauts des bottom sheets |
-| `--radius-full` | `9999px` | Boutons pill (primaire/secondaire), badges |
+| `--radius-full` | `9999px` | Boutons pill, badges |
 
-Hauteur de bouton pill : ~56px (rayon = moitié de la hauteur → pill complet).
+Hauteur de bouton pill : ~56px.
 
 ## Composants récurrents
 
-Voir `INVENTAIRE.md` section 2 pour la liste complète (bouton primaire/
-secondaire, input, OTP, checkbox, toggle, list row, card, bottom sheet,
-badge "NEW", bandeau succès, tab bar, etc.) — base pour les composants
-`src/components/ui/`.
-
-### Étape 4 — implémentation shadcn/ui
-
-`shadcn/ui` initialisé (`components.json`, style `base-nova`, primitives
-`@base-ui/react`, `iconLibrary: "phosphor"` — jamais `lucide-react`, retiré
-des dépendances). Le thème par défaut shadcn (oklch gris) a été entièrement
-remappé sur les tokens ci-dessus dans `globals.css` (`--primary`,
-`--background`, `--border`, etc. pointent vers `--color-ink`,
-`--color-paper`, `--color-neutral-200`...) ; `--destructive` reprend
-`--color-ink` en l'absence de tout rouge observé. Mode sombre retiré
-(reproduction fidèle à un seul thème clair).
-
-Composants shadcn ajoutés puis réécrits pour correspondre exactement au
-design (`src/components/ui/`) : `button` (pill primaire/secondaire/disabled),
-`checkbox` (coché = vert marque), `switch` (iOS, coché = vert), `radio-group`
-(anneau + point vert), `accordion` (bouton chevron circulaire), `badge`
-(variante `new` bleue), `card`, `sheet` (toujours bottom sheet : coins hauts
-arrondis, poignée grise, pas de bouton "X"), `input`, `label`.
-
-Composants sur-mesure (pattern trop spécifique pour un simple habillage
-shadcn) : `text-field` (label flottant), `otp-input` (6 cases), `list-row`
-(icône + titre/sous-titre + trailing), `success-banner` (bandeau inline, pas
-un toast flottant). Composants de layout : `nav-header` (+ `NavBackButton`,
-`NavCloseButton`, `CancelLink`), `bottom-tab-bar`. Icône sur-mesure :
-`icons/set-and-save-icon` (pousses + pièce dollar, pas d'équivalent
-Phosphor).
+Voir `INVENTAIRE.md` pour la liste complète et le mapping vers les pages
+existantes. Composants `src/components/ui/` à reconstruire dans ce style :
+`button` (pill), `card`, `list-row`, `numeric-keypad` (variante plein écran
+fond `--color-brand-primary` + variante fond blanc), `sheet` (bottom sheet,
+poignée grise, pas de bouton "X" sauf écrans plein écran), `segmented-control`
+(filter chips), `step-progress`, `slider`, `switch`, `checkbox`,
+`radio-group`, `badge`, `text-field`, `otp-input`.
 
 ## Icônes
 
-Stratégie (voir `CLAUDE.md`) : `@phosphor-icons/react` en priorité ; icône
-recréée en SVG à la main si aucune correspondance (pas de Figma disponible
-pour cet export, donc recréation directe depuis les captures plutôt
-qu'un export Figma).
-
-### Icônes utilitaires → correspondance Phosphor directe
-| Icône observée | Composant Phosphor |
-|---|---|
-| Flèche retour (‹) | `ArrowLeft` |
-| Fermeture (X) | `X` |
-| Chevron simple (›) | `CaretRight` |
-| Chevron accordéon (haut/bas) | `CaretDown` / `CaretUp` |
-| Œil (afficher/masquer mot de passe) | `Eye` / `EyeSlash` |
-| Profil / compte | `UserCircle` |
-| Réglages | `Gear` |
-| Cloche notifications | `Bell` |
-| "+" (créer un but) | `Plus` |
-| Info "i" | `Info` |
-| Bouclier "Low balance protection" | `ShieldCheck` |
-| "?" aide (Invite friends) | `Question` |
-| Flèche de transaction reçue | `ArrowDown` |
-| Flèche de navigation carte (Set & Save →) | `ArrowRight` |
-| Coche (checkbox, succès) | `Check` |
-| Banque générique (remplace le logo tiers Bank of America) | `Bank` |
-
-### Icônes/illustrations sans équivalent Phosphor fidèle → à recréer en SVG à la main
-Ces éléments portent un style illustratif propre à la marque (formes plates,
-2-3 couleurs) que les icônes en traits de Phosphor ne rendraient pas
-fidèlement ; recréation SVG directe à partir des couleurs déjà échantillonnées :
-- Icône de marque Set & Save (fleur-pièce, fond pêche `#ffc6ac`)
-- Icônes de but (parapluie "Rainy Day", nuage-éclair "Emergency cushion",
-  téléphone, maison, ampoule, voiture, crayon "créer un but personnalisé")
-- Icône Face ID (scan, fond pêche) — pas d'équivalent Phosphor exact
-- Icônes de fonctionnalités Subscription (tirelire, document $, banque
-  illustrée, cadenas, plante+pièce, main+téléphone)
-- Icônes de la section "Plus de fonctionnalités" (jauge de crédit, tirelire, lettre "ñ")
-- Icône succès transfert (feuille/sparkle vert)
-- Confetti / party-popper (upsell plan annuel)
+Stratégie inchangée : `@phosphor-icons/react` en priorité, recréation SVG
+à la main si aucune correspondance fidèle. Ne jamais utiliser une icône
+générée par IA (résultat flou/incohérent, voir consigne du prompt reskin).
 
 ## Breakpoints & mise en page responsive
 
-Le design source est une app iOS (largeur logique ~390–430px). Décision
-prise en l'absence d'indication contraire dans les captures : sur viewport
-≥768px, centrer le contenu dans un cadre de largeur mobile (`max-w-[430px]`)
-avec un fond neutre autour, plutôt que d'étirer les mises en page en pleine
-largeur desktop. Vérifier ce choix aux breakpoints 375 / 768 / 1440px lors de
-la construction des pages ; à valider avec l'utilisateur si le rendu déplaît.
+Inchangé : cadre mobile `max-w-[430px]` centré sur desktop, fond neutre
+autour. À vérifier à 375 / 768 / 1440px lors de la construction des pages.

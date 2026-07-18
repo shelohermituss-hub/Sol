@@ -41,7 +41,7 @@ function TextField({
         placeholder=" "
         disabled={disabled}
         className={cn(
-          "peer h-14 w-full rounded-input border border-neutral-200 bg-transparent px-4 pt-4 text-base text-ink outline-none transition-colors focus:border-ink disabled:cursor-not-allowed disabled:opacity-50",
+          "peer h-14 w-full rounded-input border border-neutral-200 bg-transparent px-4 pt-4 text-base text-ink outline-none transition-colors focus:border-brand-primary disabled:cursor-not-allowed disabled:opacity-50",
           (isPassword || clearable || trailingAction) && "pr-12",
           className
         )}
